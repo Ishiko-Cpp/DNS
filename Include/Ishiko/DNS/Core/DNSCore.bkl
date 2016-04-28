@@ -1,0 +1,12 @@
+setting ISHIKO_ROOT
+{
+    help = "Path to the Ishiko installation";
+    default = '$(ISHIKO)';
+}
+
+template IshikoDNSCore
+{
+    includedirs += $(ISHIKO_ROOT)/Include;
+
+    libdirs += $(ISHIKO_ROOT)/Lib/$(arch);
+}
