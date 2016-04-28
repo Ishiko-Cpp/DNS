@@ -1,0 +1,61 @@
+ishikopath = envvar("ISHIKO");
+import $(ishikopath)/Include/Ishiko/Boost/Boost.bkl;
+
+toolsets = vs2015 vs2013;
+
+vs2015.solutionfile = ../VC14/IshikoDNSCore.sln;
+vs2013.solutionfile = ../VC12/IshikoDNSCore.sln;
+
+library IshikoDNSCore : Boost
+{
+    archs = x86 x86_64;
+
+    includedirs += ../../../Include/Ishiko/DNS/Core;
+    
+    outputdir = ../../../Lib/$(arch);
+
+    if ($(config) == Debug)
+    {
+        basename = IshikoDNSCore-d;
+    }
+
+    headers
+    {
+        ../../../Include/Ishiko/DNS/DNSCore.h
+
+        ../../../Include/Ishiko/DNS/Core/DomainName.h
+        ../../../Include/Ishiko/DNS/Core/TTL.h
+        ../../../Include/Ishiko/DNS/Core/AnswerMessageSection.h
+        ../../../Include/Ishiko/DNS/Core/HeaderMessageSection.h
+        ../../../Include/Ishiko/DNS/Core/QuestionMessageSection.h
+        ../../../Include/Ishiko/DNS/Core/QuestionMessageSectionEntry.h
+        ../../../Include/Ishiko/DNS/Core/ResourceRecord.h
+        ../../../Include/Ishiko/DNS/Core/ResourceRecordData.h
+        ../../../Include/Ishiko/DNS/Core/NameServerRecord.h
+        ../../../Include/Ishiko/DNS/Core/StartOfAuthorityRecord.h
+        ../../../Include/Ishiko/DNS/Core/StartOfAuthorityRecordData.h
+        ../../../Include/Ishiko/DNS/Core/AddressRecord.h
+        ../../../Include/Ishiko/DNS/Core/Query.h
+        ../../../Include/Ishiko/DNS/Core/Response.h
+        ../../../Include/Ishiko/DNS/Core/ZoneFile.h
+    }
+
+    sources
+    {
+        ../../Source/DomainName.cpp
+        ../../Source/TTL.cpp
+        ../../Source/AnswerMessageSection.cpp
+        ../../Source/HeaderMessageSection.cpp
+        ../../Source/QuestionMessageSection.cpp
+        ../../Source/QuestionMessageSectionEntry.cpp
+        ../../Source/ResourceRecord.cpp
+        ../../Source/ResourceRecordData.cpp
+        ../../Source/NameServerRecord.cpp
+        ../../Source/StartOfAuthorityRecord.cpp
+        ../../Source/StartOfAuthorityRecordData.cpp
+        ../../Source/AddressRecord.cpp
+        ../../Source/Query.cpp
+        ../../Source/Response.cpp
+        ../../Source/ZoneFile.cpp
+    }
+}
