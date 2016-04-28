@@ -1,0 +1,34 @@
+ishikopath = envvar("ISHIKO");
+import $(ishikopath)/Include/Ishiko/Boost/Boost.bkl;
+
+toolsets = vs2015 vs2013;
+
+vs2015.solutionfile = ../VC14/IshikoDNSResolver.sln;
+vs2013.solutionfile = ../VC12/IshikoDNSResolver.sln;
+
+library IshikoDNSResolver : Boost
+{
+    archs = x86 x86_64;
+
+    includedirs += ../../../Include/Ishiko/DNS/Resolver;
+    includedirs += ../../../Include;
+
+    outputdir = ../../../Lib/$(arch);
+
+    if ($(config) == Debug)
+    {
+        basename = IshikoDNSResolver-d;
+    }
+
+    headers
+    {
+        ../../../Include/Ishiko/DNS/DNSResolver.h
+
+        ../../../Include/Ishiko/DNS/Resolver/Resolver.h
+    }
+
+    sources
+    {
+        ../../Source/Resolver.cpp
+    }
+}
