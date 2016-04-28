@@ -1,0 +1,8 @@
+*.dll
+*.opensdf
+*.sdf
+*.suo
+*.opendb
+Debug/
+Release/
+Lib/
