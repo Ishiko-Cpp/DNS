@@ -1,12 +1,12 @@
-setting ISHIKO_ROOT
+setting ISHIKO_DNS_ROOT
 {
-    help = "Path to the Ishiko installation";
-    default = '$(ISHIKO)';
+    help = "Path to the Ishiko DNS installation";
+    default = '$(ISHIKO_DNS)';
 }
 
 template IshikoDNSCore
 {
-    includedirs += $(ISHIKO_ROOT)/Include;
+    includedirs += $(ISHIKO_DNS_ROOT)/Include;
 
-    libdirs += $(ISHIKO_ROOT)/Lib/$(arch);
+    libdirs += $(ISHIKO_DNS_ROOT)/Lib/$(arch);
 }

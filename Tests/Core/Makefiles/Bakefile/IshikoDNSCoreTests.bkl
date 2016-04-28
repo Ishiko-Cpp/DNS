@@ -1,12 +1,14 @@
 ishikotestframeworkpath = envvar("ISHIKO_TESTFRAMEWORK");
 import $(ishikotestframeworkpath)/Include/Ishiko/TestFramework/TestFrameworkCore.bkl;
+ishikodnspath = envvar("ISHIKO_DNS");
+import $(ishikodnspath)/Include/Ishiko/DNS/Core/DNSCore.bkl;
 
 toolsets = vs2015 vs2013;
 
 vs2015.solutionfile = ../VC14/IshikoDNSCoreTests.sln;
 vs2013.solutionfile = ../VC12/IshikoDNSCoreTests.sln;
 
-program IshikoDNSCoreTests : IshikoTestFrameworkCore
+program IshikoDNSCoreTests : IshikoTestFrameworkCore, IshikoDNSCore
 {
     archs = x86 x86_64;
 
