@@ -1,0 +1,12 @@
+setting ISHIKO_DNS_ROOT
+{
+    help = "Path to the Ishiko DNS installation";
+    default = '$(ISHIKO_DNS)';
+}
+
+template IshikoDNSResolver
+{
+    includedirs += $(ISHIKO_DNS_ROOT)/Include;
+
+    libdirs += $(ISHIKO_DNS_ROOT)/Lib/$(arch);
+}

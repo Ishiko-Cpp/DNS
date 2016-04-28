@@ -1,0 +1,25 @@
+ishikotestframeworkpath = envvar("ISHIKO_TESTFRAMEWORK");
+import $(ishikotestframeworkpath)/Include/Ishiko/TestFramework/TestFrameworkCore.bkl;
+ishikodnspath = envvar("ISHIKO_DNS");
+import $(ishikodnspath)/Include/Ishiko/DNS/Resolver/DNSResolver.bkl;
+
+toolsets = vs2015 vs2013;
+
+vs2015.solutionfile = ../VC14/IshikoDNSResolverTests.sln;
+vs2013.solutionfile = ../VC12/IshikoDNSResolverTests.sln;
+
+program IshikoDNSResolverTests : IshikoTestFrameworkCore, IshikoDNSResolver
+{
+    archs = x86 x86_64;
+
+    headers
+    {
+        ../../Source/ResolverTests.h
+    }
+
+    sources
+    {
+        ../../Source/ResolverTests.cpp
+        ../../Source/Main.cpp
+    }
+}
