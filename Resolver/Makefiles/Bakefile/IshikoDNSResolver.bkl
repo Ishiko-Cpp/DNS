@@ -1,8 +1,9 @@
 ishikopath = envvar("ISHIKO");
-import $(ishikopath)/Include/Ishiko/Boost/Boost.bkl;
+import $(ishikopath)/ThirdPartyGlue/Include/Ishiko/Boost.bkl;
 
-toolsets = vs2015 vs2013;
+toolsets = gnu vs2015 vs2013;
 
+gnu.makefile = ../GNUmakefile/GNUmakefile;
 vs2015.solutionfile = ../VC14/IshikoDNSResolver.sln;
 vs2013.solutionfile = ../VC12/IshikoDNSResolver.sln;
 
@@ -13,7 +14,15 @@ library IshikoDNSResolver : Boost
     includedirs += ../../../Include/Ishiko/DNS/Resolver;
     includedirs += ../../../Include;
 
-    outputdir = ../../../Lib/$(arch);
+    if ($(toolset) == gnu)
+    {
+        cxx-compiler-options = "-std=c++11";
+    }
+
+    if ($(toolset) != gnu)
+    {
+        outputdir = ../../../Lib/$(arch);
+    }
 
     if ($(config) == Debug)
     {
