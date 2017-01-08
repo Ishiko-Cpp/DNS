@@ -1,7 +1,6 @@
-ishikotestframeworkpath = envvar("ISHIKO_TESTFRAMEWORK");
-import $(ishikotestframeworkpath)/Include/Ishiko/TestFramework/TestFrameworkCore.bkl;
-ishikodnspath = envvar("ISHIKO_DNS");
-import $(ishikodnspath)/Include/Ishiko/DNS/Core/DNSCore.bkl;
+ishikopath = envvar("ISHIKO");
+import $(ishikopath)/TestFramework/Include/Ishiko/TestFramework/TestFrameworkCore.bkl;
+import $(ishikopath)/DNS/Include/Ishiko/DNS/Core/DNSCore.bkl;
 
 toolsets = vs2015 vs2013;
 
