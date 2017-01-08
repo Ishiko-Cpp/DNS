@@ -78,46 +78,46 @@ $(_builddir)IshikoDNSCoreTests: $(_builddir)IshikoDNSCoreTests_DomainNameTests.o
 	$(CXX) -o $@ $(LDFLAGS) $(_builddir)IshikoDNSCoreTests_DomainNameTests.o $(_builddir)IshikoDNSCoreTests_TTLTests.o $(_builddir)IshikoDNSCoreTests_AnswerMessageSectionTests.o $(_builddir)IshikoDNSCoreTests_HeaderMessageSectionTests.o $(_builddir)IshikoDNSCoreTests_QuestionMessageSectionTests.o $(_builddir)IshikoDNSCoreTests_QuestionMessageSectionEntryTests.o $(_builddir)IshikoDNSCoreTests_ResourceRecordTests.o $(_builddir)IshikoDNSCoreTests_NameServerRecordTests.o $(_builddir)IshikoDNSCoreTests_StartOfAuthorityRecordTests.o $(_builddir)IshikoDNSCoreTests_AddressRecordTests.o $(_builddir)IshikoDNSCoreTests_QueryTests.o $(_builddir)IshikoDNSCoreTests_ResponseTests.o $(_builddir)IshikoDNSCoreTests_Main.o $(_builddir)IshikoDNSCoreTests_ZoneFileTests.o -L$(BOOST_ROOT)/stage/lib -L$(ISHIKO_PROCESS_ROOT)/Lib -L$(ISHIKO_TESTFRAMEWORK_ROOT)/Lib -L$(ISHIKO_DNS_ROOT)/Lib -pthread
 
 $(_builddir)IshikoDNSCoreTests_DomainNameTests.o: ../../Source/DomainNameTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/DomainNameTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/DomainNameTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_TTLTests.o: ../../Source/TTLTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/TTLTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/TTLTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_AnswerMessageSectionTests.o: ../../Source/AnswerMessageSectionTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/AnswerMessageSectionTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/AnswerMessageSectionTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_HeaderMessageSectionTests.o: ../../Source/HeaderMessageSectionTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/HeaderMessageSectionTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/HeaderMessageSectionTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_QuestionMessageSectionTests.o: ../../Source/QuestionMessageSectionTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/QuestionMessageSectionTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/QuestionMessageSectionTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_QuestionMessageSectionEntryTests.o: ../../Source/QuestionMessageSectionEntryTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/QuestionMessageSectionEntryTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/QuestionMessageSectionEntryTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_ResourceRecordTests.o: ../../Source/ResourceRecordTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/ResourceRecordTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/ResourceRecordTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_NameServerRecordTests.o: ../../Source/NameServerRecordTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/NameServerRecordTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/NameServerRecordTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_StartOfAuthorityRecordTests.o: ../../Source/StartOfAuthorityRecordTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/StartOfAuthorityRecordTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/StartOfAuthorityRecordTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_AddressRecordTests.o: ../../Source/AddressRecordTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/AddressRecordTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/AddressRecordTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_QueryTests.o: ../../Source/QueryTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/QueryTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/QueryTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_ResponseTests.o: ../../Source/ResponseTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/ResponseTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/ResponseTests.cpp
 
 $(_builddir)IshikoDNSCoreTests_Main.o: ../../Source/Main.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/Main.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/Main.cpp
 
 $(_builddir)IshikoDNSCoreTests_ZoneFileTests.o: ../../Source/ZoneFileTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include ../../Source/ZoneFileTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/ZoneFileTests.cpp
 
 clean:
 	rm -f $(_builddir)*.o
