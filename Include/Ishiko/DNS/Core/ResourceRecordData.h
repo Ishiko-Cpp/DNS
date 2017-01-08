@@ -23,8 +23,6 @@
 #ifndef _ISHIKO_DNS_CORE_RESOURCERECORDDATA_H_
 #define _ISHIKO_DNS_CORE_RESOURCERECORDDATA_H_
 
-#include <memory>
-
 namespace Ishiko
 {
 namespace DNS
@@ -33,9 +31,6 @@ namespace DNS
 // This class represents the RDATA part of a Resource Record.
 class ResourceRecordData
 {
-public:
-	typedef std::shared_ptr<ResourceRecordData> ptr;
-
 public:
 	ResourceRecordData();
 	virtual ~ResourceRecordData();

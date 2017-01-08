@@ -1,5 +1,5 @@
 /*
-	Copyright (c) 2010-2015 Xavier Leclercq
+	Copyright (c) 2010-2017 Xavier Leclercq
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
@@ -28,6 +28,7 @@
 #include "ResourceRecordData.h"
 #include <ostream>
 #include <stdint.h>
+#include <memory>
 
 namespace Ishiko
 {
@@ -36,9 +37,6 @@ namespace DNS
 
 class ResourceRecord
 {
-public:
-	typedef std::shared_ptr<ResourceRecord> ptr;
-
 public:
 	enum TYPE
 	{
@@ -74,7 +72,7 @@ protected:
 	// The RDLENGTH is obtained from m_RDATA
 	// m_RDATA is protected because its exact type
 	// will depend on the type of record.
-	ResourceRecordData::ptr m_RDATA;
+	std::shared_ptr<ResourceRecordData> m_RDATA;
 };
 
 }

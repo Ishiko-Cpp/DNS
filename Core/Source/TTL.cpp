@@ -22,6 +22,7 @@
 
 #include "TTL.h"
 #include <boost/endian/conversion.hpp>
+#include <ostream>
 
 namespace Ishiko
 {
