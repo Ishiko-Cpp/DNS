@@ -1,5 +1,5 @@
 /*
-	Copyright (c) 2015 Xavier Leclercq
+	Copyright (c) 2015-2017 Xavier Leclercq
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
@@ -33,7 +33,7 @@
 #include "QueryTests.h"
 #include "ResponseTests.h"
 #include "ZoneFileTests.h"
-#include "Ishiko/TestFramework/Core/TestFrameworkCore.h"
+#include "Ishiko/TestFramework/TestFrameworkCore.h"
 #include <boost/filesystem/operations.hpp>
 
 int main(int argc, char* argv[])

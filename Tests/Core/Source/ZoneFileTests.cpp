@@ -65,7 +65,7 @@ TestResult::EOutcome ZoneFileWriteTest2(FileComparisonTest& test)
 	Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
 		"ns1.example.org.", 86400);
 	Ishiko::DNS::ZoneFile zonefile(Ishiko::DNS::DomainName("example.org."), soaRecord);
-	Ishiko::DNS::NameServerRecord::ptr newRecord = 
+	std::shared_ptr<Ishiko::DNS::NameServerRecord> newRecord = 
 		std::make_shared<Ishiko::DNS::NameServerRecord>("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN, 86400);
 	zonefile.append(newRecord);
 	zonefile.write(stream);

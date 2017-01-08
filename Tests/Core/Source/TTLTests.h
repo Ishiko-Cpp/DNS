@@ -1,5 +1,5 @@
 /*
-	Copyright (c) 2015 Xavier Leclercq
+	Copyright (c) 2015-2017 Xavier Leclercq
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
@@ -23,7 +23,7 @@
 #ifndef _ISHIKO_TEST_DNS_CORE_TTLTESTS_H_
 #define _ISHIKO_TEST_DNS_CORE_TTLTESTS_H_
 
-#include "Ishiko/TestFramework/Core/TestFrameworkCore.h"
+#include "Ishiko/TestFramework/TestFrameworkCore.h"
 
 using namespace Ishiko::TestFramework;
 

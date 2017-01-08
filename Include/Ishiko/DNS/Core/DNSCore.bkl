@@ -1,7 +1,7 @@
 setting ISHIKO_DNS_ROOT
 {
     help = "Path to the Ishiko DNS installation";
-    default = '$(ISHIKO_DNS)';
+    default = '$(ISHIKO)/DNS';
 }
 
 template IshikoDNSCore
