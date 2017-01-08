@@ -8,5 +8,13 @@ template IshikoDNSCore
 {
     includedirs += $(ISHIKO_DNS_ROOT)/Include;
 
-    libdirs += $(ISHIKO_DNS_ROOT)/Lib/$(arch);
+    if ($(toolset) == gnu)
+    {
+       libdirs += $(ISHIKO_DNS_ROOT)/Lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        libdirs += $(ISHIKO_DNS_ROOT)/Lib/$(arch);
+    }
 }
