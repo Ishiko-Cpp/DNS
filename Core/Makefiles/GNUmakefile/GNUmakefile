@@ -76,49 +76,49 @@ $(_builddir)../Bakefile/../GNUmakefile/lib$(if $(call _equal,$(config),Debug),Is
 	$(RANLIB) $@
 
 $(_builddir)IshikoDNSCore_DomainName.o: ../../Source/DomainName.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/DomainName.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/DomainName.cpp
 
 $(_builddir)IshikoDNSCore_TTL.o: ../../Source/TTL.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/TTL.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/TTL.cpp
 
 $(_builddir)IshikoDNSCore_AnswerMessageSection.o: ../../Source/AnswerMessageSection.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/AnswerMessageSection.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/AnswerMessageSection.cpp
 
 $(_builddir)IshikoDNSCore_HeaderMessageSection.o: ../../Source/HeaderMessageSection.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/HeaderMessageSection.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/HeaderMessageSection.cpp
 
 $(_builddir)IshikoDNSCore_QuestionMessageSection.o: ../../Source/QuestionMessageSection.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/QuestionMessageSection.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/QuestionMessageSection.cpp
 
 $(_builddir)IshikoDNSCore_QuestionMessageSectionEntry.o: ../../Source/QuestionMessageSectionEntry.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/QuestionMessageSectionEntry.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/QuestionMessageSectionEntry.cpp
 
 $(_builddir)IshikoDNSCore_ResourceRecord.o: ../../Source/ResourceRecord.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/ResourceRecord.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/ResourceRecord.cpp
 
 $(_builddir)IshikoDNSCore_ResourceRecordData.o: ../../Source/ResourceRecordData.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/ResourceRecordData.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/ResourceRecordData.cpp
 
 $(_builddir)IshikoDNSCore_NameServerRecord.o: ../../Source/NameServerRecord.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/NameServerRecord.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/NameServerRecord.cpp
 
 $(_builddir)IshikoDNSCore_StartOfAuthorityRecord.o: ../../Source/StartOfAuthorityRecord.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/StartOfAuthorityRecord.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/StartOfAuthorityRecord.cpp
 
 $(_builddir)IshikoDNSCore_StartOfAuthorityRecordData.o: ../../Source/StartOfAuthorityRecordData.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/StartOfAuthorityRecordData.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/StartOfAuthorityRecordData.cpp
 
 $(_builddir)IshikoDNSCore_AddressRecord.o: ../../Source/AddressRecord.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/AddressRecord.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/AddressRecord.cpp
 
 $(_builddir)IshikoDNSCore_Query.o: ../../Source/Query.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/Query.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/Query.cpp
 
 $(_builddir)IshikoDNSCore_Response.o: ../../Source/Response.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/Response.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/Response.cpp
 
 $(_builddir)IshikoDNSCore_ZoneFile.o: ../../Source/ZoneFile.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core ../../Source/ZoneFile.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/ZoneFile.cpp
 
 clean:
 	rm -f $(_builddir)*.o

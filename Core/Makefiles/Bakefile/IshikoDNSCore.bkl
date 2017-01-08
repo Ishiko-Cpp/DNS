@@ -12,6 +12,11 @@ library IshikoDNSCore : Boost
     archs = x86 x86_64;
 
     includedirs += ../../../Include/Ishiko/DNS/Core;
+
+    if ($(toolset) == gnu)
+    {
+        cxx-compiler-options = "-std=c++11";
+    }
     
     if ($(toolset) != gnu)
     {
