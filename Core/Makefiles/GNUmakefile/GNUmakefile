@@ -69,9 +69,9 @@ BOOST_ROOT ?= $(BOOST)
 
 # ------------
 
-all: $(_builddir)../Bakefile/../GNUmakefile/lib$(if $(call _equal,$(config),Debug),IshikoDNSCore-d,IshikoDNSCore).a
+all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),IshikoDNSCore-d,IshikoDNSCore).a
 
-$(_builddir)../Bakefile/../GNUmakefile/lib$(if $(call _equal,$(config),Debug),IshikoDNSCore-d,IshikoDNSCore).a: $(_builddir)IshikoDNSCore_DomainName.o $(_builddir)IshikoDNSCore_TTL.o $(_builddir)IshikoDNSCore_AnswerMessageSection.o $(_builddir)IshikoDNSCore_HeaderMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSectionEntry.o $(_builddir)IshikoDNSCore_ResourceRecord.o $(_builddir)IshikoDNSCore_ResourceRecordData.o $(_builddir)IshikoDNSCore_NameServerRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecordData.o $(_builddir)IshikoDNSCore_AddressRecord.o $(_builddir)IshikoDNSCore_Query.o $(_builddir)IshikoDNSCore_Response.o $(_builddir)IshikoDNSCore_ZoneFile.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),IshikoDNSCore-d,IshikoDNSCore).a: $(_builddir)IshikoDNSCore_DomainName.o $(_builddir)IshikoDNSCore_TTL.o $(_builddir)IshikoDNSCore_AnswerMessageSection.o $(_builddir)IshikoDNSCore_HeaderMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSectionEntry.o $(_builddir)IshikoDNSCore_ResourceRecord.o $(_builddir)IshikoDNSCore_ResourceRecordData.o $(_builddir)IshikoDNSCore_NameServerRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecordData.o $(_builddir)IshikoDNSCore_AddressRecord.o $(_builddir)IshikoDNSCore_Query.o $(_builddir)IshikoDNSCore_Response.o $(_builddir)IshikoDNSCore_ZoneFile.o
 	$(AR) rcu $@ $(_builddir)IshikoDNSCore_DomainName.o $(_builddir)IshikoDNSCore_TTL.o $(_builddir)IshikoDNSCore_AnswerMessageSection.o $(_builddir)IshikoDNSCore_HeaderMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSectionEntry.o $(_builddir)IshikoDNSCore_ResourceRecord.o $(_builddir)IshikoDNSCore_ResourceRecordData.o $(_builddir)IshikoDNSCore_NameServerRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecordData.o $(_builddir)IshikoDNSCore_AddressRecord.o $(_builddir)IshikoDNSCore_Query.o $(_builddir)IshikoDNSCore_Response.o $(_builddir)IshikoDNSCore_ZoneFile.o
 	$(RANLIB) $@
 
@@ -123,7 +123,7 @@ $(_builddir)IshikoDNSCore_ZoneFile.o: ../../Source/ZoneFile.cpp
 clean:
 	rm -f $(_builddir)*.o
 	rm -f $(_builddir)*.d
-	rm -f $(_builddir)../Bakefile/../GNUmakefile/lib$(if $(call _equal,$(config),Debug),IshikoDNSCore-d,IshikoDNSCore).a
+	rm -f ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),IshikoDNSCore-d,IshikoDNSCore).a
 
 .PHONY: all clean
 

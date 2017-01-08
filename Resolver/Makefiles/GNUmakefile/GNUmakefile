@@ -69,9 +69,9 @@ BOOST_ROOT ?= $(BOOST)
 
 # ------------
 
-all: $(_builddir)../Bakefile/../GNUmakefile/lib$(if $(call _equal,$(config),Debug),IshikoDNSResolver-d,IshikoDNSResolver).a
+all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),IshikoDNSResolver-d,IshikoDNSResolver).a
 
-$(_builddir)../Bakefile/../GNUmakefile/lib$(if $(call _equal,$(config),Debug),IshikoDNSResolver-d,IshikoDNSResolver).a: $(_builddir)IshikoDNSResolver_Resolver.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),IshikoDNSResolver-d,IshikoDNSResolver).a: $(_builddir)IshikoDNSResolver_Resolver.o
 	$(AR) rcu $@ $(_builddir)IshikoDNSResolver_Resolver.o
 	$(RANLIB) $@
 
@@ -81,7 +81,7 @@ $(_builddir)IshikoDNSResolver_Resolver.o: ../../Source/Resolver.cpp
 clean:
 	rm -f $(_builddir)*.o
 	rm -f $(_builddir)*.d
-	rm -f $(_builddir)../Bakefile/../GNUmakefile/lib$(if $(call _equal,$(config),Debug),IshikoDNSResolver-d,IshikoDNSResolver).a
+	rm -f ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),IshikoDNSResolver-d,IshikoDNSResolver).a
 
 .PHONY: all clean
 
