@@ -1,5 +1,5 @@
 /*
-	Copyright (c) 2010-2015 Xavier Leclercq
+	Copyright (c) 2010-2017 Xavier Leclercq
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
@@ -85,7 +85,7 @@ void ZoneFile::write(std::ostream& stream) const
 	}
 }
 
-void ZoneFile::append(ResourceRecord::ptr record)
+void ZoneFile::append(std::shared_ptr<ResourceRecord> record)
 {
 	m_records.push_back(record);
 }

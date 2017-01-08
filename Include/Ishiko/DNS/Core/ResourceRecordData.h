@@ -23,6 +23,8 @@
 #ifndef _ISHIKO_DNS_CORE_RESOURCERECORDDATA_H_
 #define _ISHIKO_DNS_CORE_RESOURCERECORDDATA_H_
 
+#include <ostream>
+
 namespace Ishiko
 {
 namespace DNS

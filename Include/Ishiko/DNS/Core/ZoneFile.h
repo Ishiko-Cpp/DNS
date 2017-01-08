@@ -1,5 +1,5 @@
 /*
-	Copyright (c) 2010-2015 Xavier Leclercq
+	Copyright (c) 2010-2017 Xavier Leclercq
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
@@ -42,12 +42,12 @@ public:
 
 	void write(std::ostream& stream) const;
 
-	void append(ResourceRecord::ptr record);
+	void append(std::shared_ptr<ResourceRecord> record);
 
 private:
 	DomainName m_origin;
 	StartOfAuthorityRecord m_soaRecord;
-	std::vector<ResourceRecord::ptr> m_records;
+	std::vector<std::shared_ptr<ResourceRecord> > m_records;
 };
 
 }
