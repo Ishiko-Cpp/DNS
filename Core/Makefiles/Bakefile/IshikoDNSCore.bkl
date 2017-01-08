@@ -3,7 +3,7 @@ import $(ishikopath)/ThirdPartyGlue/Include/Ishiko/Boost.bkl;
 
 toolsets = gnu vs2015 vs2013;
 
-gnu.makefile = ../../Makefile;
+gnu.makefile = ../GNUmakefile/GNUmakefile;
 vs2015.solutionfile = ../VC14/IshikoDNSCore.sln;
 vs2013.solutionfile = ../VC12/IshikoDNSCore.sln;
 
