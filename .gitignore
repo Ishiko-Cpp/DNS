@@ -3,6 +3,7 @@
 *.sdf
 *.suo
 *.opendb
+*.vc.db
 *.o
 *.d
 Debug/
