@@ -15,7 +15,7 @@ program IshikoDNSResolverTests : IshikoTestFrameworkCore, IshikoDNSResolver
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
-        libs += IshikoDNSResolver IshikoTestFrameworkCore IshikoProcess boost_filesystem boost_system;
+        libs += IshikoDNSResolver IshikoDNSCore IshikoTestFrameworkCore IshikoProcess boost_filesystem boost_system;
     }
 
     headers
