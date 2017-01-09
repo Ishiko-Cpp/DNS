@@ -8,7 +8,7 @@ gnu.makefile = ../GNUmakefile/GNUmakefile;
 vs2015.solutionfile = ../VC14/IshikoDNSCoreTests.sln;
 vs2013.solutionfile = ../VC12/IshikoDNSCoreTests.sln;
 
-program IshikoDNSCoreTests : IshikoTestFrameworkCore, IshikoDNSCore
+program IshikoDNSCoreTests : IshikoDNSCore, IshikoTestFrameworkCore
 {
     archs = x86 x86_64;
 

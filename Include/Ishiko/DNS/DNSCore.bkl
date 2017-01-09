@@ -11,7 +11,6 @@ template IshikoDNSCore
     if ($(toolset) == gnu)
     {
        libdirs += $(ISHIKO_DNS_ROOT)/Lib;
-       libs += IshikoDNSCore;
     }
 
     if ($(toolset) != gnu)
