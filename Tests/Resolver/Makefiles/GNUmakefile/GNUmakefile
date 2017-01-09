@@ -75,13 +75,13 @@ ISHIKO_DNS_ROOT ?= $(ISHIKO)/DNS
 all: $(_builddir)IshikoDNSResolverTests
 
 $(_builddir)IshikoDNSResolverTests: $(_builddir)IshikoDNSResolverTests_ResolverTests.o $(_builddir)IshikoDNSResolverTests_Main.o
-	$(CXX) -o $@ $(LDFLAGS) $(_builddir)IshikoDNSResolverTests_ResolverTests.o $(_builddir)IshikoDNSResolverTests_Main.o -L$(BOOST_ROOT)/stage/lib -L$(ISHIKO_PROCESS_ROOT)/Lib -L$(ISHIKO_TESTFRAMEWORK_ROOT)/Lib -L$(ISHIKO_DNS_ROOT)/Lib -pthread
+	$(CXX) -o $@ $(LDFLAGS) $(_builddir)IshikoDNSResolverTests_ResolverTests.o $(_builddir)IshikoDNSResolverTests_Main.o -L$(ISHIKO_PROCESS_ROOT)/Lib -L$(BOOST_ROOT)/stage/lib -L$(ISHIKO_TESTFRAMEWORK_ROOT)/Lib -L$(ISHIKO_DNS_ROOT)/Lib -lIshikoTestFrameworkCore -lIshikoProcess -lboost_filesystem -lboost_system -pthread
 
 $(_builddir)IshikoDNSResolverTests_ResolverTests.o: ../../Source/ResolverTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/ResolverTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_PROCESS_ROOT)/Include -I$(BOOST_ROOT) -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/ResolverTests.cpp
 
 $(_builddir)IshikoDNSResolverTests_Main.o: ../../Source/Main.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(BOOST_ROOT) -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/Main.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_PROCESS_ROOT)/Include -I$(BOOST_ROOT) -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include -I$(ISHIKO_DNS_ROOT)/Include -std=c++11 ../../Source/Main.cpp
 
 clean:
 	rm -f $(_builddir)*.o
