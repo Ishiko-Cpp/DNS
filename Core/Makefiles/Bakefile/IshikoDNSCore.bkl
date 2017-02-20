@@ -33,6 +33,8 @@ library IshikoDNSCore : Boost
     {
         ../../../Include/Ishiko/DNS/DNSCore.h
 
+        ../../../Include/Ishiko/DNS/Core/Result.h
+        ../../../Include/Ishiko/DNS/Core/Error.h
         ../../../Include/Ishiko/DNS/Core/DomainName.h
         ../../../Include/Ishiko/DNS/Core/TTL.h
         ../../../Include/Ishiko/DNS/Core/AnswerMessageSection.h
@@ -52,6 +54,8 @@ library IshikoDNSCore : Boost
 
     sources
     {
+        ../../Source/Result.cpp
+        ../../Source/Error.cpp
         ../../Source/DomainName.cpp
         ../../Source/TTL.cpp
         ../../Source/AnswerMessageSection.cpp

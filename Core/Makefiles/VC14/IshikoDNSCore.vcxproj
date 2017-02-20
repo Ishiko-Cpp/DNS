@@ -150,6 +150,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Result.cpp" />
+    <ClCompile Include="..\..\Source\Error.cpp" />
     <ClCompile Include="..\..\Source\DomainName.cpp" />
     <ClCompile Include="..\..\Source\TTL.cpp" />
     <ClCompile Include="..\..\Source\AnswerMessageSection.cpp" />
@@ -168,6 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\DNSCore.h" />
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Result.h" />
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Error.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\DomainName.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\TTL.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AnswerMessageSection.h" />

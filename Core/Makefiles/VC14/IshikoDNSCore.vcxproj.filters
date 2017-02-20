@@ -20,6 +20,12 @@
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\DNSCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Result.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\DomainName.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -67,6 +73,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Result.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\DomainName.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
