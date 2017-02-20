@@ -21,3 +21,26 @@
 */
 
 #include "Result.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+Result::Result(EReturnCode returnCode)
+    : m_returnCode(returnCode)
+{
+}
+
+bool Result::succeeded() const
+{
+    return (m_returnCode == eSuccess);
+}
+
+bool Result::failed() const
+{
+    return (m_returnCode != eSuccess);
+}
+
+}
+}

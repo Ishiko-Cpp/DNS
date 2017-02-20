@@ -23,4 +23,31 @@
 #ifndef _ISHIKO_DNS_CORE_RESULT_H_
 #define _ISHIKO_DNS_CORE_RESULT_H_
 
+namespace Ishiko
+{
+namespace DNS
+{
+
+class Result
+{
+public:
+    enum EReturnCode
+    {
+        eSuccess,
+        eError
+    };
+
+public:
+    Result(EReturnCode returnCode);
+
+    bool succeeded() const;
+    bool failed() const;
+
+private:
+    EReturnCode m_returnCode;
+};
+
+}
+}
+
 #endif
