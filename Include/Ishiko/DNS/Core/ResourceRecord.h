@@ -26,6 +26,7 @@
 #include "DomainName.h"
 #include "TTL.h"
 #include "ResourceRecordData.h"
+#include "Result.h"
 #include <ostream>
 #include <stdint.h>
 #include <memory>
@@ -51,8 +52,10 @@ public:
 	};
 
 public:
+    ResourceRecord();
 	ResourceRecord(const std::string& domainName,
 		TYPE type, CLASS cl, uint32_t ttl);
+    Result initializeFromStream(std::istream& stream);
 	virtual ~ResourceRecord();
 
 	void writeBinary(std::ostream& stream) const;
