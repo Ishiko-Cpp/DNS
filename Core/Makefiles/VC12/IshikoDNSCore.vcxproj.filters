@@ -47,9 +47,6 @@
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\ResourceRecord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\ResourceRecordData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\NameServerRecord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -98,9 +95,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ResourceRecord.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\ResourceRecordData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\NameServerRecord.cpp">

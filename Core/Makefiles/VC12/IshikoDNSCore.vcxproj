@@ -159,7 +159,6 @@
     <ClCompile Include="..\..\Source\QuestionMessageSection.cpp" />
     <ClCompile Include="..\..\Source\QuestionMessageSectionEntry.cpp" />
     <ClCompile Include="..\..\Source\ResourceRecord.cpp" />
-    <ClCompile Include="..\..\Source\ResourceRecordData.cpp" />
     <ClCompile Include="..\..\Source\NameServerRecord.cpp" />
     <ClCompile Include="..\..\Source\StartOfAuthorityRecord.cpp" />
     <ClCompile Include="..\..\Source\StartOfAuthorityRecordData.cpp" />
@@ -179,7 +178,6 @@
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\QuestionMessageSection.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\QuestionMessageSectionEntry.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\ResourceRecord.h" />
-    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\ResourceRecordData.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\NameServerRecord.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\StartOfAuthorityRecord.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\StartOfAuthorityRecordData.h" />

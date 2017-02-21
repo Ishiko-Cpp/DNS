@@ -42,7 +42,6 @@ library IshikoDNSCore : Boost
         ../../../Include/Ishiko/DNS/Core/QuestionMessageSection.h
         ../../../Include/Ishiko/DNS/Core/QuestionMessageSectionEntry.h
         ../../../Include/Ishiko/DNS/Core/ResourceRecord.h
-        ../../../Include/Ishiko/DNS/Core/ResourceRecordData.h
         ../../../Include/Ishiko/DNS/Core/NameServerRecord.h
         ../../../Include/Ishiko/DNS/Core/StartOfAuthorityRecord.h
         ../../../Include/Ishiko/DNS/Core/StartOfAuthorityRecordData.h
@@ -63,7 +62,6 @@ library IshikoDNSCore : Boost
         ../../Source/QuestionMessageSection.cpp
         ../../Source/QuestionMessageSectionEntry.cpp
         ../../Source/ResourceRecord.cpp
-        ../../Source/ResourceRecordData.cpp
         ../../Source/NameServerRecord.cpp
         ../../Source/StartOfAuthorityRecord.cpp
         ../../Source/StartOfAuthorityRecordData.cpp
