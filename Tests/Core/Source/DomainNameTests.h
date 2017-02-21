@@ -31,6 +31,9 @@ void AddDomainNameTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome DomainNameCreationTest1();
 TestResult::EOutcome DomainNameInitializeFromStreamTest1(Test& test);
+TestResult::EOutcome DomainNameInitializeFromStreamTest2(Test& test);
+TestResult::EOutcome DomainNameInitializeFromStreamTest3(Test& test);
+TestResult::EOutcome DomainNameInitializeFromStreamTest4(Test& test);
 TestResult::EOutcome DomainNameWriteTest1(FileComparisonTest& test);
 TestResult::EOutcome DomainNameWriteTest2(FileComparisonTest& test);
 

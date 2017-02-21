@@ -31,6 +31,9 @@ void AddDomainNameTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", DomainNameCreationTest1, domainNameTestSequence);
 
     new HeapAllocationErrorsTest("initializeFromStream test 1", DomainNameInitializeFromStreamTest1, domainNameTestSequence);
+    new HeapAllocationErrorsTest("initializeFromStream test 2", DomainNameInitializeFromStreamTest2, domainNameTestSequence);
+    new HeapAllocationErrorsTest("initializeFromStream test 3", DomainNameInitializeFromStreamTest3, domainNameTestSequence);
+    new HeapAllocationErrorsTest("initializeFromStream test 4", DomainNameInitializeFromStreamTest4, domainNameTestSequence);
 
     new FileComparisonTest("write test 1", DomainNameWriteTest1, domainNameTestSequence);
     new FileComparisonTest("write test 2", DomainNameWriteTest2, domainNameTestSequence);
@@ -38,15 +41,22 @@ void AddDomainNameTests(TestHarness& theTestHarness)
 
 TestResult::EOutcome DomainNameCreationTest1()
 {
-    Ishiko::DNS::DomainName domainName("www.dummy.com");
-    return TestResult::ePassed;
+    Ishiko::DNS::DomainName domainName("www.dummy.com.");
+    if (domainName == "www.dummy.com.")
+    {
+        return TestResult::ePassed;
+    }
+    else
+    {
+        return TestResult::eFailed;
+    }
 }
 
 TestResult::EOutcome DomainNameInitializeFromStreamTest1(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "DomainNameCreationTest2.bin");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "DomainNameInitializeFromStreamTest1.bin");
     std::ifstream stream(inputPath.c_str());
 
     Ishiko::DNS::DomainName domainName;
@@ -58,6 +68,69 @@ TestResult::EOutcome DomainNameInitializeFromStreamTest1(Test& test)
         }
     }
     
+    return result;
+}
+
+// Read a domain name from a stream that has been truncated. Check
+// than an error is returned.
+TestResult::EOutcome DomainNameInitializeFromStreamTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "DomainNameInitializeFromStreamTest2.bin");
+    std::ifstream stream(inputPath.c_str());
+
+    Ishiko::DNS::DomainName domainName;
+    if (domainName.initializeFromStream(stream).failed())
+    {
+        if (domainName == "")
+        {
+            result = TestResult::ePassed;
+        }
+    }
+
+    return result;
+}
+
+// Read a domain name where one of the labels is longer than the maximum allowed
+// size of 63. Check that an error is returned.
+TestResult::EOutcome DomainNameInitializeFromStreamTest3(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "DomainNameInitializeFromStreamTest3.bin");
+    std::ifstream stream(inputPath.c_str());
+
+    Ishiko::DNS::DomainName domainName;
+    if (domainName.initializeFromStream(stream).failed())
+    {
+        if (domainName == "")
+        {
+            result = TestResult::ePassed;
+        }
+    }
+
+    return result;
+}
+
+// Read a domain name where the total length is longer than the maximum allowed
+// size of 253. Check that an error is returned.
+TestResult::EOutcome DomainNameInitializeFromStreamTest4(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "DomainNameInitializeFromStreamTest4.bin");
+    std::ifstream stream(inputPath.c_str());
+
+    Ishiko::DNS::DomainName domainName;
+    if (domainName.initializeFromStream(stream).failed())
+    {
+        if (domainName == "")
+        {
+            result = TestResult::ePassed;
+        }
+    }
+
     return result;
 }
 
