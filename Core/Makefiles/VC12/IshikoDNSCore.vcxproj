@@ -161,7 +161,6 @@
     <ClCompile Include="..\..\Source\ResourceRecord.cpp" />
     <ClCompile Include="..\..\Source\NameServerRecord.cpp" />
     <ClCompile Include="..\..\Source\StartOfAuthorityRecord.cpp" />
-    <ClCompile Include="..\..\Source\StartOfAuthorityRecordData.cpp" />
     <ClCompile Include="..\..\Source\AddressRecord.cpp" />
     <ClCompile Include="..\..\Source\Query.cpp" />
     <ClCompile Include="..\..\Source\Response.cpp" />
@@ -180,7 +179,6 @@
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\ResourceRecord.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\NameServerRecord.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\StartOfAuthorityRecord.h" />
-    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\StartOfAuthorityRecordData.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AddressRecord.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Query.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Response.h" />

@@ -53,9 +53,6 @@
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\StartOfAuthorityRecord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\StartOfAuthorityRecordData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AddressRecord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -101,9 +98,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\StartOfAuthorityRecord.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\StartOfAuthorityRecordData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AddressRecord.cpp">
