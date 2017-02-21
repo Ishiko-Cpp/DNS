@@ -42,5 +42,23 @@ bool Result::failed() const
     return (m_returnCode != eSuccess);
 }
 
+Result& Result::update(EReturnCode returnCode)
+{
+    if (m_returnCode == eSuccess)
+    {
+        m_returnCode = returnCode;
+    }
+    return *this;
+}
+
+Result& Result::update(const Result& other)
+{
+    if (m_returnCode == eSuccess)
+    {
+        m_returnCode = other.m_returnCode;
+    }
+    return *this;
+}
+
 }
 }

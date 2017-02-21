@@ -43,6 +43,9 @@ public:
     bool succeeded() const;
     bool failed() const;
 
+    Result& update(EReturnCode returnCode);
+    Result& update(const Result& other);
+
 private:
     EReturnCode m_returnCode;
 };
