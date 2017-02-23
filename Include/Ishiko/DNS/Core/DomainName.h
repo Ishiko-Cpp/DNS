@@ -24,7 +24,6 @@
 #define _ISHIKO_DNS_CORE_DOMAINNAME_H_
 
 #include "Result.h"
-#include <istream>
 #include <ostream>
 #include <stdint.h>
 
@@ -38,7 +37,8 @@ class DomainName
 public:
     DomainName();
     DomainName(const std::string& domainName);
-    Result initializeFromStream(std::istream& stream);
+    Result initializeFromBuffer(const char* startPos, 
+        const char* endPos, const char** currentPos);
 
     // The number of bytes that would be produced
     // by the write() method.

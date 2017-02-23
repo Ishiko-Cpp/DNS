@@ -37,20 +37,23 @@ DomainName::DomainName(const std::string& domainName)
 {
 }
 
-Result DomainName::initializeFromStream(std::istream& stream)
+Result DomainName::initializeFromBuffer(const char* startPos,
+                                        const char* endPos,
+                                        const char** currentPos)
 {
     Result result(Result::eSuccess);
 
+    const char* localCurrentPos = *currentPos;
+
     std::string newName;
 
-    uint8_t labelSize;
-    stream.read((char*)&labelSize, 1);
-    if (stream.fail())
+    if (localCurrentPos == endPos)
     {
         result.update(Result::eError);
     }
     else
     {
+        uint8_t labelSize = static_cast<uint8_t>(*(localCurrentPos++));
         while (labelSize)
         {
             if (labelSize > 63)
@@ -60,14 +63,14 @@ Result DomainName::initializeFromStream(std::istream& stream)
             }
 
             char buffer[63];
-            stream.read(buffer, labelSize);
-            if (stream.fail())
+            if ((localCurrentPos + labelSize) > endPos)
             {
                 result.update(Result::eError);
                 break;
             }
-            newName.append(buffer, labelSize);
+            newName.append(localCurrentPos, labelSize);
             newName.append(".");
+            localCurrentPos += labelSize;
 
             if (newName.size() > 253)
             {
@@ -75,18 +78,19 @@ Result DomainName::initializeFromStream(std::istream& stream)
                 break;
             }
 
-            stream.read((char*)&labelSize, 1);
-            if (stream.fail())
+            if (localCurrentPos == endPos)
             {
                 result.update(Result::eError);
                 break;
             }
+            labelSize = static_cast<uint8_t>(*(localCurrentPos++));
         }
     }
 
     if (result.succeeded())
     {
         m_name.swap(newName);
+        *currentPos = localCurrentPos;
     }
 
     return result;

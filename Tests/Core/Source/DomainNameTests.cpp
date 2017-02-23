@@ -22,6 +22,7 @@
 
 #include "DomainNameTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddDomainNameTests(TestHarness& theTestHarness)
@@ -30,10 +31,10 @@ void AddDomainNameTests(TestHarness& theTestHarness)
 
     new HeapAllocationErrorsTest("Creation test 1", DomainNameCreationTest1, domainNameTestSequence);
 
-    new HeapAllocationErrorsTest("initializeFromStream test 1", DomainNameInitializeFromStreamTest1, domainNameTestSequence);
-    new HeapAllocationErrorsTest("initializeFromStream test 2", DomainNameInitializeFromStreamTest2, domainNameTestSequence);
-    new HeapAllocationErrorsTest("initializeFromStream test 3", DomainNameInitializeFromStreamTest3, domainNameTestSequence);
-    new HeapAllocationErrorsTest("initializeFromStream test 4", DomainNameInitializeFromStreamTest4, domainNameTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 1", DomainNameInitializeFromBufferTest1, domainNameTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 2", DomainNameInitializeFromBufferTest2, domainNameTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 3", DomainNameInitializeFromBufferTest3, domainNameTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 4", DomainNameInitializeFromBufferTest4, domainNameTestSequence);
 
     new FileComparisonTest("write test 1", DomainNameWriteTest1, domainNameTestSequence);
     new FileComparisonTest("write test 2", DomainNameWriteTest2, domainNameTestSequence);
@@ -52,19 +53,23 @@ TestResult::EOutcome DomainNameCreationTest1()
     }
 }
 
-TestResult::EOutcome DomainNameInitializeFromStreamTest1(Test& test)
+TestResult::EOutcome DomainNameInitializeFromBufferTest1(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "DomainNameInitializeFromStreamTest1.bin");
-    std::ifstream stream(inputPath.c_str());
-
-    Ishiko::DNS::DomainName domainName;
-    if (domainName.initializeFromStream(stream).succeeded())
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
     {
-        if (domainName == "www.dummy.com.")
+        Ishiko::DNS::DomainName domainName;
+        const char* currentPos = buffer;
+        if (domainName.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
         {
-            result = TestResult::ePassed;
+            if (domainName == "www.dummy.com.")
+            {
+                result = TestResult::ePassed;
+            }
         }
     }
     
@@ -73,19 +78,23 @@ TestResult::EOutcome DomainNameInitializeFromStreamTest1(Test& test)
 
 // Read a domain name from a stream that has been truncated. Check
 // than an error is returned.
-TestResult::EOutcome DomainNameInitializeFromStreamTest2(Test& test)
+TestResult::EOutcome DomainNameInitializeFromBufferTest2(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "DomainNameInitializeFromStreamTest2.bin");
-    std::ifstream stream(inputPath.c_str());
-
-    Ishiko::DNS::DomainName domainName;
-    if (domainName.initializeFromStream(stream).failed())
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
     {
-        if (domainName == "")
+        Ishiko::DNS::DomainName domainName;
+        const char* currentPos = buffer;
+        if (domainName.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
         {
-            result = TestResult::ePassed;
+            if (domainName == "")
+            {
+                result = TestResult::ePassed;
+            }
         }
     }
 
@@ -94,19 +103,23 @@ TestResult::EOutcome DomainNameInitializeFromStreamTest2(Test& test)
 
 // Read a domain name where one of the labels is longer than the maximum allowed
 // size of 63. Check that an error is returned.
-TestResult::EOutcome DomainNameInitializeFromStreamTest3(Test& test)
+TestResult::EOutcome DomainNameInitializeFromBufferTest3(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "DomainNameInitializeFromStreamTest3.bin");
-    std::ifstream stream(inputPath.c_str());
-
-    Ishiko::DNS::DomainName domainName;
-    if (domainName.initializeFromStream(stream).failed())
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
     {
-        if (domainName == "")
+        Ishiko::DNS::DomainName domainName;
+        const char* currentPos = buffer;
+        if (domainName.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
         {
-            result = TestResult::ePassed;
+            if (domainName == "")
+            {
+                result = TestResult::ePassed;
+            }
         }
     }
 
@@ -115,19 +128,23 @@ TestResult::EOutcome DomainNameInitializeFromStreamTest3(Test& test)
 
 // Read a domain name where the total length is longer than the maximum allowed
 // size of 253. Check that an error is returned.
-TestResult::EOutcome DomainNameInitializeFromStreamTest4(Test& test)
+TestResult::EOutcome DomainNameInitializeFromBufferTest4(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "DomainNameInitializeFromStreamTest4.bin");
-    std::ifstream stream(inputPath.c_str());
-
-    Ishiko::DNS::DomainName domainName;
-    if (domainName.initializeFromStream(stream).failed())
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
     {
-        if (domainName == "")
+        Ishiko::DNS::DomainName domainName;
+        const char* currentPos = buffer;
+        if (domainName.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
         {
-            result = TestResult::ePassed;
+            if (domainName == "")
+            {
+                result = TestResult::ePassed;
+            }
         }
     }
 
