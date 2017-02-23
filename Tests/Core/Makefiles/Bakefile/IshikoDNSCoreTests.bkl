@@ -1,5 +1,6 @@
 ishikopath = envvar("ISHIKO");
 import $(ishikopath)/TestFramework/Include/Ishiko/TestFramework/TestFrameworkCore.bkl;
+import $(ishikopath)/FileSystem/Include/Ishiko/FileSystem.bkl;
 import $(ishikopath)/DNS/Include/Ishiko/DNS/DNSCore.bkl;
 
 toolsets = gnu vs2015 vs2013;
@@ -8,7 +9,7 @@ gnu.makefile = ../GNUmakefile/GNUmakefile;
 vs2015.solutionfile = ../VC14/IshikoDNSCoreTests.sln;
 vs2013.solutionfile = ../VC12/IshikoDNSCoreTests.sln;
 
-program IshikoDNSCoreTests : IshikoDNSCore, IshikoTestFrameworkCore
+program IshikoDNSCoreTests : IshikoDNSCore, IshikoTestFrameworkCore, IshikoFileSystem
 {
     archs = x86 x86_64;
 
