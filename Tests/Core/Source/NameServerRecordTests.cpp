@@ -34,7 +34,7 @@ void AddNameServerRecordTests(TestHarness& theTestHarness)
 
 TestResult::EOutcome NameServerRecordCreationTest1()
 {
-    Ishiko::DNS::NameServerRecord nsRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN, 86400);
+    Ishiko::DNS::NameServerRecord nsRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN, 86400, "ns1.example.org.");
     return TestResult::ePassed;
 }
 
@@ -43,7 +43,7 @@ TestResult::EOutcome NameServerRecordWriteBinaryTest1(FileComparisonTest& test)
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "NameServerRecordWriteBinaryTest1.bin");
     std::ofstream stream(outputPath.c_str());
 
-    Ishiko::DNS::NameServerRecord nsRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN, 86400);
+    Ishiko::DNS::NameServerRecord nsRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN, 86400, "ns1.example.org.");
     nsRecord.writeBinary(stream);
 
     test.setOutputFilePath(outputPath);
