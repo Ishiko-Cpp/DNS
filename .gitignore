@@ -10,3 +10,4 @@ Debug/
 Release/
 Lib/
 Tests/Core/TestOutput/
+Tests/Resolver/TestOutput/
