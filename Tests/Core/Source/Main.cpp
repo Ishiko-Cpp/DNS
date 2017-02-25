@@ -29,6 +29,8 @@
 #include "QuestionMessageSectionEntryTests.h"
 #include "QuestionMessageSectionTests.h"
 #include "AnswerMessageSectionTests.h"
+#include "AuthorityMessageSectionTests.h"
+#include "AdditionalMessageSectionTests.h"
 #include "QueryTests.h"
 #include "ResponseTests.h"
 #include "ZoneFileTests.h"
@@ -53,6 +55,8 @@ int main(int argc, char* argv[])
 	AddQuestionMessageSectionEntryTests(theTestHarness);
 	AddQuestionMessageSectionTests(theTestHarness);
 	AddAnswerMessageSectionTests(theTestHarness);
+    AddAuthorityMessageSectionTests(theTestHarness);
+    AddAdditionalMessageSectionTests(theTestHarness);
 	AddQueryTests(theTestHarness);
 	AddResponseTests(theTestHarness);
 	AddZoneFileTests(theTestHarness);

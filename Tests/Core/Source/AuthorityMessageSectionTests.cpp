@@ -21,3 +21,8 @@
 */
 
 #include "AuthorityMessageSectionTests.h"
+
+void AddAuthorityMessageSectionTests(TestHarness& theTestHarness)
+{
+    TestSequence& authorityTestSequence = theTestHarness.appendTestSequence("AuthorityMessageSection tests");
+}

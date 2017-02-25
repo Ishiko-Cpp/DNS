@@ -21,3 +21,8 @@
 */
 
 #include "AdditionalMessageSectionTests.h"
+
+void AddAdditionalMessageSectionTests(TestHarness& theTestHarness)
+{
+    TestSequence& additionalTestSequence = theTestHarness.appendTestSequence("AdditionalMessageSection tests");
+}

@@ -23,4 +23,10 @@
 #ifndef _ISHIKO_TEST_DNS_CORE_ADDITIONALMESSAGESECTIONTESTS_H_
 #define _ISHIKO_TEST_DNS_CORE_ADDITIONALMESSAGESECTIONTESTS_H_
 
+#include "Ishiko/TestFramework/TestFrameworkCore.h"
+
+using namespace Ishiko::TestFramework;
+
+void AddAdditionalMessageSectionTests(TestHarness& theTestHarness);
+
 #endif
