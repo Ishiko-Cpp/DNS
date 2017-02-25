@@ -31,5 +31,13 @@ AuthorityMessageSection::AuthorityMessageSection()
 {
 }
 
+void AuthorityMessageSection::write(std::ostream& stream) const
+{
+    for (auto i : m_resourceRecords)
+    {
+        i->writeBinary(stream);
+    }
+}
+
 }
 }

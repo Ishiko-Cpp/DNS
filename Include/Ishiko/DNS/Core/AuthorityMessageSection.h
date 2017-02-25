@@ -24,6 +24,7 @@
 #define _ISHIKO_DNS_CORE_AUTHORITYMESSAGESECTION_H_
 
 #include "ResourceRecord.h"
+#include <ostream>
 #include <vector>
 #include <memory>
 
@@ -36,6 +37,8 @@ class AuthorityMessageSection
 {
 public:
     AuthorityMessageSection();
+
+    void write(std::ostream& stream) const;
 
 private:
     std::vector<std::shared_ptr<ResourceRecord> > m_resourceRecords;

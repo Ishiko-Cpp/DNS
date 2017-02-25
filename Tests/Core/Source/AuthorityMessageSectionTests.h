@@ -30,5 +30,6 @@ using namespace Ishiko::TestFramework;
 void AddAuthorityMessageSectionTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome AuthorityMessageSectionCreationTest1();
+TestResult::EOutcome AuthorityMessageSectionWriteTest1(FileComparisonTest& test);
 
 #endif

@@ -22,16 +22,33 @@
 
 #include "AdditionalMessageSectionTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include <fstream>
 
 void AddAdditionalMessageSectionTests(TestHarness& theTestHarness)
 {
     TestSequence& additionalTestSequence = theTestHarness.appendTestSequence("AdditionalMessageSection tests");
 
     new HeapAllocationErrorsTest("Creation test 1", AdditionalMessageSectionCreationTest1, additionalTestSequence);
+
+    new FileComparisonTest("write test 1", AdditionalMessageSectionWriteTest1, additionalTestSequence);
 }
 
 TestResult::EOutcome AdditionalMessageSectionCreationTest1()
 {
     Ishiko::DNS::AdditionalMessageSection additional;
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome AdditionalMessageSectionWriteTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AdditionalMessageSectionWriteTest1.bin");
+    std::ofstream stream(outputPath.c_str());
+
+    Ishiko::DNS::AdditionalMessageSection additional;
+    additional.write(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AdditionalMessageSectionWriteTest1.bin");
+
     return TestResult::ePassed;
 }

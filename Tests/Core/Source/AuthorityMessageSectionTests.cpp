@@ -22,16 +22,33 @@
 
 #include "AuthorityMessageSectionTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include <fstream>
 
 void AddAuthorityMessageSectionTests(TestHarness& theTestHarness)
 {
     TestSequence& authorityTestSequence = theTestHarness.appendTestSequence("AuthorityMessageSection tests");
 
     new HeapAllocationErrorsTest("Creation test 1", AuthorityMessageSectionCreationTest1, authorityTestSequence);
+
+    new FileComparisonTest("write test 1", AuthorityMessageSectionWriteTest1, authorityTestSequence);
 }
 
 TestResult::EOutcome AuthorityMessageSectionCreationTest1()
 {
     Ishiko::DNS::AuthorityMessageSection authority;
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome AuthorityMessageSectionWriteTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AuthorityMessageSectionWriteTest1.bin");
+    std::ofstream stream(outputPath.c_str());
+
+    Ishiko::DNS::AuthorityMessageSection authority;
+    authority.write(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AuthorityMessageSectionWriteTest1.bin");
+
     return TestResult::ePassed;
 }
