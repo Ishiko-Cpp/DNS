@@ -35,17 +35,17 @@ void AddStartOfAuthorityRecordTests(TestHarness& theTestHarness)
 TestResult::EOutcome StartOfAuthorityRecordCreationTest1()
 {
 	Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
-		"ns1.example.org.", 86400);
+		86400, "ns1.example.org.", "hostmaster.example.org.", 1485619377, 1200, 120, 604800, 3600);
 	return TestResult::ePassed;
 }
 
 TestResult::EOutcome StartOfAuthorityRecordWriteBinaryTest1(FileComparisonTest& test)
 {
 	boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "StartOfAuthorityRecordWriteBinaryTest1.bin");
-	std::ofstream stream(outputPath.c_str());
+	std::ofstream stream(outputPath.c_str(), std::ios::binary);
 
 	Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
-		"ns1.example.org.", 86400);
+		86400, "ns1.example.org.", "hostmaster.example.org.", 1485619377, 1200, 120, 604800, 3600);
 	soaRecord.writeBinary(stream);
 
 	test.setOutputFilePath(outputPath);
