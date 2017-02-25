@@ -30,7 +30,7 @@ using namespace Ishiko::TestFramework;
 void AddResponseTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome ResponseCreationTest1();
-TestResult::EOutcome ResponseCreationTest2(Test& test);
+TestResult::EOutcome ResponseInitializeFromBufferTest1(Test& test);
 TestResult::EOutcome ResponseWriteTest1(FileComparisonTest& test);
 
 #endif

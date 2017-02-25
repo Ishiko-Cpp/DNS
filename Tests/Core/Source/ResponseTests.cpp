@@ -22,6 +22,7 @@
 
 #include "ResponseTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddResponseTests(TestHarness& theTestHarness)
@@ -29,7 +30,7 @@ void AddResponseTests(TestHarness& theTestHarness)
 	TestSequence& responseTestSequence = theTestHarness.appendTestSequence("Response tests");
 
 	new HeapAllocationErrorsTest("Creation test 1", ResponseCreationTest1, responseTestSequence);
-	new HeapAllocationErrorsTest("Creation test 2", ResponseCreationTest2, responseTestSequence);
+	new HeapAllocationErrorsTest("initializeFromBuffer test 1", ResponseInitializeFromBufferTest1, responseTestSequence);
 	new FileComparisonTest("write test 1", ResponseWriteTest1, responseTestSequence);
 }
 
@@ -39,9 +40,29 @@ TestResult::EOutcome ResponseCreationTest1()
 	return TestResult::ePassed;
 }
 
-TestResult::EOutcome ResponseCreationTest2(Test& test)
+TestResult::EOutcome ResponseInitializeFromBufferTest1(Test& test)
 {
-	return TestResult::eFailed;
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "ResponseInitializeFromBufferTest1.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::Response response;
+        const char* currentPos = buffer;
+        if (response.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
+        {
+            if ((response.headerSection().isResponse()) &&
+                (response.questionSection().entries().size() == 0) &&
+                (response.answerSection().resourceRecords().size() == 0))
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
 }
 
 TestResult::EOutcome ResponseWriteTest1(FileComparisonTest& test)

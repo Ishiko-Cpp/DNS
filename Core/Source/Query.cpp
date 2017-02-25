@@ -28,14 +28,14 @@ namespace DNS
 {
 
 Query::Query(const std::string& domainName)
-	: m_header(false), m_questionSection(domainName)
+	: m_headerSection(false), m_questionSection(domainName)
 {
-	m_header.setQuestionCount(1);
+    m_headerSection.setQuestionCount(1);
 }
 
 void Query::write(std::ostream& stream) const
 {
-	m_header.write(stream);
+    m_headerSection.write(stream);
 	m_questionSection.write(stream);
 	m_answerSection.write(stream);
 }

@@ -40,12 +40,14 @@ public:
     Result initializeFromBuffer(const char* startPos,
         const char* endPos, const char** currentPos);
 
+    const HeaderMessageSection& headerSection() const;
+    const QuestionMessageSection& questionSection() const;
     const AnswerMessageSection& answerSection() const;
 
     void write(std::ostream& stream) const;
 
 private:
-    HeaderMessageSection m_header;
+    HeaderMessageSection m_headerSection;
     QuestionMessageSection m_questionSection;
     AnswerMessageSection m_answerSection;
     //IDNSEditableAuthorityMessageSection* mAuthority;

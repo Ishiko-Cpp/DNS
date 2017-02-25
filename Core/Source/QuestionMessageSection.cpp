@@ -63,6 +63,11 @@ Result QuestionMessageSection::initializeFromBuffer(uint16_t count,
     return result;
 }
 
+const std::vector<std::shared_ptr<QuestionMessageSectionEntry> > QuestionMessageSection::entries() const
+{
+    return m_entries;
+}
+
 void QuestionMessageSection::write(std::ostream& stream) const
 {
     for (size_t i = 0; i < m_entries.size(); ++i)

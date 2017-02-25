@@ -41,7 +41,7 @@ public:
 	void write(std::ostream& stream) const;
 
 private:
-	HeaderMessageSection m_header;
+	HeaderMessageSection m_headerSection;
 	QuestionMessageSection m_questionSection;
 	AnswerMessageSection m_answerSection;
 };

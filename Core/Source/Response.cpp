@@ -28,7 +28,7 @@ namespace DNS
 {
 
 Response::Response()
-    : m_header(true)
+    : m_headerSection(true)
 {
 }
 
@@ -40,15 +40,23 @@ Result Response::initializeFromBuffer(const char* startPos,
 
     const char* localCurrentPos = *currentPos;
 
-    if (result.update(m_header.initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+    if (result.update(m_headerSection.initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
     {
-        /*
-        result.update(m_questionSection.initializeFromStream(stream, m_header.questionCount()));
-        result.update(m_answerSection.initializeFromStream(stream, m_header.answerCount()));
-        */
+        result.update(m_questionSection.initializeFromBuffer(m_headerSection.questionCount(), startPos, endPos, &localCurrentPos));
+        result.update(m_answerSection.initializeFromBuffer(m_headerSection.answerCount(), startPos, endPos, &localCurrentPos));
     }
 
     return result;
+}
+
+const HeaderMessageSection& Response::headerSection() const
+{
+    return m_headerSection;
+}
+
+const QuestionMessageSection& Response::questionSection() const
+{
+    return m_questionSection;
 }
 
 const AnswerMessageSection& Response::answerSection() const
@@ -58,7 +66,7 @@ const AnswerMessageSection& Response::answerSection() const
 
 void Response::write(std::ostream& stream) const
 {
-    m_header.write(stream);
+    m_headerSection.write(stream);
     m_questionSection.write(stream);
     m_answerSection.write(stream);
 }
