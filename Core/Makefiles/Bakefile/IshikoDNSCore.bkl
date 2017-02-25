@@ -47,6 +47,8 @@ library IshikoDNSCore : Boost
         ../../../Include/Ishiko/DNS/Core/NameServerRecord.h
         ../../../Include/Ishiko/DNS/Core/StartOfAuthorityRecord.h
         ../../../Include/Ishiko/DNS/Core/AddressRecord.h
+        ../../../Include/Ishiko/DNS/Core/MailExchangeRecord.h
+        ../../../Include/Ishiko/DNS/Core/TextRecord.h
         ../../../Include/Ishiko/DNS/Core/Query.h
         ../../../Include/Ishiko/DNS/Core/Response.h
         ../../../Include/Ishiko/DNS/Core/ZoneFile.h
@@ -68,6 +70,8 @@ library IshikoDNSCore : Boost
         ../../Source/NameServerRecord.cpp
         ../../Source/StartOfAuthorityRecord.cpp
         ../../Source/AddressRecord.cpp
+        ../../Source/MailExchangeRecord.cpp
+        ../../Source/TextRecord.cpp
         ../../Source/Query.cpp
         ../../Source/Response.cpp
         ../../Source/ZoneFile.cpp

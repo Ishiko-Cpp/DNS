@@ -164,6 +164,8 @@
     <ClCompile Include="..\..\Source\NameServerRecord.cpp" />
     <ClCompile Include="..\..\Source\StartOfAuthorityRecord.cpp" />
     <ClCompile Include="..\..\Source\AddressRecord.cpp" />
+    <ClCompile Include="..\..\Source\MailExchangeRecord.cpp" />
+    <ClCompile Include="..\..\Source\TextRecord.cpp" />
     <ClCompile Include="..\..\Source\Query.cpp" />
     <ClCompile Include="..\..\Source\Response.cpp" />
     <ClCompile Include="..\..\Source\ZoneFile.cpp" />
@@ -184,6 +186,8 @@
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\NameServerRecord.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\StartOfAuthorityRecord.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AddressRecord.h" />
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\MailExchangeRecord.h" />
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\TextRecord.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Query.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Response.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\ZoneFile.h" />

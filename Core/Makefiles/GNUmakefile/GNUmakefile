@@ -71,8 +71,8 @@ BOOST_ROOT ?= $(BOOST)
 
 all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),IshikoDNSCore-d,IshikoDNSCore).a
 
-../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),IshikoDNSCore-d,IshikoDNSCore).a: $(_builddir)IshikoDNSCore_Result.o $(_builddir)IshikoDNSCore_Error.o $(_builddir)IshikoDNSCore_DomainName.o $(_builddir)IshikoDNSCore_TTL.o $(_builddir)IshikoDNSCore_AdditionalMessageSection.o $(_builddir)IshikoDNSCore_AnswerMessageSection.o $(_builddir)IshikoDNSCore_AuthorityMessageSection.o $(_builddir)IshikoDNSCore_HeaderMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSectionEntry.o $(_builddir)IshikoDNSCore_ResourceRecord.o $(_builddir)IshikoDNSCore_NameServerRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecord.o $(_builddir)IshikoDNSCore_AddressRecord.o $(_builddir)IshikoDNSCore_Query.o $(_builddir)IshikoDNSCore_Response.o $(_builddir)IshikoDNSCore_ZoneFile.o
-	$(AR) rcu $@ $(_builddir)IshikoDNSCore_Result.o $(_builddir)IshikoDNSCore_Error.o $(_builddir)IshikoDNSCore_DomainName.o $(_builddir)IshikoDNSCore_TTL.o $(_builddir)IshikoDNSCore_AdditionalMessageSection.o $(_builddir)IshikoDNSCore_AnswerMessageSection.o $(_builddir)IshikoDNSCore_AuthorityMessageSection.o $(_builddir)IshikoDNSCore_HeaderMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSectionEntry.o $(_builddir)IshikoDNSCore_ResourceRecord.o $(_builddir)IshikoDNSCore_NameServerRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecord.o $(_builddir)IshikoDNSCore_AddressRecord.o $(_builddir)IshikoDNSCore_Query.o $(_builddir)IshikoDNSCore_Response.o $(_builddir)IshikoDNSCore_ZoneFile.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),IshikoDNSCore-d,IshikoDNSCore).a: $(_builddir)IshikoDNSCore_Result.o $(_builddir)IshikoDNSCore_Error.o $(_builddir)IshikoDNSCore_DomainName.o $(_builddir)IshikoDNSCore_TTL.o $(_builddir)IshikoDNSCore_AdditionalMessageSection.o $(_builddir)IshikoDNSCore_AnswerMessageSection.o $(_builddir)IshikoDNSCore_AuthorityMessageSection.o $(_builddir)IshikoDNSCore_HeaderMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSectionEntry.o $(_builddir)IshikoDNSCore_ResourceRecord.o $(_builddir)IshikoDNSCore_NameServerRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecord.o $(_builddir)IshikoDNSCore_AddressRecord.o $(_builddir)IshikoDNSCore_MailExchangeRecord.o $(_builddir)IshikoDNSCore_TextRecord.o $(_builddir)IshikoDNSCore_Query.o $(_builddir)IshikoDNSCore_Response.o $(_builddir)IshikoDNSCore_ZoneFile.o
+	$(AR) rcu $@ $(_builddir)IshikoDNSCore_Result.o $(_builddir)IshikoDNSCore_Error.o $(_builddir)IshikoDNSCore_DomainName.o $(_builddir)IshikoDNSCore_TTL.o $(_builddir)IshikoDNSCore_AdditionalMessageSection.o $(_builddir)IshikoDNSCore_AnswerMessageSection.o $(_builddir)IshikoDNSCore_AuthorityMessageSection.o $(_builddir)IshikoDNSCore_HeaderMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSection.o $(_builddir)IshikoDNSCore_QuestionMessageSectionEntry.o $(_builddir)IshikoDNSCore_ResourceRecord.o $(_builddir)IshikoDNSCore_NameServerRecord.o $(_builddir)IshikoDNSCore_StartOfAuthorityRecord.o $(_builddir)IshikoDNSCore_AddressRecord.o $(_builddir)IshikoDNSCore_MailExchangeRecord.o $(_builddir)IshikoDNSCore_TextRecord.o $(_builddir)IshikoDNSCore_Query.o $(_builddir)IshikoDNSCore_Response.o $(_builddir)IshikoDNSCore_ZoneFile.o
 	$(RANLIB) $@
 
 $(_builddir)IshikoDNSCore_Result.o: ../../Source/Result.cpp
@@ -116,6 +116,12 @@ $(_builddir)IshikoDNSCore_StartOfAuthorityRecord.o: ../../Source/StartOfAuthorit
 
 $(_builddir)IshikoDNSCore_AddressRecord.o: ../../Source/AddressRecord.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/AddressRecord.cpp
+
+$(_builddir)IshikoDNSCore_MailExchangeRecord.o: ../../Source/MailExchangeRecord.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/MailExchangeRecord.cpp
+
+$(_builddir)IshikoDNSCore_TextRecord.o: ../../Source/TextRecord.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/TextRecord.cpp
 
 $(_builddir)IshikoDNSCore_Query.o: ../../Source/Query.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(BOOST_ROOT) -I../../../Include/Ishiko/DNS/Core -std=c++11 ../../Source/Query.cpp

@@ -62,6 +62,12 @@
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AddressRecord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\MailExchangeRecord.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\TextRecord.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Query.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -113,6 +119,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AddressRecord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MailExchangeRecord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TextRecord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Query.cpp">
