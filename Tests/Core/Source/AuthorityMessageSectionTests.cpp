@@ -21,8 +21,17 @@
 */
 
 #include "AuthorityMessageSectionTests.h"
+#include "Ishiko/DNS/DNSCore.h"
 
 void AddAuthorityMessageSectionTests(TestHarness& theTestHarness)
 {
     TestSequence& authorityTestSequence = theTestHarness.appendTestSequence("AuthorityMessageSection tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", AuthorityMessageSectionCreationTest1, authorityTestSequence);
+}
+
+TestResult::EOutcome AuthorityMessageSectionCreationTest1()
+{
+    Ishiko::DNS::AuthorityMessageSection authority;
+    return TestResult::ePassed;
 }

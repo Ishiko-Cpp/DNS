@@ -23,4 +23,16 @@
 #ifndef _ISHIKO_DNS_CORE_ADDITIONALMESSAGESECTION_H_
 #define _ISHIKO_DNS_CORE_ADDITIONALMESSAGESECTION_H_
 
+namespace Ishiko
+{
+namespace DNS
+{
+
+class AdditionalMessageSection
+{
+};
+
+}
+}
+
 #endif

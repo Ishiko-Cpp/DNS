@@ -29,4 +29,6 @@ using namespace Ishiko::TestFramework;
 
 void AddAdditionalMessageSectionTests(TestHarness& theTestHarness);
 
+TestResult::EOutcome AdditionalMessageSectionCreationTest1();
+
 #endif

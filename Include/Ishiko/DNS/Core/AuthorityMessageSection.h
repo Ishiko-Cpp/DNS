@@ -23,4 +23,16 @@
 #ifndef _ISHIKO_DNS_CORE_AUTHORITYMESSAGESECTION_H_
 #define _ISHIKO_DNS_CORE_AUTHORITYMESSAGESECTION_H_
 
+namespace Ishiko
+{
+namespace DNS
+{
+
+class AuthorityMessageSection
+{
+};
+
+}
+}
+
 #endif

@@ -21,8 +21,17 @@
 */
 
 #include "AdditionalMessageSectionTests.h"
+#include "Ishiko/DNS/DNSCore.h"
 
 void AddAdditionalMessageSectionTests(TestHarness& theTestHarness)
 {
     TestSequence& additionalTestSequence = theTestHarness.appendTestSequence("AdditionalMessageSection tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", AdditionalMessageSectionCreationTest1, additionalTestSequence);
+}
+
+TestResult::EOutcome AdditionalMessageSectionCreationTest1()
+{
+    Ishiko::DNS::AdditionalMessageSection additional;
+    return TestResult::ePassed;
 }
