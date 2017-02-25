@@ -47,7 +47,7 @@ TestResult::EOutcome HeaderMessageSectionInitializeFromBufferTest1(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "HeaderMessageSectionCreationTest2.bin");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "HeaderMessageSectionInitializeFromBufferTest1.bin");
     char buffer[512];
     int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
     if (r > 0)
@@ -70,7 +70,7 @@ TestResult::EOutcome HeaderMessageSectionInitializeFromBufferTest2(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "HeaderMessageSectionCreationTest3.bin");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "HeaderMessageSectionInitializeFromBufferTest2.bin");
     char buffer[512];
     int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
     if (r > 0)

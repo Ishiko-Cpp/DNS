@@ -48,28 +48,27 @@ Result HeaderMessageSection::initializeFromBuffer(const char* startPos,
                                                   const char* endPos,
                                                   const char** currentPos)
 {
-    Result result(Result::eError);
+    Result result(Result::eSuccess);
 
-    /*
-    uint16_t tmp = 0;
-    stream.read((char*)&tmp, 2);
-    m_ID = boost::endian::big_to_native(tmp);
-    stream.read((char*)&tmp, 2);
-    m_bitField = boost::endian::big_to_native(tmp);
-    stream.read((char*)&tmp, 2);
-    m_QDCOUNT = boost::endian::big_to_native(tmp);
-    stream.read((char*)&tmp, 2);
-    m_ANCOUNT = boost::endian::big_to_native(tmp);
-    stream.read((char*)&tmp, 2);
-    m_NSCOUNT = boost::endian::big_to_native(tmp);
-    stream.read((char*)&tmp, 2);
-    m_ARCOUNT = boost::endian::big_to_native(tmp);
-
-    if (!stream.good())
+    if ((*currentPos + 12) <= endPos)
+    {
+        m_ID = boost::endian::big_to_native(*(const uint16_t*)(*currentPos));
+        *currentPos += 2;
+        m_bitField = boost::endian::big_to_native(*(const uint16_t*)(*currentPos));
+        *currentPos += 2;
+        m_QDCOUNT = boost::endian::big_to_native(*(const uint16_t*)(*currentPos));
+        *currentPos += 2;
+        m_ANCOUNT = boost::endian::big_to_native(*(const uint16_t*)(*currentPos));
+        *currentPos += 2;
+        m_NSCOUNT = boost::endian::big_to_native(*(const uint16_t*)(*currentPos));
+        *currentPos += 2;
+        m_ARCOUNT = boost::endian::big_to_native(*(const uint16_t*)(*currentPos));
+        *currentPos += 2;
+    }
+    else
     {
         result.update(Result::eError);
     }
-    */
 
     return result;
 }
