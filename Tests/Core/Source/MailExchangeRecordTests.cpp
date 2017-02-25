@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2015-2017 Xavier Leclercq
+    Copyright (c) 2017 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -20,16 +20,4 @@
     IN THE SOFTWARE.
 */
 
-#ifndef _ISHIKO_TEST_DNS_CORE_STARTOFAUTHORITYRECORDTESTS_H_
-#define _ISHIKO_TEST_DNS_CORE_STARTOFAUTHORITYRECORDTESTS_H_
-
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
-
-using namespace Ishiko::TestFramework;
-
-void AddStartOfAuthorityRecordTests(TestHarness& theTestHarness);
-
-TestResult::EOutcome StartOfAuthorityRecordCreationTest1();
-TestResult::EOutcome StartOfAuthorityRecordWriteBinaryTest1(FileComparisonTest& test);
-
-#endif
+#include "MailExchangeRecordTests.h"

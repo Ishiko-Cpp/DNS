@@ -1,23 +1,23 @@
 /*
-	Copyright (c) 2015 Xavier Leclercq
+    Copyright (c) 2015 Xavier Leclercq
 
-	Permission is hereby granted, free of charge, to any person obtaining a
-	copy of this software and associated documentation files (the "Software"),
-	to deal in the Software without restriction, including without limitation
-	the rights to use, copy, modify, merge, publish, distribute, sublicense,
-	and/or sell copies of the Software, and to permit persons to whom the
-	Software is furnished to do so, subject to the following conditions:
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the
+    Software is furnished to do so, subject to the following conditions:
 
-	The above copyright notice and this permission notice shall be included in
-	all copies or substantial portions of the Software.
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
 
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-	THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-	FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-	IN THE SOFTWARE.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+    IN THE SOFTWARE.
 */
 
 #include "StartOfAuthorityRecordTests.h"
@@ -26,30 +26,30 @@
 
 void AddStartOfAuthorityRecordTests(TestHarness& theTestHarness)
 {
-	TestSequence& soaRecordTestSequence = theTestHarness.appendTestSequence("StartOfAuthorityRecord tests");
+    TestSequence& soaRecordTestSequence = theTestHarness.appendTestSequence("StartOfAuthorityRecord tests");
 
-	new HeapAllocationErrorsTest("Creation test 1", StartOfAuthorityRecordCreationTest1, soaRecordTestSequence);
-	new FileComparisonTest("write test 1", StartOfAuthorityRecordWriteBinaryTest1, soaRecordTestSequence);
+    new HeapAllocationErrorsTest("Creation test 1", StartOfAuthorityRecordCreationTest1, soaRecordTestSequence);
+    new FileComparisonTest("write test 1", StartOfAuthorityRecordWriteBinaryTest1, soaRecordTestSequence);
 }
 
 TestResult::EOutcome StartOfAuthorityRecordCreationTest1()
 {
-	Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
-		86400, "ns1.example.org.", "hostmaster.example.org.", 1485619377, 1200, 120, 604800, 3600);
-	return TestResult::ePassed;
+    Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
+        86400, "ns1.example.org.", "hostmaster.example.org.", 1485619377, 1200, 120, 604800, 3600);
+    return TestResult::ePassed;
 }
 
 TestResult::EOutcome StartOfAuthorityRecordWriteBinaryTest1(FileComparisonTest& test)
 {
-	boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "StartOfAuthorityRecordWriteBinaryTest1.bin");
-	std::ofstream stream(outputPath.c_str(), std::ios::binary);
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "StartOfAuthorityRecordWriteBinaryTest1.bin");
+    std::ofstream stream(outputPath.c_str(), std::ios::binary);
 
-	Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
-		86400, "ns1.example.org.", "hostmaster.example.org.", 1485619377, 1200, 120, 604800, 3600);
-	soaRecord.writeBinary(stream);
+    Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
+        86400, "ns1.example.org.", "hostmaster.example.org.", 1485619377, 1200, 120, 604800, 3600);
+    soaRecord.writeBinary(stream);
 
-	test.setOutputFilePath(outputPath);
-	test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "StartOfAuthorityRecordWriteBinaryTest1.bin");
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "StartOfAuthorityRecordWriteBinaryTest1.bin");
 
-	return TestResult::ePassed;
+    return TestResult::ePassed;
 }

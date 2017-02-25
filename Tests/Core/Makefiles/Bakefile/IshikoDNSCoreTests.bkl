@@ -32,6 +32,8 @@ program IshikoDNSCoreTests : IshikoDNSCore, IshikoTestFrameworkCore, IshikoFileS
         ../../Source/NameServerRecordTests.h
         ../../Source/StartOfAuthorityRecordTests.h
         ../../Source/AddressRecordTests.h
+        ../../Source/MailExchangeRecordTests.h
+        ../../Source/TextRecordTests.h
         ../../Source/QueryTests.h
         ../../Source/ResponseTests.h
         ../../Source/ZoneFileTests.h
@@ -50,6 +52,8 @@ program IshikoDNSCoreTests : IshikoDNSCore, IshikoTestFrameworkCore, IshikoFileS
         ../../Source/NameServerRecordTests.cpp
         ../../Source/StartOfAuthorityRecordTests.cpp
         ../../Source/AddressRecordTests.cpp
+        ../../Source/MailExchangeRecordTests.cpp
+        ../../Source/TextRecordTests.cpp
         ../../Source/QueryTests.cpp
         ../../Source/ResponseTests.cpp
         ../../Source/Main.cpp
