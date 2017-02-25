@@ -154,7 +154,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\DomainNameTests.cpp" />
     <ClCompile Include="..\..\Source\TTLTests.cpp" />
+    <ClCompile Include="..\..\Source\AdditionalMessageSectionTests.cpp" />
     <ClCompile Include="..\..\Source\AnswerMessageSectionTests.cpp" />
+    <ClCompile Include="..\..\Source\AuthorityMessageSectionTests.cpp" />
     <ClCompile Include="..\..\Source\HeaderMessageSectionTests.cpp" />
     <ClCompile Include="..\..\Source\QuestionMessageSectionTests.cpp" />
     <ClCompile Include="..\..\Source\QuestionMessageSectionEntryTests.cpp" />
@@ -169,7 +171,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\DomainNameTests.h" />
     <ClInclude Include="..\..\Source\TTLTests.h" />
+    <ClInclude Include="..\..\Source\AdditionalMessageSectionTests.h" />
     <ClInclude Include="..\..\Source\AnswerMessageSectionTests.h" />
+    <ClInclude Include="..\..\Source\AuthorityMessageSectionTests.h" />
     <ClInclude Include="..\..\Source\HeaderMessageSectionTests.h" />
     <ClInclude Include="..\..\Source\QuestionMessageSectionTests.h" />
     <ClInclude Include="..\..\Source\QuestionMessageSectionEntryTests.h" />

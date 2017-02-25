@@ -23,7 +23,9 @@ program IshikoDNSCoreTests : IshikoDNSCore, IshikoTestFrameworkCore, IshikoFileS
     {
         ../../Source/DomainNameTests.h
         ../../Source/TTLTests.h
+        ../../Source/AdditionalMessageSectionTests.h
         ../../Source/AnswerMessageSectionTests.h
+        ../../Source/AuthorityMessageSectionTests.h
         ../../Source/HeaderMessageSectionTests.h
         ../../Source/QuestionMessageSectionTests.h
         ../../Source/QuestionMessageSectionEntryTests.h
@@ -39,7 +41,9 @@ program IshikoDNSCoreTests : IshikoDNSCore, IshikoTestFrameworkCore, IshikoFileS
     {
         ../../Source/DomainNameTests.cpp
         ../../Source/TTLTests.cpp
+        ../../Source/AdditionalMessageSectionTests.cpp
         ../../Source/AnswerMessageSectionTests.cpp
+        ../../Source/AuthorityMessageSectionTests.cpp
         ../../Source/HeaderMessageSectionTests.cpp
         ../../Source/QuestionMessageSectionTests.cpp
         ../../Source/QuestionMessageSectionEntryTests.cpp
