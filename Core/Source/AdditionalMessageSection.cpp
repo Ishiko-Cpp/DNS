@@ -21,3 +21,15 @@
 */
 
 #include "AdditionalMessageSection.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+AdditionalMessageSection::AdditionalMessageSection()
+{
+}
+
+}
+}

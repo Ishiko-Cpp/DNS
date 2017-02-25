@@ -23,6 +23,10 @@
 #ifndef _ISHIKO_DNS_CORE_ADDITIONALMESSAGESECTION_H_
 #define _ISHIKO_DNS_CORE_ADDITIONALMESSAGESECTION_H_
 
+#include "ResourceRecord.h"
+#include <vector>
+#include <memory>
+
 namespace Ishiko
 {
 namespace DNS
@@ -30,6 +34,11 @@ namespace DNS
 
 class AdditionalMessageSection
 {
+public:
+    AdditionalMessageSection();
+
+private:
+    std::vector<std::shared_ptr<ResourceRecord> > m_resourceRecords;
 };
 
 }
