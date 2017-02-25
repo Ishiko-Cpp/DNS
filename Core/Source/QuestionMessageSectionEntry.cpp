@@ -67,7 +67,7 @@ Result QuestionMessageSectionEntry::initializeFromBuffer(const char* startPos,
 
 void QuestionMessageSectionEntry::write(std::ostream& stream) const
 {
-	m_QNAME.write(stream);
+	m_QNAME.writeBinary(stream);
 	uint16_t tmp = boost::endian::native_to_big(m_QTYPE);
 	stream.write((char*)&tmp, 2);
 	tmp = boost::endian::native_to_big(m_QCLASS);

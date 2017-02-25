@@ -47,7 +47,8 @@ public:
     // expected in resource records.
     // Use the str() method to get the domain name
     // in text format.
-    void write(std::ostream& stream) const;
+    void writeBinary(std::ostream& stream) const;
+    void writeText(std::ostream& stream) const;
 
     const std::string& str() const;
 

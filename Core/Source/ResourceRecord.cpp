@@ -86,7 +86,7 @@ Result ResourceRecord::initializeFromBufferBase(const char* startPos,
 
 void ResourceRecord::writeBinaryBase(std::ostream& stream) const
 {
-    m_NAME.write(stream);
+    m_NAME.writeBinary(stream);
     uint16_t tmp = boost::endian::native_to_big(m_TYPE);
     stream.write((char*)&tmp, 2);
     tmp = boost::endian::native_to_big(m_CLASS);

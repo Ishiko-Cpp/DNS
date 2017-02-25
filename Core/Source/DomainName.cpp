@@ -121,7 +121,7 @@ uint16_t DomainName::length() const
     return result;
 }
 
-void DomainName::write(std::ostream& stream) const
+void DomainName::writeBinary(std::ostream& stream) const
 {
     size_t prevPos = 0;
     size_t nextPos = m_name.find('.', 1);
@@ -141,6 +141,11 @@ void DomainName::write(std::ostream& stream) const
         stream.write(m_name.c_str() + prevPos, labelSize);
     }
     stream.write("", 1);
+}
+
+void DomainName::writeText(std::ostream& stream) const
+{
+    stream << m_name.c_str();
 }
 
 const std::string& DomainName::str() const

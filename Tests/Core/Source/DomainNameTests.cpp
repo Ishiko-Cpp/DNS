@@ -157,7 +157,7 @@ TestResult::EOutcome DomainNameWriteTest1(FileComparisonTest& test)
     std::ofstream stream(outputPath.c_str(), std::ios::binary);
 
     Ishiko::DNS::DomainName domainName("www.dummy.com");
-    domainName.write(stream);
+    domainName.writeBinary(stream);
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "DomainNameWriteTest1.bin");
@@ -171,7 +171,7 @@ TestResult::EOutcome DomainNameWriteTest2(FileComparisonTest& test)
     std::ofstream stream(outputPath.c_str(), std::ios::binary);
 
     Ishiko::DNS::DomainName domainName("www.dummy.com.");
-    domainName.write(stream);
+    domainName.writeBinary(stream);
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "DomainNameWriteTest2.bin");

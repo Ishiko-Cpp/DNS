@@ -37,6 +37,7 @@ void ZoneFile::write(std::ostream& stream) const
 {
 	stream << "$ORIGIN " << m_origin.str().c_str() << std::endl;
 	stream << "$TTL 1d" << std::endl;
+
 	if (m_soaRecord.name() == m_origin)
 	{
 		stream << "@";
@@ -75,13 +76,15 @@ void ZoneFile::write(std::ostream& stream) const
 		// TODO
 		break;
 	}
-	stream << " " << m_soaRecord.mname().str().c_str() << std::endl;
 
-	//username.example.com. (2007120710 1d 2h 4w 1h)
+    m_soaRecord.writeText(stream);
 
+    stream << std::endl;
+	
 	for (size_t i = 0; i < m_records.size(); ++i)
 	{
 		m_records[i]->writeText(stream);
+        stream << std::endl;
 	}
 }
 

@@ -54,8 +54,8 @@ void StartOfAuthorityRecord::writeBinary(std::ostream& stream) const
     writeBinaryBase(stream);
     uint16_t tmp = boost::endian::native_to_big((uint16_t)(m_MNAME.length() + m_RNAME.length() + 20));
     stream.write((const char*)&tmp, 2);
-    m_MNAME.write(stream);
-    m_RNAME.write(stream);
+    m_MNAME.writeBinary(stream);
+    m_RNAME.writeBinary(stream);
     uint32_t tmp2 = boost::endian::native_to_big(m_SERIAL);
     stream.write((const char*)&tmp2, 4);
     tmp2 = boost::endian::native_to_big(m_REFRESH);
@@ -70,6 +70,12 @@ void StartOfAuthorityRecord::writeBinary(std::ostream& stream) const
 
 void StartOfAuthorityRecord::writeText(std::ostream& stream) const
 {
+    stream << " ";
+    m_MNAME.writeText(stream);
+    stream << " ";
+    m_RNAME.writeText(stream);
+    stream << " (" << m_SERIAL << " " << m_REFRESH << " " << m_RETRY
+        << " " << m_EXPIRE << " " << m_MINIMUM << ")";
 }
 
 }

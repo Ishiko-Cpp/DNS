@@ -42,11 +42,14 @@ void NameServerRecord::writeBinary(std::ostream& stream) const
     writeBinaryBase(stream);
     uint16_t tmp = boost::endian::native_to_big(m_NSDNAME.length());
     stream.write((const char*)&tmp, 2);
-    m_NSDNAME.write(stream);
+    m_NSDNAME.writeBinary(stream);
 }
 
 void NameServerRecord::writeText(std::ostream& stream) const
 {
+    writeTextBase(stream);
+    stream << " ";
+    m_NSDNAME.writeText(stream);
 }
 
 }
