@@ -37,7 +37,9 @@ library IshikoDNSCore : Boost
         ../../../Include/Ishiko/DNS/Core/Error.h
         ../../../Include/Ishiko/DNS/Core/DomainName.h
         ../../../Include/Ishiko/DNS/Core/TTL.h
+        ../../../Include/Ishiko/DNS/Core/AdditionalMessageSection.h
         ../../../Include/Ishiko/DNS/Core/AnswerMessageSection.h
+        ../../../Include/Ishiko/DNS/Core/AuthorityMessageSection.h
         ../../../Include/Ishiko/DNS/Core/HeaderMessageSection.h
         ../../../Include/Ishiko/DNS/Core/QuestionMessageSection.h
         ../../../Include/Ishiko/DNS/Core/QuestionMessageSectionEntry.h
@@ -56,7 +58,9 @@ library IshikoDNSCore : Boost
         ../../Source/Error.cpp
         ../../Source/DomainName.cpp
         ../../Source/TTL.cpp
+        ../../Source/AdditionalMessageSection.cpp
         ../../Source/AnswerMessageSection.cpp
+        ../../Source/AuthorityMessageSection.cpp
         ../../Source/HeaderMessageSection.cpp
         ../../Source/QuestionMessageSection.cpp
         ../../Source/QuestionMessageSectionEntry.cpp

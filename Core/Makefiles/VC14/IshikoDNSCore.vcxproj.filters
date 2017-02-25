@@ -32,7 +32,13 @@
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\TTL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AdditionalMessageSection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AnswerMessageSection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AuthorityMessageSection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\HeaderMessageSection.h">
@@ -79,7 +85,13 @@
     <ClCompile Include="..\..\Source\TTL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\AdditionalMessageSection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\AnswerMessageSection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AuthorityMessageSection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\HeaderMessageSection.cpp">

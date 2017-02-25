@@ -154,7 +154,9 @@
     <ClCompile Include="..\..\Source\Error.cpp" />
     <ClCompile Include="..\..\Source\DomainName.cpp" />
     <ClCompile Include="..\..\Source\TTL.cpp" />
+    <ClCompile Include="..\..\Source\AdditionalMessageSection.cpp" />
     <ClCompile Include="..\..\Source\AnswerMessageSection.cpp" />
+    <ClCompile Include="..\..\Source\AuthorityMessageSection.cpp" />
     <ClCompile Include="..\..\Source\HeaderMessageSection.cpp" />
     <ClCompile Include="..\..\Source\QuestionMessageSection.cpp" />
     <ClCompile Include="..\..\Source\QuestionMessageSectionEntry.cpp" />
@@ -172,7 +174,9 @@
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\Error.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\DomainName.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\TTL.h" />
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AdditionalMessageSection.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AnswerMessageSection.h" />
+    <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\AuthorityMessageSection.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\HeaderMessageSection.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\QuestionMessageSection.h" />
     <ClInclude Include="..\..\..\Include\Ishiko\DNS\Core\QuestionMessageSectionEntry.h" />
