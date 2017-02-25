@@ -31,6 +31,7 @@ void AddAuthorityMessageSectionTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", AuthorityMessageSectionCreationTest1, authorityTestSequence);
 
     new FileComparisonTest("write test 1", AuthorityMessageSectionWriteTest1, authorityTestSequence);
+    new FileComparisonTest("write test 2", AuthorityMessageSectionWriteTest2, authorityTestSequence);
 }
 
 TestResult::EOutcome AuthorityMessageSectionCreationTest1()
@@ -49,6 +50,20 @@ TestResult::EOutcome AuthorityMessageSectionWriteTest1(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AuthorityMessageSectionWriteTest1.bin");
+
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome AuthorityMessageSectionWriteTest2(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AuthorityMessageSectionWriteTest2.bin");
+    std::ofstream stream(outputPath.c_str());
+
+    Ishiko::DNS::AuthorityMessageSection authority;
+    authority.write(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AuthorityMessageSectionWriteTest2.bin");
 
     return TestResult::ePassed;
 }

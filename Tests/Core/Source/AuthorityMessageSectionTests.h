@@ -31,5 +31,6 @@ void AddAuthorityMessageSectionTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome AuthorityMessageSectionCreationTest1();
 TestResult::EOutcome AuthorityMessageSectionWriteTest1(FileComparisonTest& test);
+TestResult::EOutcome AuthorityMessageSectionWriteTest2(FileComparisonTest& test);
 
 #endif

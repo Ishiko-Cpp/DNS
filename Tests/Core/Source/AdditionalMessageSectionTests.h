@@ -31,5 +31,6 @@ void AddAdditionalMessageSectionTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome AdditionalMessageSectionCreationTest1();
 TestResult::EOutcome AdditionalMessageSectionWriteTest1(FileComparisonTest& test);
+TestResult::EOutcome AdditionalMessageSectionWriteTest2(FileComparisonTest& test);
 
 #endif

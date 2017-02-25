@@ -31,6 +31,7 @@ void AddAdditionalMessageSectionTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", AdditionalMessageSectionCreationTest1, additionalTestSequence);
 
     new FileComparisonTest("write test 1", AdditionalMessageSectionWriteTest1, additionalTestSequence);
+    new FileComparisonTest("write test 2", AdditionalMessageSectionWriteTest2, additionalTestSequence);
 }
 
 TestResult::EOutcome AdditionalMessageSectionCreationTest1()
@@ -49,6 +50,20 @@ TestResult::EOutcome AdditionalMessageSectionWriteTest1(FileComparisonTest& test
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AdditionalMessageSectionWriteTest1.bin");
+
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome AdditionalMessageSectionWriteTest2(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AdditionalMessageSectionWriteTest2.bin");
+    std::ofstream stream(outputPath.c_str());
+
+    Ishiko::DNS::AdditionalMessageSection additional;
+    additional.write(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AdditionalMessageSectionWriteTest2.bin");
 
     return TestResult::ePassed;
 }
