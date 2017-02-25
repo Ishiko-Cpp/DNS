@@ -154,7 +154,7 @@ TestResult::EOutcome DomainNameInitializeFromBufferTest4(Test& test)
 TestResult::EOutcome DomainNameWriteTest1(FileComparisonTest& test)
 {
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "DomainNameWriteTest1.bin");
-    std::ofstream stream(outputPath.c_str());
+    std::ofstream stream(outputPath.c_str(), std::ios::binary);
 
     Ishiko::DNS::DomainName domainName("www.dummy.com");
     domainName.write(stream);
@@ -168,7 +168,7 @@ TestResult::EOutcome DomainNameWriteTest1(FileComparisonTest& test)
 TestResult::EOutcome DomainNameWriteTest2(FileComparisonTest& test)
 {
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "DomainNameWriteTest2.bin");
-    std::ofstream stream(outputPath.c_str());
+    std::ofstream stream(outputPath.c_str(), std::ios::binary);
 
     Ishiko::DNS::DomainName domainName("www.dummy.com.");
     domainName.write(stream);

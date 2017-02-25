@@ -31,11 +31,12 @@ namespace Ishiko
 namespace DNS
 {
 
-void Resolver::getResourceRecords(const std::string& domainName)
+void Resolver::getResourceRecords(const std::string& domainName, 
+                                  std::vector<std::shared_ptr<ResourceRecord> >& records)
 {
 	boost::asio::io_service service;
 	boost::asio::ip::udp::socket socket(service, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), 0));
-	boost::asio::ip::address serverAddress = boost::asio::ip::address::from_string("8.8.8.8");
+	boost::asio::ip::address serverAddress = boost::asio::ip::address::from_string("185.14.186.249");
 	boost::asio::ip::udp::endpoint endpoint(serverAddress, 53);
 	
 	Query query(domainName);
@@ -51,6 +52,8 @@ void Resolver::getResourceRecords(const std::string& domainName)
 	responseBuffer.commit(5000);
 	std::istream responseStream(&responseBuffer);
 	Response response(responseStream);
+
+    records.insert(records.end(), response.answerSection().resourceRecords().begin(), response.answerSection().resourceRecords().end());
 
 	/*
 	char reply[max_length];

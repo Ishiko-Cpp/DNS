@@ -22,6 +22,7 @@
 
 #include "ResolverTests.h"
 #include "Ishiko/DNS/DNSResolver.h"
+#include <fstream>
 
 void AddResolverTests(TestHarness& theTestHarness)
 {
@@ -39,8 +40,22 @@ TestResult::EOutcome ResolverCreationTest1()
 
 TestResult::EOutcome ResolverGetResourceRecordsTest1(FileComparisonTest& test)
 {
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "ResolverGetResourceRecordsTest1.txt");
+    std::ofstream stream(outputPath.c_str());
+
 	Ishiko::DNS::Resolver resolver;
-	resolver.getResourceRecords("www.needfulsoftware.com");
+
+    std::vector<std::shared_ptr<Ishiko::DNS::ResourceRecord> > records;
+	resolver.getResourceRecords("needfulsoftware.com", records);
+
+    for (auto record : records)
+    {
+        record->writeText(stream);
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "ResolverGetResourceRecordsTest1.txt");
+
 
 	return TestResult::ePassed;
 }

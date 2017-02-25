@@ -36,7 +36,7 @@ void AddZoneFileTests(TestHarness& theTestHarness)
 TestResult::EOutcome ZoneFileCreationTest1()
 {
 	Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
-		"ns1.example.org.", 86400);
+		86400, "ns1.example.org.", "hostmaster.example.org.", 1485619377, 1200, 120, 604800, 3600);
 	Ishiko::DNS::ZoneFile zonefile(Ishiko::DNS::DomainName("example.org."), soaRecord);
 	return TestResult::ePassed;
 }
@@ -47,7 +47,7 @@ TestResult::EOutcome ZoneFileWriteTest1(FileComparisonTest& test)
 	std::ofstream stream(outputPath.c_str());
 
 	Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
-		"ns1.example.org.", 86400);
+		86400, "ns1.example.org.", "hostmaster.example.org.", 1485619377, 1200, 120, 604800, 3600);
 	Ishiko::DNS::ZoneFile zonefile(Ishiko::DNS::DomainName("example.org."), soaRecord);
 	zonefile.write(stream);
 
@@ -63,10 +63,10 @@ TestResult::EOutcome ZoneFileWriteTest2(FileComparisonTest& test)
 	std::ofstream stream(outputPath.c_str());
 
 	Ishiko::DNS::StartOfAuthorityRecord soaRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN,
-		"ns1.example.org.", 86400);
+		86400, "ns1.example.org.", "hostmaster.example.org.", 1485619377, 1200, 120, 604800, 3600);
 	Ishiko::DNS::ZoneFile zonefile(Ishiko::DNS::DomainName("example.org."), soaRecord);
 	std::shared_ptr<Ishiko::DNS::NameServerRecord> newRecord = 
-		std::make_shared<Ishiko::DNS::NameServerRecord>("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN, 86400);
+		std::make_shared<Ishiko::DNS::NameServerRecord>("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN, 86400, "ns1.example.org.");
 	zonefile.append(newRecord);
 	zonefile.write(stream);
 

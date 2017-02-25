@@ -1,5 +1,5 @@
 /*
-	Copyright (c) 2010-2015 Xavier Leclercq
+	Copyright (c) 2010-2017 Xavier Leclercq
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
@@ -28,6 +28,10 @@ namespace Ishiko
 namespace DNS
 {
 
+QuestionMessageSectionEntry::QuestionMessageSectionEntry()
+{
+}
+
 QuestionMessageSectionEntry::QuestionMessageSectionEntry(const std::string& domainName,
 														 QTYPE qtype, 
 														 QCLASS qclass)
@@ -35,14 +39,30 @@ QuestionMessageSectionEntry::QuestionMessageSectionEntry(const std::string& doma
 {
 }
 
-QuestionMessageSectionEntry::QuestionMessageSectionEntry(std::istream& stream)
-	: m_QNAME(stream)
+Result QuestionMessageSectionEntry::initializeFromBuffer(const char* startPos,
+                                                         const char* endPos,
+                                                         const char** currentPos)
 {
-	uint16_t tmp;
-	stream.read((char*)&tmp, 2);
-	m_QTYPE = boost::endian::big_to_native(tmp);
-	stream.read((char*)&tmp, 2);
-	m_QCLASS = boost::endian::big_to_native(tmp);
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    if (m_QNAME.initializeFromBuffer(startPos, endPos, &localCurrentPos).succeeded() &&
+        ((localCurrentPos + 4) <= endPos))
+    {
+        m_QTYPE = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+        localCurrentPos += 2;
+        m_QCLASS = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+        localCurrentPos += 2;
+
+        *currentPos = localCurrentPos;
+    }
+    else
+    {
+        result.update(Result::eError);
+    }
+
+    return result;
 }
 
 void QuestionMessageSectionEntry::write(std::ostream& stream) const

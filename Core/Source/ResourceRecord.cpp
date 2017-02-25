@@ -41,23 +41,50 @@ ResourceRecord::ResourceRecord(const std::string& domainName,
 {
 }
 
-Result ResourceRecord::initializeFromStream(std::istream& stream)
-{
-    Result result(Result::eSuccess);
-
-    result.update(m_NAME.initializeFromStream(stream));
-    uint16_t tmp;
-    stream.read((char*)&tmp, 2);
-    m_TYPE = boost::endian::big_to_native(tmp);
-
-    return result;
-}
-
 ResourceRecord::~ResourceRecord()
 {
 }
 
-void ResourceRecord::writeBinary(std::ostream& stream) const
+const DomainName& ResourceRecord::name() const
+{
+    return m_NAME;
+}
+
+ResourceRecord::TYPE ResourceRecord::type() const
+{
+    return (ResourceRecord::TYPE)m_TYPE;
+}
+
+ResourceRecord::CLASS ResourceRecord::cl() const
+{
+    return (ResourceRecord::CLASS)m_CLASS;
+}
+
+Result ResourceRecord::initializeFromBufferBase(const char* startPos,
+                                                const char* endPos,
+                                                const char** currentPos)
+{
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    if (m_NAME.initializeFromBuffer(startPos, endPos, &localCurrentPos).succeeded() &&
+        ((localCurrentPos + 2) <= endPos))
+    {
+        m_TYPE = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+        localCurrentPos += 2;
+
+        *currentPos = localCurrentPos;
+    }
+    else
+    {
+        result.update(Result::eError);
+    }
+
+    return result;
+}
+
+void ResourceRecord::writeBinaryBase(std::ostream& stream) const
 {
     m_NAME.write(stream);
     uint16_t tmp = boost::endian::native_to_big(m_TYPE);
@@ -65,15 +92,9 @@ void ResourceRecord::writeBinary(std::ostream& stream) const
     tmp = boost::endian::native_to_big(m_CLASS);
     stream.write((char*)&tmp, 2);
     m_TTL.writeBinary(stream);
-    tmp = 0;
-    if (m_RDATA)
-    {
-        tmp = boost::endian::native_to_big(m_RDATA->length());
-    }
-    stream.write((char*)&tmp, 2);
 }
 
-void ResourceRecord::writeText(std::ostream& stream) const
+void ResourceRecord::writeTextBase(std::ostream& stream) const
 {
     stream << m_NAME.str().c_str() << " ";
     switch (m_CLASS)
@@ -105,21 +126,6 @@ void ResourceRecord::writeText(std::ostream& stream) const
         // TODO
         break;
     }
-}
-
-const DomainName& ResourceRecord::name() const
-{
-    return m_NAME;
-}
-
-ResourceRecord::TYPE ResourceRecord::type() const
-{
-    return (ResourceRecord::TYPE)m_TYPE;
-}
-
-ResourceRecord::CLASS ResourceRecord::cl() const
-{
-    return (ResourceRecord::CLASS)m_CLASS;
 }
 
 }

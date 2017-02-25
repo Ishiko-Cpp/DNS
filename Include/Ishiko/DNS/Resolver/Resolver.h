@@ -23,6 +23,8 @@
 #ifndef _ISHIKO_DNS_RESOLVER_RESOLVER_H_
 #define _ISHIKO_DNS_RESOLVER_RESOLVER_H_
 
+#include "Ishiko/DNS/Core/ResourceRecord.h"
+#include <vector>
 #include <string>
 
 namespace Ishiko
@@ -33,7 +35,7 @@ namespace DNS
 class Resolver
 {
 public:
-	void getResourceRecords(const std::string& domainName);
+	void getResourceRecords(const std::string& domainName, std::vector<std::shared_ptr<ResourceRecord> >& records);
 };
 
 }

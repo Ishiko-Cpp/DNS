@@ -30,8 +30,8 @@ using namespace Ishiko::TestFramework;
 void AddHeaderMessageSectionTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome HeaderMessageSectionCreationTest1();
-TestResult::EOutcome HeaderMessageSectionInitializeFromStreamTest1(Test& test);
-TestResult::EOutcome HeaderMessageSectionInitializeFromStreamTest2(Test& test);
+TestResult::EOutcome HeaderMessageSectionInitializeFromBufferTest1(Test& test);
+TestResult::EOutcome HeaderMessageSectionInitializeFromBufferTest2(Test& test);
 TestResult::EOutcome HeaderMessageSectionWriteTest1(FileComparisonTest& test);
 TestResult::EOutcome HeaderMessageSectionWriteTest2(FileComparisonTest& test);
 

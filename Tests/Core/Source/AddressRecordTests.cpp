@@ -34,20 +34,20 @@ void AddAddressRecordTests(TestHarness& theTestHarness)
 
 TestResult::EOutcome AddressRecordCreationTest1()
 {
-    Ishiko::DNS::AddressRecord addressRecord("example.org.", 86400);
+    Ishiko::DNS::AddressRecord addressRecord("example.org.", 86400, "127.0.0.1");
     return TestResult::ePassed;
 }
 
 TestResult::EOutcome AddressRecordWriteBinaryTest1(FileComparisonTest& test)
 {
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "NameServerRecordWriteBinaryTest1.bin");
-    std::ofstream stream(outputPath.c_str());
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AddressRecordWriteBinaryTest1.bin");
+    std::ofstream stream(outputPath.c_str(), std::ios::binary);
 
-    Ishiko::DNS::AddressRecord addressRecord("example.org.", 86400);
+    Ishiko::DNS::AddressRecord addressRecord("example.org.", 86400, "127.0.0.1");
     addressRecord.writeBinary(stream);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "NameServerRecordWriteBinaryTest1.bin");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AddressRecordWriteBinaryTest1.bin");
 
     return TestResult::ePassed;
 }

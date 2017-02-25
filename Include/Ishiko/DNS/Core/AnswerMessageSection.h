@@ -1,5 +1,5 @@
 /*
-	Copyright (c) 2010-2015 Xavier Leclercq
+	Copyright (c) 2010-2017 Xavier Leclercq
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
@@ -24,6 +24,7 @@
 #define _ISHIKO_DNS_CORE_ANSWERMESSAGESECTION_H_
 
 #include "ResourceRecord.h"
+#include "Result.h"
 #include <ostream>
 #include <vector>
 #include <memory>
@@ -36,6 +37,13 @@ namespace DNS
 class AnswerMessageSection
 {
 public:
+    AnswerMessageSection();
+
+    Result initializeFromBuffer(uint16_t count, const char* startPos,
+        const char* endPos, const char** currentPos);
+
+    const std::vector<std::shared_ptr<ResourceRecord> >& resourceRecords() const;
+
 	void write(std::ostream& stream) const;
 
 private:

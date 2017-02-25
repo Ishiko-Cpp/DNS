@@ -22,6 +22,7 @@
 
 #include "HeaderMessageSectionTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddHeaderMessageSectionTests(TestHarness& theTestHarness)
@@ -29,8 +30,8 @@ void AddHeaderMessageSectionTests(TestHarness& theTestHarness)
     TestSequence& headerTestSequence = theTestHarness.appendTestSequence("HeaderMessageSection tests");
 
     new HeapAllocationErrorsTest("Creation test 1", HeaderMessageSectionCreationTest1, headerTestSequence);
-    new HeapAllocationErrorsTest("initializeFromStream test 1", HeaderMessageSectionInitializeFromStreamTest1, headerTestSequence);
-    new HeapAllocationErrorsTest("initializeFromStream test 2", HeaderMessageSectionInitializeFromStreamTest2, headerTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 1", HeaderMessageSectionInitializeFromBufferTest1, headerTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 2", HeaderMessageSectionInitializeFromBufferTest2, headerTestSequence);
 
     new FileComparisonTest("write test 1", HeaderMessageSectionWriteTest1, headerTestSequence);
     new FileComparisonTest("write test 2", HeaderMessageSectionWriteTest2, headerTestSequence);
@@ -42,38 +43,46 @@ TestResult::EOutcome HeaderMessageSectionCreationTest1()
     return TestResult::ePassed;
 }
 
-TestResult::EOutcome HeaderMessageSectionInitializeFromStreamTest1(Test& test)
+TestResult::EOutcome HeaderMessageSectionInitializeFromBufferTest1(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "HeaderMessageSectionCreationTest2.bin");
-    std::ifstream stream(inputPath.c_str());
-
-    Ishiko::DNS::HeaderMessageSection header;
-    if (header.initializeFromStream(stream).succeeded())
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
     {
-        if (!header.isResponse())
+        Ishiko::DNS::HeaderMessageSection header;
+        const char* currentPos = buffer;
+        if (header.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
         {
-            result = TestResult::ePassed;
+            if (!header.isResponse())
+            {
+                result = TestResult::ePassed;
+            }
         }
     }
     
     return result;
 }
 
-TestResult::EOutcome HeaderMessageSectionInitializeFromStreamTest2(Test& test)
+TestResult::EOutcome HeaderMessageSectionInitializeFromBufferTest2(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "HeaderMessageSectionCreationTest3.bin");
-    std::ifstream stream(inputPath.c_str());
-
-    Ishiko::DNS::HeaderMessageSection header;
-    if (header.initializeFromStream(stream).succeeded())
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
     {
-        if (header.isResponse())
+        Ishiko::DNS::HeaderMessageSection header;
+        const char* currentPos = buffer;
+        if (header.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
         {
-            result = TestResult::ePassed;
+            if (header.isResponse())
+            {
+                result = TestResult::ePassed;
+            }
         }
     }
 

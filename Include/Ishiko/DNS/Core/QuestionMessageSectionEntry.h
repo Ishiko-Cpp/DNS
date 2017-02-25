@@ -1,5 +1,5 @@
 /*
-	Copyright (c) 2010-2015 Xavier Leclercq
+	Copyright (c) 2010-2017 Xavier Leclercq
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
@@ -24,6 +24,7 @@
 #define _ISHIKO_DNS_CORE_QUESTIONMESSAGESECTIONENTRY_H_
 
 #include "DomainName.h"
+#include "Result.h"
 #include <ostream>
 #include <stdint.h>
 
@@ -46,9 +47,11 @@ public:
 	};
 
 public:
+    QuestionMessageSectionEntry();
 	QuestionMessageSectionEntry(const std::string& domainName, 
 		QTYPE qtype, QCLASS qclass);
-	QuestionMessageSectionEntry(std::istream& stream);
+    Result initializeFromBuffer(const char* startPos,
+        const char* endPos, const char** currentPos);
 
 	void write(std::ostream& stream) const;
 

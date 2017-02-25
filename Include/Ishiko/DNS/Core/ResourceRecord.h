@@ -25,7 +25,6 @@
 
 #include "DomainName.h"
 #include "TTL.h"
-#include "ResourceRecordData.h"
 #include "Result.h"
 #include <ostream>
 #include <stdint.h>
@@ -55,27 +54,26 @@ public:
     ResourceRecord();
     ResourceRecord(const std::string& domainName,
         TYPE type, CLASS cl, uint32_t ttl);
-    Result initializeFromStream(std::istream& stream);
     virtual ~ResourceRecord();
 
-    void writeBinary(std::ostream& stream) const;
-    void writeText(std::ostream& stream) const;
+    virtual void writeBinary(std::ostream& stream) const = 0;
+    virtual void writeText(std::ostream& stream) const = 0;
 
     const DomainName& name() const;
     TYPE type() const;
     CLASS cl() const;
+
+protected:
+    Result initializeFromBufferBase(const char* startPos,
+        const char* endPos, const char** currentPos);
+    void writeBinaryBase(std::ostream& stream) const;
+    void writeTextBase(std::ostream& stream) const;
 
 private:
     DomainName m_NAME;
     uint16_t m_TYPE;
     uint16_t m_CLASS;
     TTL m_TTL;
-
-protected:
-    // The RDLENGTH is obtained from m_RDATA
-    // m_RDATA is protected because its exact type
-    // will depend on the type of record.
-    std::shared_ptr<ResourceRecordData> m_RDATA;
 };
 
 }

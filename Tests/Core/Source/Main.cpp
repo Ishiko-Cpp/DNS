@@ -22,7 +22,6 @@
 
 #include "DomainNameTests.h"
 #include "TTLTests.h"
-#include "ResourceRecordTests.h"
 #include "NameServerRecordTests.h"
 #include "StartOfAuthorityRecordTests.h"
 #include "AddressRecordTests.h"
@@ -47,7 +46,6 @@ int main(int argc, char* argv[])
 
 	AddDomainNameTests(theTestHarness);
 	AddTTLTests(theTestHarness);
-	AddResourceRecordTests(theTestHarness);
 	AddNameServerRecordTests(theTestHarness);
 	AddStartOfAuthorityRecordTests(theTestHarness);
 	AddAddressRecordTests(theTestHarness);
