@@ -76,8 +76,17 @@ const std::vector<std::shared_ptr<ResourceRecord> >& AnswerMessageSection::resou
     return m_resourceRecords;
 }
 
+void AnswerMessageSection::appendResourceRecord(std::shared_ptr<ResourceRecord> record)
+{
+    m_resourceRecords.push_back(record);
+}
+
 void AnswerMessageSection::write(std::ostream& stream) const
 {
+    for (auto i : m_resourceRecords)
+    {
+        i->writeBinary(stream);
+    }
 }
 
 }

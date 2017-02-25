@@ -29,7 +29,9 @@ void AddAnswerMessageSectionTests(TestHarness& theTestHarness)
     TestSequence& answerTestSequence = theTestHarness.appendTestSequence("AnswerMessageSection tests");
 
     new HeapAllocationErrorsTest("Creation test 1", AnswerMessageSectionCreationTest1, answerTestSequence);
+
     new FileComparisonTest("write test 1", AnswerMessageSectionWriteTest1, answerTestSequence);
+    new FileComparisonTest("write test 2", AnswerMessageSectionWriteTest2, answerTestSequence);
 }
 
 TestResult::EOutcome AnswerMessageSectionCreationTest1()
@@ -48,6 +50,22 @@ TestResult::EOutcome AnswerMessageSectionWriteTest1(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AnswerMessageSectionWriteTest1.bin");
+
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome AnswerMessageSectionWriteTest2(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AnswerMessageSectionWriteTest2.bin");
+    std::ofstream stream(outputPath.c_str());
+
+    Ishiko::DNS::AnswerMessageSection answer;
+    std::shared_ptr<Ishiko::DNS::AddressRecord> addressRecord = std::make_shared<Ishiko::DNS::AddressRecord>("example.org.", 86400, "127.0.0.1");
+    answer.appendResourceRecord(addressRecord);
+    answer.write(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AnswerMessageSectionWriteTest2.bin");
 
     return TestResult::ePassed;
 }
