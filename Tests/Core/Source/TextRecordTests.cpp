@@ -21,3 +21,8 @@
 */
 
 #include "TextRecordTests.h"
+
+void AddTextRecordTests(TestHarness& theTestHarness)
+{
+    TestSequence& textRecordTestSequence = theTestHarness.appendTestSequence("TextRecord tests");
+}

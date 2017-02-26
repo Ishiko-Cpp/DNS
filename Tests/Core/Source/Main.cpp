@@ -25,6 +25,8 @@
 #include "NameServerRecordTests.h"
 #include "StartOfAuthorityRecordTests.h"
 #include "AddressRecordTests.h"
+#include "MailExchangeRecordTests.h"
+#include "TextRecordTests.h"
 #include "HeaderMessageSectionTests.h"
 #include "QuestionMessageSectionEntryTests.h"
 #include "QuestionMessageSectionTests.h"
@@ -51,6 +53,8 @@ int main(int argc, char* argv[])
     AddNameServerRecordTests(theTestHarness);
     AddStartOfAuthorityRecordTests(theTestHarness);
     AddAddressRecordTests(theTestHarness);
+    AddMailExchangeRecordTests(theTestHarness);
+    AddTextRecordTests(theTestHarness);
     AddHeaderMessageSectionTests(theTestHarness);
     AddQuestionMessageSectionEntryTests(theTestHarness);
     AddQuestionMessageSectionTests(theTestHarness);

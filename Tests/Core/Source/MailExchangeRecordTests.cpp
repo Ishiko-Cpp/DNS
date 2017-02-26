@@ -21,3 +21,8 @@
 */
 
 #include "MailExchangeRecordTests.h"
+
+void AddMailExchangeRecordTests(TestHarness& theTestHarness)
+{
+    TestSequence& mailExchangeRecordTestSequence = theTestHarness.appendTestSequence("MailExchangeRecord tests");
+}
