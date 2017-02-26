@@ -21,8 +21,17 @@
 */
 
 #include "CanonicalNameRecordTests.h"
+#include "Ishiko/DNS/DNSCore.h"
 
 void AddCanonicalNameRecordTests(TestHarness& theTestHarness)
 {
     TestSequence& cnameRecordTestSequence = theTestHarness.appendTestSequence("CanonicalNameRecord tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", CanonicalNameRecordCreationTest1, cnameRecordTestSequence);
+}
+
+TestResult::EOutcome CanonicalNameRecordCreationTest1()
+{
+    Ishiko::DNS::CanonicalNameRecord cnameRecord;
+    return TestResult::ePassed;
 }

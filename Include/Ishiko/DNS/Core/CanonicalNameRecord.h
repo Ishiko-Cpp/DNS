@@ -23,4 +23,24 @@
 #ifndef _ISHIKO_DNS_CORE_CANONICALNAMERECORD_H_
 #define _ISHIKO_DNS_CORE_CANONICALNAMERECORD_H_
 
+#include "ResourceRecord.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+// This class represents a CNAME record.
+class CanonicalNameRecord : public ResourceRecord
+{
+public:
+    CanonicalNameRecord();
+
+    void writeBinary(std::ostream& stream) const override;
+    void writeText(std::ostream& stream) const override;
+};
+
+}
+}
+
 #endif

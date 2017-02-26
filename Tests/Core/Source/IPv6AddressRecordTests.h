@@ -29,4 +29,6 @@ using namespace Ishiko::TestFramework;
 
 void AddIPv6AddressRecordTests(TestHarness& theTestHarness);
 
+TestResult::EOutcome IPv6AddressRecordCreationTest1();
+
 #endif

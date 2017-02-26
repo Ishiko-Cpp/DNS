@@ -29,4 +29,6 @@ using namespace Ishiko::TestFramework;
 
 void AddCanonicalNameRecordTests(TestHarness& theTestHarness);
 
+TestResult::EOutcome CanonicalNameRecordCreationTest1();
+
 #endif

@@ -21,3 +21,23 @@
 */
 
 #include "IPv6AddressRecord.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+IPv6AddressRecord::IPv6AddressRecord()
+{
+}
+
+void IPv6AddressRecord::writeBinary(std::ostream& stream) const
+{
+}
+
+void IPv6AddressRecord::writeText(std::ostream& stream) const
+{
+}
+
+}
+}

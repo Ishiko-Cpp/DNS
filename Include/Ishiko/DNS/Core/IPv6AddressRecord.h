@@ -23,4 +23,24 @@
 #ifndef _ISHIKO_DNS_CORE_IPV6ADDRESSRECORD_H_
 #define _ISHIKO_DNS_CORE_IPV6ADDRESSRECORD_H_
 
+#include "ResourceRecord.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+// This class represents an AAAA record.
+class IPv6AddressRecord : public ResourceRecord
+{
+public:
+    IPv6AddressRecord();
+
+    void writeBinary(std::ostream& stream) const override;
+    void writeText(std::ostream& stream) const override;
+};
+
+}
+}
+
 #endif

@@ -21,3 +21,23 @@
 */
 
 #include "CanonicalNameRecord.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+CanonicalNameRecord::CanonicalNameRecord()
+{
+}
+
+void CanonicalNameRecord::writeBinary(std::ostream& stream) const
+{
+}
+
+void CanonicalNameRecord::writeText(std::ostream& stream) const
+{
+}
+
+}
+}

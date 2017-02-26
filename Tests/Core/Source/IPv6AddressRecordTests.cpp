@@ -21,8 +21,17 @@
 */
 
 #include "IPv6AddressRecordTests.h"
+#include "Ishiko/DNS/DNSCore.h"
 
 void AddIPv6AddressRecordTests(TestHarness& theTestHarness)
 {
     TestSequence& addressRecordTestSequence = theTestHarness.appendTestSequence("IPv6AddressRecord tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", IPv6AddressRecordCreationTest1, addressRecordTestSequence);
+}
+
+TestResult::EOutcome IPv6AddressRecordCreationTest1()
+{
+    Ishiko::DNS::IPv6AddressRecord addressRecord;
+    return TestResult::ePassed;
 }
