@@ -50,7 +50,13 @@
     <ClInclude Include="..\..\Source\AddressRecordTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\IPv6AddressRecordTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MailExchangeRecordTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CanonicalNameRecordTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TextRecordTests.h">
@@ -100,7 +106,13 @@
     <ClCompile Include="..\..\Source\AddressRecordTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\IPv6AddressRecordTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MailExchangeRecordTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CanonicalNameRecordTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TextRecordTests.cpp">

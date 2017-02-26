@@ -163,7 +163,9 @@
     <ClCompile Include="..\..\Source\NameServerRecordTests.cpp" />
     <ClCompile Include="..\..\Source\StartOfAuthorityRecordTests.cpp" />
     <ClCompile Include="..\..\Source\AddressRecordTests.cpp" />
+    <ClCompile Include="..\..\Source\IPv6AddressRecordTests.cpp" />
     <ClCompile Include="..\..\Source\MailExchangeRecordTests.cpp" />
+    <ClCompile Include="..\..\Source\CanonicalNameRecordTests.cpp" />
     <ClCompile Include="..\..\Source\TextRecordTests.cpp" />
     <ClCompile Include="..\..\Source\QueryTests.cpp" />
     <ClCompile Include="..\..\Source\ResponseTests.cpp" />
@@ -182,7 +184,9 @@
     <ClInclude Include="..\..\Source\NameServerRecordTests.h" />
     <ClInclude Include="..\..\Source\StartOfAuthorityRecordTests.h" />
     <ClInclude Include="..\..\Source\AddressRecordTests.h" />
+    <ClInclude Include="..\..\Source\IPv6AddressRecordTests.h" />
     <ClInclude Include="..\..\Source\MailExchangeRecordTests.h" />
+    <ClInclude Include="..\..\Source\CanonicalNameRecordTests.h" />
     <ClInclude Include="..\..\Source\TextRecordTests.h" />
     <ClInclude Include="..\..\Source\QueryTests.h" />
     <ClInclude Include="..\..\Source\ResponseTests.h" />

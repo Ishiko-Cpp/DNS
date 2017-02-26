@@ -32,7 +32,9 @@ program IshikoDNSCoreTests : IshikoDNSCore, IshikoTestFrameworkCore, IshikoFileS
         ../../Source/NameServerRecordTests.h
         ../../Source/StartOfAuthorityRecordTests.h
         ../../Source/AddressRecordTests.h
+        ../../Source/IPv6AddressRecordTests.h
         ../../Source/MailExchangeRecordTests.h
+        ../../Source/CanonicalNameRecordTests.h
         ../../Source/TextRecordTests.h
         ../../Source/QueryTests.h
         ../../Source/ResponseTests.h
@@ -52,7 +54,9 @@ program IshikoDNSCoreTests : IshikoDNSCore, IshikoTestFrameworkCore, IshikoFileS
         ../../Source/NameServerRecordTests.cpp
         ../../Source/StartOfAuthorityRecordTests.cpp
         ../../Source/AddressRecordTests.cpp
+        ../../Source/IPv6AddressRecordTests.cpp
         ../../Source/MailExchangeRecordTests.cpp
+        ../../Source/CanonicalNameRecordTests.cpp
         ../../Source/TextRecordTests.cpp
         ../../Source/QueryTests.cpp
         ../../Source/ResponseTests.cpp
