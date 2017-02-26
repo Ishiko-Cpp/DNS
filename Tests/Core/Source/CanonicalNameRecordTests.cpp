@@ -21,3 +21,8 @@
 */
 
 #include "CanonicalNameRecordTests.h"
+
+void AddCanonicalNameRecordTests(TestHarness& theTestHarness)
+{
+    TestSequence& cnameRecordTestSequence = theTestHarness.appendTestSequence("CanonicalNameRecord tests");
+}

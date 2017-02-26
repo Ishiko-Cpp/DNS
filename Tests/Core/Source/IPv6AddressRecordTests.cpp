@@ -21,3 +21,8 @@
 */
 
 #include "IPv6AddressRecordTests.h"
+
+void AddIPv6AddressRecordTests(TestHarness& theTestHarness)
+{
+    TestSequence& addressRecordTestSequence = theTestHarness.appendTestSequence("IPv6AddressRecord tests");
+}
