@@ -29,4 +29,6 @@ using namespace Ishiko::TestFramework;
 
 void AddMailExchangeRecordTests(TestHarness& theTestHarness);
 
+TestResult::EOutcome MailExchangeRecordCreationTest1();
+
 #endif

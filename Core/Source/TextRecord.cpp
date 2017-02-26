@@ -21,3 +21,23 @@
 */
 
 #include "TextRecord.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+TextRecord::TextRecord()
+{
+}
+
+void TextRecord::writeBinary(std::ostream& stream) const
+{
+}
+
+void TextRecord::writeText(std::ostream& stream) const
+{
+}
+
+}
+}

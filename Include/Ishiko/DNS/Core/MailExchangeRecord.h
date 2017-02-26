@@ -23,4 +23,24 @@
 #ifndef _ISHIKO_DNS_CORE_MAILEXCHANGERECORD_H_
 #define _ISHIKO_DNS_CORE_MAILEXCHANGERECORD_H_
 
+#include "ResourceRecord.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+// This class represents an MX record.
+class MailExchangeRecord : public ResourceRecord
+{
+public:
+    MailExchangeRecord();
+
+    void writeBinary(std::ostream& stream) const override;
+    void writeText(std::ostream& stream) const override;
+};
+
+}
+}
+
 #endif

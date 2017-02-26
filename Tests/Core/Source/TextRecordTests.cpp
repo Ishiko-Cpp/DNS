@@ -21,8 +21,17 @@
 */
 
 #include "TextRecordTests.h"
+#include "Ishiko/DNS/DNSCore.h"
 
 void AddTextRecordTests(TestHarness& theTestHarness)
 {
     TestSequence& textRecordTestSequence = theTestHarness.appendTestSequence("TextRecord tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", TextRecordCreationTest1, textRecordTestSequence);
+}
+
+TestResult::EOutcome TextRecordCreationTest1()
+{
+    Ishiko::DNS::TextRecord textRecord;
+    return TestResult::ePassed;
 }

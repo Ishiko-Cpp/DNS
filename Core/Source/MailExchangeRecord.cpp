@@ -21,3 +21,23 @@
 */
 
 #include "MailExchangeRecord.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+MailExchangeRecord::MailExchangeRecord()
+{
+}
+
+void MailExchangeRecord::writeBinary(std::ostream& stream) const
+{
+}
+
+void MailExchangeRecord::writeText(std::ostream& stream) const
+{
+}
+
+}
+}

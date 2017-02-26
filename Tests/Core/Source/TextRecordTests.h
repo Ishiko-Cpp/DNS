@@ -29,4 +29,6 @@ using namespace Ishiko::TestFramework;
 
 void AddTextRecordTests(TestHarness& theTestHarness);
 
+TestResult::EOutcome TextRecordCreationTest1();
+
 #endif

@@ -21,8 +21,17 @@
 */
 
 #include "MailExchangeRecordTests.h"
+#include "Ishiko/DNS/DNSCore.h"
 
 void AddMailExchangeRecordTests(TestHarness& theTestHarness)
 {
     TestSequence& mailExchangeRecordTestSequence = theTestHarness.appendTestSequence("MailExchangeRecord tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", MailExchangeRecordCreationTest1, mailExchangeRecordTestSequence);
+}
+
+TestResult::EOutcome MailExchangeRecordCreationTest1()
+{
+    Ishiko::DNS::MailExchangeRecord mailExchangeRecord;
+    return TestResult::ePassed;
 }

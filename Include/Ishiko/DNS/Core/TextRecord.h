@@ -23,4 +23,24 @@
 #ifndef _ISHIKO_DNS_CORE_TEXTRECORD_H_
 #define _ISHIKO_DNS_CORE_TEXTRECORD_H_
 
+#include "ResourceRecord.h"
+
+namespace Ishiko
+{
+namespace DNS
+{
+
+// This class represents a TXT record.
+class TextRecord : public ResourceRecord
+{
+public:
+    TextRecord();
+
+    void writeBinary(std::ostream& stream) const override;
+    void writeText(std::ostream& stream) const override;
+};
+
+}
+}
+
 #endif
