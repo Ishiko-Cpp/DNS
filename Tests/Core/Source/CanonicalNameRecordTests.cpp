@@ -22,16 +22,33 @@
 
 #include "CanonicalNameRecordTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include <fstream>
 
 void AddCanonicalNameRecordTests(TestHarness& theTestHarness)
 {
     TestSequence& cnameRecordTestSequence = theTestHarness.appendTestSequence("CanonicalNameRecord tests");
 
     new HeapAllocationErrorsTest("Creation test 1", CanonicalNameRecordCreationTest1, cnameRecordTestSequence);
+
+    new FileComparisonTest("write test 1", CanonicalNameRecordWriteBinaryTest1, cnameRecordTestSequence);
 }
 
 TestResult::EOutcome CanonicalNameRecordCreationTest1()
 {
-    Ishiko::DNS::CanonicalNameRecord cnameRecord;
+    Ishiko::DNS::CanonicalNameRecord cnameRecord("www.example.org.", 86400, "example.org.");
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome CanonicalNameRecordWriteBinaryTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "CanonicalNameRecordWriteBinaryTest1.bin");
+    std::ofstream stream(outputPath.c_str(), std::ios::binary);
+
+    Ishiko::DNS::CanonicalNameRecord cnameRecord("www.example.org.", 86400, "example.org.");
+    cnameRecord.writeBinary(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "CanonicalNameRecordWriteBinaryTest1.bin");
+
     return TestResult::ePassed;
 }

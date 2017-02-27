@@ -21,18 +21,27 @@
 */
 
 #include "CanonicalNameRecord.h"
+#include <boost/endian/conversion.hpp>
 
 namespace Ishiko
 {
 namespace DNS
 {
 
-CanonicalNameRecord::CanonicalNameRecord()
+CanonicalNameRecord::CanonicalNameRecord(const std::string& domainName,
+                                         uint32_t ttl,
+                                         const std::string& canonicalDomainName)
+    : ResourceRecord(domainName, TYPE_CNAME, CLASS_IN, ttl),
+    m_CNAME(canonicalDomainName)
 {
 }
 
 void CanonicalNameRecord::writeBinary(std::ostream& stream) const
 {
+    writeBinaryBase(stream);
+    uint16_t tmp = boost::endian::native_to_big(m_CNAME.length());
+    stream.write((const char*)&tmp, 2);
+    m_CNAME.writeBinary(stream);
 }
 
 void CanonicalNameRecord::writeText(std::ostream& stream) const

@@ -34,10 +34,14 @@ namespace DNS
 class CanonicalNameRecord : public ResourceRecord
 {
 public:
-    CanonicalNameRecord();
+    CanonicalNameRecord(const std::string& domainName, uint32_t ttl, 
+        const std::string& canonicalDomainName);
 
     void writeBinary(std::ostream& stream) const override;
     void writeText(std::ostream& stream) const override;
+
+private:
+    DomainName m_CNAME;
 };
 
 }
