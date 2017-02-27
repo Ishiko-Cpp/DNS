@@ -24,6 +24,7 @@
 #define _ISHIKO_DNS_CORE_IPV6ADDRESSRECORD_H_
 
 #include "ResourceRecord.h"
+#include <boost/asio/ip/address_v6.hpp>
 
 namespace Ishiko
 {
@@ -34,10 +35,14 @@ namespace DNS
 class IPv6AddressRecord : public ResourceRecord
 {
 public:
-    IPv6AddressRecord();
+    IPv6AddressRecord(const std::string& domainName, uint32_t ttl,
+        const std::string& address);
 
     void writeBinary(std::ostream& stream) const override;
     void writeText(std::ostream& stream) const override;
+
+private:
+    std::array<unsigned char, 16> m_IPv6Address;
 };
 
 }

@@ -27,12 +27,19 @@ namespace Ishiko
 namespace DNS
 {
 
-IPv6AddressRecord::IPv6AddressRecord()
+IPv6AddressRecord::IPv6AddressRecord(const std::string& domainName,
+                                     uint32_t ttl,
+                                     const std::string& address)
+    : ResourceRecord(domainName, TYPE_AAAA, CLASS_IN, ttl)
 {
+    m_IPv6Address = boost::asio::ip::address_v6::from_string(address).to_bytes();
 }
 
 void IPv6AddressRecord::writeBinary(std::ostream& stream) const
 {
+    writeBinaryBase(stream);
+    stream.write("\x00\x10", 2);
+    stream.write((const char*)m_IPv6Address.data(), m_IPv6Address.size());
 }
 
 void IPv6AddressRecord::writeText(std::ostream& stream) const

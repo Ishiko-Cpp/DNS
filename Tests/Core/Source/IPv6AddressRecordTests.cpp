@@ -22,16 +22,33 @@
 
 #include "IPv6AddressRecordTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include <fstream>
 
 void AddIPv6AddressRecordTests(TestHarness& theTestHarness)
 {
     TestSequence& addressRecordTestSequence = theTestHarness.appendTestSequence("IPv6AddressRecord tests");
 
     new HeapAllocationErrorsTest("Creation test 1", IPv6AddressRecordCreationTest1, addressRecordTestSequence);
+
+    new FileComparisonTest("write test 1", IPv6AddressRecordWriteBinaryTest1, addressRecordTestSequence);
 }
 
 TestResult::EOutcome IPv6AddressRecordCreationTest1()
 {
-    Ishiko::DNS::IPv6AddressRecord addressRecord;
+    Ishiko::DNS::IPv6AddressRecord addressRecord("example.org.", 86400, "::1");
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome IPv6AddressRecordWriteBinaryTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "IPv6AddressRecordWriteBinaryTest1.bin");
+    std::ofstream stream(outputPath.c_str(), std::ios::binary);
+
+    Ishiko::DNS::IPv6AddressRecord addressRecord("example.org.", 86400, "::1");
+    addressRecord.writeBinary(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "IPv6AddressRecordWriteBinaryTest1.bin");
+
     return TestResult::ePassed;
 }

@@ -44,7 +44,32 @@ Result AddressRecord::initializeFromBuffer(const char* startPos,
                                            const char* endPos,
                                            const char** currentPos)
 {
-    Result result(Result::eError);
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    if (result.update(initializeFromBufferBase(startPos, endPos, &localCurrentPos)).succeeded())
+    {
+        if ((localCurrentPos + 6) <= endPos)
+        {
+            uint16_t size = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+            localCurrentPos += 2;
+            if (size == 4)
+            {
+                m_IPv4Address = boost::endian::big_to_native(*(const uint32_t*)(localCurrentPos));
+                localCurrentPos += 4;
+                *currentPos = localCurrentPos;
+            }
+            else
+            {
+                result.update(Result::eError);
+            }
+        }
+        else
+        {
+            result.update(Result::eError);
+        }
+    }
 
     return result;
 }
@@ -52,13 +77,17 @@ Result AddressRecord::initializeFromBuffer(const char* startPos,
 void AddressRecord::writeBinary(std::ostream& stream) const
 {
     writeBinaryBase(stream);
-    stream.write("\x00\x01", 2);
+    stream.write("\x00\x04", 2);
     uint32_t tmp = boost::endian::native_to_big(m_IPv4Address);
     stream.write((const char*)&tmp, 4);
 }
 
 void AddressRecord::writeText(std::ostream& stream) const
 {
+    writeTextBase(stream);
+    stream << " ";
+    boost::asio::ip::address_v4 address(m_IPv4Address);
+    stream << address.to_string();
 }
 
 }
