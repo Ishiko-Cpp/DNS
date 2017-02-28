@@ -34,10 +34,15 @@ namespace DNS
 class MailExchangeRecord : public ResourceRecord
 {
 public:
-    MailExchangeRecord();
+    MailExchangeRecord(const std::string& domainName, uint32_t ttl,
+        uint16_t preference, const std::string& exchangeDomainName);
 
     void writeBinary(std::ostream& stream) const override;
     void writeText(std::ostream& stream) const override;
+
+private:
+    uint16_t m_PREFERENCE;
+    DomainName m_EXCHANGE;
 };
 
 }

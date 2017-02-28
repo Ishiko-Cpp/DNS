@@ -30,5 +30,6 @@ using namespace Ishiko::TestFramework;
 void AddMailExchangeRecordTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome MailExchangeRecordCreationTest1();
+TestResult::EOutcome MailExchangeRecordWriteBinaryTest1(FileComparisonTest& test);
 
 #endif

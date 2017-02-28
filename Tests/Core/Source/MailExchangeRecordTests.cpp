@@ -22,16 +22,33 @@
 
 #include "MailExchangeRecordTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include <fstream>
 
 void AddMailExchangeRecordTests(TestHarness& theTestHarness)
 {
     TestSequence& mailExchangeRecordTestSequence = theTestHarness.appendTestSequence("MailExchangeRecord tests");
 
     new HeapAllocationErrorsTest("Creation test 1", MailExchangeRecordCreationTest1, mailExchangeRecordTestSequence);
+
+    new FileComparisonTest("write test 1", MailExchangeRecordWriteBinaryTest1, mailExchangeRecordTestSequence);
 }
 
 TestResult::EOutcome MailExchangeRecordCreationTest1()
 {
-    Ishiko::DNS::MailExchangeRecord mailExchangeRecord;
+    Ishiko::DNS::MailExchangeRecord mailExchangeRecord("example.org.", 86400, 20, "mx.example.org");
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome MailExchangeRecordWriteBinaryTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "MailExchangeRecordWriteBinaryTest1.bin");
+    std::ofstream stream(outputPath.c_str(), std::ios::binary);
+
+    Ishiko::DNS::MailExchangeRecord mailExchangeRecord("example.org.", 86400, 20, "mx.example.org");
+    mailExchangeRecord.writeBinary(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "MailExchangeRecordWriteBinaryTest1.bin");
+
     return TestResult::ePassed;
 }

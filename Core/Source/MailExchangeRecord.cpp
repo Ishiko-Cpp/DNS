@@ -21,18 +21,30 @@
 */
 
 #include "MailExchangeRecord.h"
+#include <boost/endian/conversion.hpp>
 
 namespace Ishiko
 {
 namespace DNS
 {
 
-MailExchangeRecord::MailExchangeRecord()
+MailExchangeRecord::MailExchangeRecord(const std::string& domainName,
+                                       uint32_t ttl,
+                                       uint16_t preference,
+                                       const std::string& exchangeDomainName)
+    : ResourceRecord(domainName, TYPE_MX, CLASS_IN, ttl),
+    m_PREFERENCE(preference), m_EXCHANGE(exchangeDomainName)
 {
 }
 
 void MailExchangeRecord::writeBinary(std::ostream& stream) const
 {
+    writeBinaryBase(stream);
+    uint16_t tmp = boost::endian::native_to_big((uint16_t)(m_EXCHANGE.length() + 2));
+    stream.write((const char*)&tmp, 2);
+    tmp = boost::endian::native_to_big(m_PREFERENCE);
+    stream.write((const char*)&tmp, 2);
+    m_EXCHANGE.writeBinary(stream);
 }
 
 void MailExchangeRecord::writeText(std::ostream& stream) const
