@@ -22,16 +22,33 @@
 
 #include "TextRecordTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include <fstream>
 
 void AddTextRecordTests(TestHarness& theTestHarness)
 {
     TestSequence& textRecordTestSequence = theTestHarness.appendTestSequence("TextRecord tests");
 
     new HeapAllocationErrorsTest("Creation test 1", TextRecordCreationTest1, textRecordTestSequence);
+
+    new FileComparisonTest("write test 1", TextRecordWriteBinaryTest1, textRecordTestSequence);
 }
 
 TestResult::EOutcome TextRecordCreationTest1()
 {
-    Ishiko::DNS::TextRecord textRecord;
+    Ishiko::DNS::TextRecord textRecord("example.org.", 86400, "data");
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome TextRecordWriteBinaryTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "TextRecordWriteBinaryTest1.bin");
+    std::ofstream stream(outputPath.c_str(), std::ios::binary);
+
+    Ishiko::DNS::TextRecord textRecord("example.org.", 86400, "data");
+    textRecord.writeBinary(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "TextRecordWriteBinaryTest1.bin");
+
     return TestResult::ePassed;
 }

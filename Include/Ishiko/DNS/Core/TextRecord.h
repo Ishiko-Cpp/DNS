@@ -34,10 +34,14 @@ namespace DNS
 class TextRecord : public ResourceRecord
 {
 public:
-    TextRecord();
+    TextRecord(const std::string& domainName, uint32_t ttl,
+        const std::string& text);
 
     void writeBinary(std::ostream& stream) const override;
     void writeText(std::ostream& stream) const override;
+
+private:
+    std::string m_TXT;
 };
 
 }

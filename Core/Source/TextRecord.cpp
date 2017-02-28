@@ -21,18 +21,27 @@
 */
 
 #include "TextRecord.h"
+#include <boost/endian/conversion.hpp>
 
 namespace Ishiko
 {
 namespace DNS
 {
 
-TextRecord::TextRecord()
+TextRecord::TextRecord(const std::string& domainName,
+                       uint32_t ttl,
+                       const std::string& text)
+    : ResourceRecord(domainName, TYPE_TXT, CLASS_IN, ttl),
+    m_TXT(text)
 {
 }
 
 void TextRecord::writeBinary(std::ostream& stream) const
 {
+    writeBinaryBase(stream);
+    uint16_t tmp = boost::endian::native_to_big((uint16_t)m_TXT.size());
+    stream.write((const char*)&tmp, 2);
+    stream.write(m_TXT.c_str(), m_TXT.size());
 }
 
 void TextRecord::writeText(std::ostream& stream) const

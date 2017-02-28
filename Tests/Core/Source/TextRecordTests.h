@@ -30,5 +30,6 @@ using namespace Ishiko::TestFramework;
 void AddTextRecordTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome TextRecordCreationTest1();
+TestResult::EOutcome TextRecordWriteBinaryTest1(FileComparisonTest& test);
 
 #endif
