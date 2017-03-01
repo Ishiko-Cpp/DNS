@@ -34,10 +34,13 @@ namespace DNS
 class StartOfAuthorityRecord : public ResourceRecord
 {
 public:
+    StartOfAuthorityRecord();
     StartOfAuthorityRecord(const std::string& domainName, CLASS cl,
         uint32_t ttl, const std::string& authoritativeNameServer,
         const std::string& mailbox, uint32_t serial, uint32_t refresh,
         uint32_t retry, uint32_t expire, uint32_t minimum);
+    Result initializeFromBuffer(const char* startPos,
+        const char* endPos, const char** currentPos);
 
     // Returns the authoritative nameserver.
     const DomainName& mname() const;

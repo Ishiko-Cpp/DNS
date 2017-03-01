@@ -27,6 +27,10 @@ namespace Ishiko
 {
 namespace DNS
 {
+    
+StartOfAuthorityRecord::StartOfAuthorityRecord()
+{
+}
 
 StartOfAuthorityRecord::StartOfAuthorityRecord(const std::string& domainName, 
                                                CLASS cl,
@@ -42,6 +46,15 @@ StartOfAuthorityRecord::StartOfAuthorityRecord(const std::string& domainName,
     m_MNAME(authoritativeNameServer), m_RNAME(mailbox), m_SERIAL(serial),
     m_REFRESH(refresh), m_RETRY(retry), m_EXPIRE(expire), m_MINIMUM(minimum)
 {
+}
+
+Result StartOfAuthorityRecord::initializeFromBuffer(const char* startPos,
+                                                    const char* endPos,
+                                                    const char** currentPos)
+{
+    Result result(Result::eError);
+
+    return result;
 }
 
 const DomainName& StartOfAuthorityRecord::mname() const
