@@ -58,6 +58,11 @@ public:
     bool operator!=(const std::string& other) const;
 
 private:
+    static Result initializeFromBuffer(const char* startPos,
+        const char* endPos, const char** currentPos,
+        std::string& name);
+
+private:
     std::string m_name;
 };
 

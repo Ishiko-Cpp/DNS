@@ -41,59 +41,7 @@ Result DomainName::initializeFromBuffer(const char* startPos,
                                         const char* endPos,
                                         const char** currentPos)
 {
-    Result result(Result::eSuccess);
-
-    const char* localCurrentPos = *currentPos;
-
-    std::string newName;
-
-    if (localCurrentPos == endPos)
-    {
-        result.update(Result::eError);
-    }
-    else
-    {
-        uint8_t labelSize = static_cast<uint8_t>(*(localCurrentPos++));
-        while (labelSize)
-        {
-            if (labelSize > 63)
-            {
-                result.update(Result::eError);
-                break;
-            }
-
-            char buffer[63];
-            if ((localCurrentPos + labelSize) > endPos)
-            {
-                result.update(Result::eError);
-                break;
-            }
-            newName.append(localCurrentPos, labelSize);
-            newName.append(".");
-            localCurrentPos += labelSize;
-
-            if (newName.size() > 253)
-            {
-                result.update(Result::eError);
-                break;
-            }
-
-            if (localCurrentPos == endPos)
-            {
-                result.update(Result::eError);
-                break;
-            }
-            labelSize = static_cast<uint8_t>(*(localCurrentPos++));
-        }
-    }
-
-    if (result.succeeded())
-    {
-        m_name.swap(newName);
-        *currentPos = localCurrentPos;
-    }
-
-    return result;
+    return initializeFromBuffer(startPos, endPos, currentPos, m_name);
 }
 
 uint16_t DomainName::length() const
@@ -171,6 +119,87 @@ bool DomainName::operator!=(const DomainName& other) const
 bool DomainName::operator!=(const std::string& other) const
 {
     return (m_name != other);
+}
+
+Result DomainName::initializeFromBuffer(const char* startPos,
+                                        const char* endPos,
+                                        const char** currentPos,
+                                        std::string& name)
+{
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    std::string newName;
+
+    if (localCurrentPos == endPos)
+    {
+        result.update(Result::eError);
+    }
+    else
+    {
+        uint8_t labelSize = static_cast<uint8_t>(*(localCurrentPos++));
+        while (labelSize)
+        {
+            uint8_t mode = labelSize & 0xC0;
+            if (mode == 0x00)
+            {
+                char buffer[63];
+                if ((localCurrentPos + labelSize) > endPos)
+                {
+                    result.update(Result::eError);
+                    break;
+                }
+                newName.append(localCurrentPos, labelSize);
+                newName.append(".");
+                localCurrentPos += labelSize;
+
+                if (newName.size() > 253)
+                {
+                    result.update(Result::eError);
+                    break;
+                }
+
+                if (localCurrentPos == endPos)
+                {
+                    result.update(Result::eError);
+                    break;
+                }
+                labelSize = static_cast<uint8_t>(*(localCurrentPos++));
+            }
+            else if (mode == 0xC0)
+            {
+                if (localCurrentPos == endPos)
+                {
+                    result.update(Result::eError);
+                }
+                else
+                {
+                    uint8_t lowOffset = static_cast<uint8_t>(*(localCurrentPos++));
+                    uint16_t highOffset = ((labelSize & 0x3F) << 8);
+                    const char* tailPos = startPos + highOffset + lowOffset;
+                    std::string tailName;
+                    result.update(initializeFromBuffer(startPos, endPos, &tailPos, tailName));
+                    newName.append(".");
+                    newName.append(tailName);
+                }
+                break;
+            }
+            else
+            {
+                result.update(Result::eError);
+                break;
+            }
+        }
+    }
+
+    if (result.succeeded())
+    {
+        name.swap(newName);
+        *currentPos = localCurrentPos;
+    }
+
+    return result;
 }
 
 }
