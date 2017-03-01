@@ -28,6 +28,10 @@ namespace Ishiko
 namespace DNS
 {
 
+NameServerRecord::NameServerRecord()
+{
+}
+
 NameServerRecord::NameServerRecord(const std::string& domainName,
                                    CLASS cl, 
                                    uint32_t ttl, 
@@ -35,6 +39,15 @@ NameServerRecord::NameServerRecord(const std::string& domainName,
     : ResourceRecord(domainName, TYPE_NS, cl, ttl),
     m_NSDNAME(nsDomainName)
 {
+}
+
+Result NameServerRecord::initializeFromBuffer(const char* startPos,
+                                              const char* endPos,
+                                              const char** currentPos)
+{
+    Result result(Result::eError);
+
+    return result;
 }
 
 void NameServerRecord::writeBinary(std::ostream& stream) const

@@ -29,6 +29,10 @@ namespace Ishiko
 namespace DNS
 {
 
+TTL::TTL()
+{
+}
+
 TTL::TTL(uint32_t ttl)
     : m_TTL(ttl)
 {
@@ -37,6 +41,26 @@ TTL::TTL(uint32_t ttl)
 TTL::TTL(const std::string& ttl)
     : m_TTL(0), m_TTLString(ttl)
 {
+}
+
+Result TTL::initializeFromBuffer(const char* startPos,
+                                 const char* endPos,
+                                 const char** currentPos)
+{
+    Result result(Result::eSuccess);
+
+    if ((*currentPos + 4) <= endPos)
+    {
+        m_TTLString.clear();
+        m_TTL = boost::endian::big_to_native(*(const uint32_t*)(*currentPos));
+        *currentPos += 4;
+    }
+    else
+    {
+        result.update(Result::eError);
+    }
+
+    return result;
 }
 
 void TTL::writeBinary(std::ostream& stream) const

@@ -35,8 +35,11 @@ namespace DNS
 class NameServerRecord : public ResourceRecord
 {
 public:
+    NameServerRecord();
     NameServerRecord(const std::string& domainName, CLASS cl,
         uint32_t ttl, const std::string& nsDomainName);
+    Result initializeFromBuffer(const char* startPos,
+        const char* endPos, const char** currentPos);
 
     void writeBinary(std::ostream& stream) const override;
     void writeText(std::ostream& stream) const override;

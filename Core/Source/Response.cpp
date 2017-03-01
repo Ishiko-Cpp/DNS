@@ -33,6 +33,13 @@ Response::Response()
 }
 
 Result Response::initializeFromBuffer(const char* startPos,
+                                      const char* endPos)
+{
+    const char* currentPos = startPos;
+    return initializeFromBuffer(startPos, endPos, &currentPos);
+}
+
+Result Response::initializeFromBuffer(const char* startPos,
                                       const char* endPos,
                                       const char** currentPos)
 {

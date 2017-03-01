@@ -23,6 +23,7 @@
 #ifndef _ISHIKO_DNS_CORE_TTL_H_
 #define _ISHIKO_DNS_CORE_TTL_H_
 
+#include "Result.h"
 #include <string>
 #include <stdint.h>
 
@@ -38,8 +39,11 @@ namespace DNS
 class TTL
 {
 public:
+    TTL();
     TTL(uint32_t ttl);
     TTL(const std::string& ttl);
+    Result initializeFromBuffer(const char* startPos,
+        const char* endPos, const char** currentPos);
 
     void writeBinary(std::ostream& stream) const;
     void writeText(std::ostream& stream) const;
