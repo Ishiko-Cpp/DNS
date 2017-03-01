@@ -69,12 +69,16 @@ Result ResourceRecord::initializeFromBufferBase(const char* startPos,
     const char* localCurrentPos = *currentPos;
 
     if (m_NAME.initializeFromBuffer(startPos, endPos, &localCurrentPos).succeeded() &&
-        ((localCurrentPos + 2) <= endPos))
+        ((localCurrentPos + 4) <= endPos))
     {
         m_TYPE = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
         localCurrentPos += 2;
-
-        *currentPos = localCurrentPos;
+        m_CLASS = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+        localCurrentPos += 2;
+        if (result.update(m_TTL.initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+        {
+            *currentPos = localCurrentPos;
+        }
     }
     else
     {
