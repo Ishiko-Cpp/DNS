@@ -60,6 +60,8 @@ TestResult::EOutcome AuthorityMessageSectionWriteTest2(FileComparisonTest& test)
     std::ofstream stream(outputPath.c_str());
 
     Ishiko::DNS::AuthorityMessageSection authority;
+    std::shared_ptr<Ishiko::DNS::NameServerRecord> nsRecord = std::make_shared<Ishiko::DNS::NameServerRecord>("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN, 86400, "ns1.example.org.");
+    authority.appendResourceRecord(nsRecord);
     authority.write(stream);
 
     test.setOutputFilePath(outputPath);

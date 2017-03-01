@@ -29,6 +29,7 @@ void AddAddressRecordTests(TestHarness& theTestHarness)
     TestSequence& addressRecordTestSequence = theTestHarness.appendTestSequence("AddressRecord tests");
 
     new HeapAllocationErrorsTest("Creation test 1", AddressRecordCreationTest1, addressRecordTestSequence);
+
     new FileComparisonTest("write test 1", AddressRecordWriteBinaryTest1, addressRecordTestSequence);
 }
 
