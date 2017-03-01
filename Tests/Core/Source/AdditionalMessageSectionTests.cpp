@@ -60,6 +60,8 @@ TestResult::EOutcome AdditionalMessageSectionWriteTest2(FileComparisonTest& test
     std::ofstream stream(outputPath.c_str());
 
     Ishiko::DNS::AdditionalMessageSection additional;
+    std::shared_ptr<Ishiko::DNS::TextRecord> txtRecord = std::make_shared<Ishiko::DNS::TextRecord>("example.org.", 86400, "data");
+    additional.appendResourceRecord(txtRecord);
     additional.write(stream);
 
     test.setOutputFilePath(outputPath);
