@@ -31,6 +31,16 @@ AuthorityMessageSection::AuthorityMessageSection()
 {
 }
 
+const std::vector<std::shared_ptr<ResourceRecord> >& AuthorityMessageSection::resourceRecords() const
+{
+    return m_resourceRecords;
+}
+
+void AuthorityMessageSection::appendResourceRecord(std::shared_ptr<ResourceRecord> record)
+{
+    m_resourceRecords.push_back(record);
+}
+
 void AuthorityMessageSection::write(std::ostream& stream) const
 {
     for (auto i : m_resourceRecords)

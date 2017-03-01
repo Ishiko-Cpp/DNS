@@ -28,7 +28,9 @@
 #include "Core/ZoneFile.h"
 #include "Core/NameServerRecord.h"
 #include "Core/AddressRecord.h"
+#include "Core/IPv6AddressRecord.h"
 #include "Core/MailExchangeRecord.h"
+#include "Core/CanonicalNameRecord.h"
 #include "Core/TextRecord.h"
 
 #ifdef _DEBUG

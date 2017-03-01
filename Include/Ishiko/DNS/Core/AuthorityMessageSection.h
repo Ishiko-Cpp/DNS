@@ -38,6 +38,10 @@ class AuthorityMessageSection
 public:
     AuthorityMessageSection();
 
+    const std::vector<std::shared_ptr<ResourceRecord> >& resourceRecords() const;
+
+    void appendResourceRecord(std::shared_ptr<ResourceRecord> record);
+
     void write(std::ostream& stream) const;
 
 private:

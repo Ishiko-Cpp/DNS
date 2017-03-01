@@ -26,6 +26,8 @@
 #include "HeaderMessageSection.h"
 #include "QuestionMessageSection.h"
 #include "AnswerMessageSection.h"
+#include "AuthorityMessageSection.h"
+#include "AdditionalMessageSection.h"
 #include "Result.h"
 
 namespace Ishiko
@@ -37,6 +39,8 @@ class Response
 {
 public:
     Response();
+    Result initializeFromBuffer(const char* startPos,
+        const char* endPos);
     Result initializeFromBuffer(const char* startPos,
         const char* endPos, const char** currentPos);
 
@@ -50,8 +54,8 @@ private:
     HeaderMessageSection m_headerSection;
     QuestionMessageSection m_questionSection;
     AnswerMessageSection m_answerSection;
-    //IDNSEditableAuthorityMessageSection* mAuthority;
-    //IDNSEditableAdditionalRecordsMessageSection* mAdditionalRecords;
+    AuthorityMessageSection m_authoritySection;
+    AdditionalMessageSection m_additionalSection;
 };
 
 }
