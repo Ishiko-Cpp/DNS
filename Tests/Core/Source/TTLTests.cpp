@@ -22,6 +22,7 @@
 
 #include "TTLTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddTTLTests(TestHarness& theTestHarness)
@@ -29,10 +30,51 @@ void AddTTLTests(TestHarness& theTestHarness)
     TestSequence& ttlTestSequence = theTestHarness.appendTestSequence("TTL tests");
 
     new HeapAllocationErrorsTest("Creation test 1", TTLCreationTest1, ttlTestSequence);
+
+    new HeapAllocationErrorsTest("initializeFromBuffer test 1", TTLInitializeFromBufferTest1, ttlTestSequence);
+
+    new FileComparisonTest("write test 1", TTLWriteBinaryTest1, ttlTestSequence);
 }
 
 TestResult::EOutcome TTLCreationTest1()
 {
     Ishiko::DNS::TTL ttl(5);
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome TTLInitializeFromBufferTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "TTLInitializeFromBufferTest1.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::TTL ttl;
+        const char* currentPos = buffer;
+        if (ttl.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
+        {
+            if (ttl.asUInt32() == 5)
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome TTLWriteBinaryTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "TTLWriteBinaryTest1.bin");
+    std::ofstream stream(outputPath.c_str(), std::ios::binary);
+
+    Ishiko::DNS::TTL ttl(5);
+    ttl.writeBinary(stream);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "TTLWriteBinaryTest1.bin");
+
     return TestResult::ePassed;
 }

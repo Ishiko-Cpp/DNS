@@ -30,5 +30,7 @@ using namespace Ishiko::TestFramework;
 void AddTTLTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome TTLCreationTest1();
+TestResult::EOutcome TTLInitializeFromBufferTest1(Test& test);
+TestResult::EOutcome TTLWriteBinaryTest1(FileComparisonTest& test);
 
 #endif
