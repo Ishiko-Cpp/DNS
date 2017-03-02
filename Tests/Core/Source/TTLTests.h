@@ -31,6 +31,7 @@ void AddTTLTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome TTLCreationTest1();
 TestResult::EOutcome TTLInitializeFromBufferTest1(Test& test);
+TestResult::EOutcome TTLInitializeFromBufferTest2(Test& test);
 TestResult::EOutcome TTLWriteBinaryTest1(FileComparisonTest& test);
 
 #endif

@@ -32,6 +32,7 @@ void AddTTLTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", TTLCreationTest1, ttlTestSequence);
 
     new HeapAllocationErrorsTest("initializeFromBuffer test 1", TTLInitializeFromBufferTest1, ttlTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 2", TTLInitializeFromBufferTest2, ttlTestSequence);
 
     new FileComparisonTest("write test 1", TTLWriteBinaryTest1, ttlTestSequence);
 }
@@ -56,6 +57,29 @@ TestResult::EOutcome TTLInitializeFromBufferTest1(Test& test)
         if (ttl.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
         {
             if (ttl.asUInt32() == 5)
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome TTLInitializeFromBufferTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "TTLInitializeFromBufferTest2.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::TTL ttl(56);
+        const char* currentPos = buffer;
+        if (ttl.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if (ttl.asUInt32() == 56)
             {
                 result = TestResult::ePassed;
             }
