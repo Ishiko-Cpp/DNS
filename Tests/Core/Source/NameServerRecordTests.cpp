@@ -22,6 +22,7 @@
 
 #include "NameServerRecordTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddNameServerRecordTests(TestHarness& theTestHarness)
@@ -29,6 +30,11 @@ void AddNameServerRecordTests(TestHarness& theTestHarness)
     TestSequence& nsRecordTestSequence = theTestHarness.appendTestSequence("NameServerRecord tests");
 
     new HeapAllocationErrorsTest("Creation test 1", NameServerRecordCreationTest1, nsRecordTestSequence);
+
+    new HeapAllocationErrorsTest("initializeFromBuffer test 1", NameServerRecordInitializeFromBufferTest1, nsRecordTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 2", NameServerRecordInitializeFromBufferTest2, nsRecordTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 3", NameServerRecordInitializeFromBufferTest3, nsRecordTestSequence);
+
     new FileComparisonTest("write test 1", NameServerRecordWriteBinaryTest1, nsRecordTestSequence);
 }
 
@@ -36,6 +42,77 @@ TestResult::EOutcome NameServerRecordCreationTest1()
 {
     Ishiko::DNS::NameServerRecord nsRecord("example.org.", Ishiko::DNS::ResourceRecord::CLASS_IN, 86400, "ns1.example.org.");
     return TestResult::ePassed;
+}
+
+TestResult::EOutcome NameServerRecordInitializeFromBufferTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "NameServerRecordInitializeFromBufferTest1.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::NameServerRecord nsRecord;
+        const char* currentPos = buffer;
+        if (nsRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
+        {
+            if (nsRecord.nameServer() == "ns1.example.org.")
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+// Make sure we return an error if the size of the data is incorrect
+TestResult::EOutcome NameServerRecordInitializeFromBufferTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "NameServerRecordInitializeFromBufferTest2.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::NameServerRecord nsRecord;
+        const char* currentPos = buffer;
+        if (nsRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if (nsRecord.nameServer() == "")
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+// Return an error if the ns name is invalid
+TestResult::EOutcome NameServerRecordInitializeFromBufferTest3(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "NameServerRecordInitializeFromBufferTest3.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::NameServerRecord nsRecord;
+        const char* currentPos = buffer;
+        if (nsRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if (nsRecord.nameServer() == "")
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
 }
 
 TestResult::EOutcome NameServerRecordWriteBinaryTest1(FileComparisonTest& test)

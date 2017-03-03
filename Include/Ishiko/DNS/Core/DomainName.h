@@ -57,6 +57,8 @@ public:
     bool operator!=(const DomainName& other) const;
     bool operator!=(const std::string& other) const;
 
+    void swap(DomainName& other);
+
 private:
     static Result initializeFromBuffer(const char* startPos,
         const char* endPos, const char** currentPos,

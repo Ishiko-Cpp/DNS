@@ -121,6 +121,11 @@ bool DomainName::operator!=(const std::string& other) const
     return (m_name != other);
 }
 
+void DomainName::swap(DomainName& other)
+{
+    m_name.swap(other.m_name);
+}
+
 Result DomainName::initializeFromBuffer(const char* startPos,
                                         const char* endPos,
                                         const char** currentPos,

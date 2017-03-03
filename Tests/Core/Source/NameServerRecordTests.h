@@ -30,6 +30,9 @@ using namespace Ishiko::TestFramework;
 void AddNameServerRecordTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome NameServerRecordCreationTest1();
+TestResult::EOutcome NameServerRecordInitializeFromBufferTest1(Test& test);
+TestResult::EOutcome NameServerRecordInitializeFromBufferTest2(Test& test);
+TestResult::EOutcome NameServerRecordInitializeFromBufferTest3(Test& test);
 TestResult::EOutcome NameServerRecordWriteBinaryTest1(FileComparisonTest& test);
 
 #endif

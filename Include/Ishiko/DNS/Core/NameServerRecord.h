@@ -41,6 +41,8 @@ public:
     Result initializeFromBuffer(const char* startPos,
         const char* endPos, const char** currentPos);
 
+    const DomainName& nameServer() const;
+
     void writeBinary(std::ostream& stream) const override;
     void writeText(std::ostream& stream) const override;
 

@@ -45,9 +45,42 @@ Result NameServerRecord::initializeFromBuffer(const char* startPos,
                                               const char* endPos,
                                               const char** currentPos)
 {
-    Result result(Result::eError);
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    if (result.update(initializeFromBufferBase(startPos, endPos, &localCurrentPos)).succeeded())
+    {
+        if ((localCurrentPos + 2) <= endPos)
+        {
+            uint16_t size = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+            localCurrentPos += 2;
+            DomainName tempDomainName;
+            if (result.update(tempDomainName.initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+            {
+                if (size == tempDomainName.length())
+                {
+                    m_NSDNAME.swap(tempDomainName);
+                    *currentPos = localCurrentPos;
+                }
+                else
+                {
+                    result.update(Result::eError);
+                }
+            }
+        }
+        else
+        {
+            result.update(Result::eError);
+        }
+    }
 
     return result;
+}
+
+const DomainName& NameServerRecord::nameServer() const
+{
+    return m_NSDNAME;
 }
 
 void NameServerRecord::writeBinary(std::ostream& stream) const
