@@ -137,7 +137,7 @@ Result DomainName::initializeFromBuffer(const char* startPos,
 
     std::string newName;
 
-    if (localCurrentPos == endPos)
+    if (localCurrentPos >= endPos)
     {
         result.update(Result::eError);
     }

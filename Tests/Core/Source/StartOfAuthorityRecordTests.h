@@ -30,6 +30,9 @@ using namespace Ishiko::TestFramework;
 void AddStartOfAuthorityRecordTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome StartOfAuthorityRecordCreationTest1();
+TestResult::EOutcome StartOfAuthorityRecordInitializeFromBufferTest1(Test& test);
+TestResult::EOutcome StartOfAuthorityRecordInitializeFromBufferTest2(Test& test);
+TestResult::EOutcome StartOfAuthorityRecordInitializeFromBufferTest3(Test& test);
 TestResult::EOutcome StartOfAuthorityRecordWriteBinaryTest1(FileComparisonTest& test);
 
 #endif

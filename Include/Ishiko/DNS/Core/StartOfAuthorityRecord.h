@@ -36,14 +36,22 @@ class StartOfAuthorityRecord : public ResourceRecord
 public:
     StartOfAuthorityRecord();
     StartOfAuthorityRecord(const std::string& domainName, CLASS cl,
-        uint32_t ttl, const std::string& authoritativeNameServer,
+        uint32_t ttl, const std::string& primaryNameServer,
         const std::string& mailbox, uint32_t serial, uint32_t refresh,
         uint32_t retry, uint32_t expire, uint32_t minimum);
     Result initializeFromBuffer(const char* startPos,
         const char* endPos, const char** currentPos);
 
-    // Returns the authoritative nameserver.
+    // Returns the primary nameserver.
     const DomainName& mname() const;
+    // Returns the mailbox of the person responsible for this zone
+    // coded as a domain name
+    const DomainName& rname() const;
+    uint32_t serial() const;
+    uint32_t refresh() const;
+    uint32_t retry() const;
+    uint32_t expire() const;
+    uint32_t minimum() const;
 
     void writeBinary(std::ostream& stream) const override;
     void writeText(std::ostream& stream) const override;

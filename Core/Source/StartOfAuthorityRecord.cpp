@@ -35,7 +35,7 @@ StartOfAuthorityRecord::StartOfAuthorityRecord()
 StartOfAuthorityRecord::StartOfAuthorityRecord(const std::string& domainName, 
                                                CLASS cl,
                                                uint32_t ttl,
-                                               const std::string& authoritativeNameServer,
+                                               const std::string& primaryNameServer,
                                                const std::string& mailbox, 
                                                uint32_t serial,
                                                uint32_t refresh,
@@ -43,7 +43,7 @@ StartOfAuthorityRecord::StartOfAuthorityRecord(const std::string& domainName,
                                                uint32_t expire,
                                                uint32_t minimum)
     : ResourceRecord(domainName, TYPE_SOA, cl, ttl),
-    m_MNAME(authoritativeNameServer), m_RNAME(mailbox), m_SERIAL(serial),
+    m_MNAME(primaryNameServer), m_RNAME(mailbox), m_SERIAL(serial),
     m_REFRESH(refresh), m_RETRY(retry), m_EXPIRE(expire), m_MINIMUM(minimum)
 {
 }
@@ -52,7 +52,49 @@ Result StartOfAuthorityRecord::initializeFromBuffer(const char* startPos,
                                                     const char* endPos,
                                                     const char** currentPos)
 {
-    Result result(Result::eError);
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    if (result.update(initializeFromBufferBase(startPos, endPos, &localCurrentPos)).succeeded())
+    {
+        if ((localCurrentPos + 2) <= endPos)
+        {
+            uint16_t size = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+            localCurrentPos += 2;
+            DomainName localMNAME;
+            DomainName localRNAME;
+            if (result.update(localMNAME.initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded() && 
+                result.update(localRNAME.initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded() &&
+                ((localCurrentPos + 20) <= endPos) && 
+                (size == (localMNAME.length() + localRNAME.length() + 20)))
+            {
+                m_MNAME.swap(localMNAME);
+                m_RNAME.swap(localRNAME);
+
+                m_SERIAL = boost::endian::big_to_native(*(const uint32_t*)(localCurrentPos));
+                localCurrentPos += 4;
+                m_REFRESH = boost::endian::big_to_native(*(const uint32_t*)(localCurrentPos));
+                localCurrentPos += 4;
+                m_RETRY = boost::endian::big_to_native(*(const uint32_t*)(localCurrentPos));
+                localCurrentPos += 4;
+                m_EXPIRE = boost::endian::big_to_native(*(const uint32_t*)(localCurrentPos));
+                localCurrentPos += 4;
+                m_MINIMUM = boost::endian::big_to_native(*(const uint32_t*)(localCurrentPos));
+                localCurrentPos += 4;
+
+                *currentPos = localCurrentPos;
+            }
+            else
+            {
+                result.update(Result::eError);
+            }
+        }
+        else
+        {
+            result.update(Result::eError);
+        }
+    }
 
     return result;
 }
@@ -60,6 +102,36 @@ Result StartOfAuthorityRecord::initializeFromBuffer(const char* startPos,
 const DomainName& StartOfAuthorityRecord::mname() const
 {
     return m_MNAME;
+}
+
+const DomainName& StartOfAuthorityRecord::rname() const
+{
+    return m_RNAME;
+}
+
+uint32_t StartOfAuthorityRecord::serial() const
+{
+    return m_SERIAL;
+}
+
+uint32_t StartOfAuthorityRecord::refresh() const
+{
+    return m_REFRESH;
+}
+
+uint32_t StartOfAuthorityRecord::retry() const
+{
+    return m_RETRY;
+}
+
+uint32_t StartOfAuthorityRecord::expire() const
+{
+    return m_EXPIRE;
+}
+
+uint32_t StartOfAuthorityRecord::minimum() const
+{
+    return m_MINIMUM;
 }
 
 void StartOfAuthorityRecord::writeBinary(std::ostream& stream) const
