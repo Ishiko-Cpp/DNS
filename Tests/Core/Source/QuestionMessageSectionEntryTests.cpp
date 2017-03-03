@@ -22,6 +22,7 @@
 
 #include "QuestionMessageSectionEntryTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddQuestionMessageSectionEntryTests(TestHarness& theTestHarness)
@@ -29,6 +30,10 @@ void AddQuestionMessageSectionEntryTests(TestHarness& theTestHarness)
     TestSequence& entryTestSequence = theTestHarness.appendTestSequence("QuestionMessageSectionEntry tests");
 
     new HeapAllocationErrorsTest("Creation test 1", QuestionMessageSectionEntryCreationTest1, entryTestSequence);
+
+    new HeapAllocationErrorsTest("initializeFromBuffer test 1", QuestionMessageSectionEntryInitializeFromBufferTest1, entryTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 2", QuestionMessageSectionEntryInitializeFromBufferTest2, entryTestSequence);
+
     new FileComparisonTest("write test 1", QuestionMessageSectionEntryWriteTest1, entryTestSequence);
 }
 
@@ -38,6 +43,59 @@ TestResult::EOutcome QuestionMessageSectionEntryCreationTest1()
         Ishiko::DNS::QuestionMessageSectionEntry::QTYPE_A,
         Ishiko::DNS::QuestionMessageSectionEntry::QCLASS_IN);
     return TestResult::ePassed;
+}
+
+TestResult::EOutcome QuestionMessageSectionEntryInitializeFromBufferTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "QuestionMessageSectionEntryInitializeFromBufferTest1.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::QuestionMessageSectionEntry entry;
+        const char* currentPos = buffer;
+        if (entry.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
+        {
+            if ((entry.qname() == "www.dummy.com.") &&
+                (entry.qtype() == Ishiko::DNS::QuestionMessageSectionEntry::QTYPE_A) &&
+                (entry.qclass() == Ishiko::DNS::QuestionMessageSectionEntry::QCLASS_IN))
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+// Make sure we return an error if the data has been truncated
+TestResult::EOutcome QuestionMessageSectionEntryInitializeFromBufferTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "QuestionMessageSectionEntryInitializeFromBufferTest2.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::QuestionMessageSectionEntry entry("www.dummy2.com.",
+            Ishiko::DNS::QuestionMessageSectionEntry::QTYPE_A,
+            Ishiko::DNS::QuestionMessageSectionEntry::QCLASS_IN);
+        const char* currentPos = buffer;
+        if (entry.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if ((entry.qname() == "www.dummy2.com.") &&
+                (entry.qtype() == Ishiko::DNS::QuestionMessageSectionEntry::QTYPE_A) &&
+                (entry.qclass() == Ishiko::DNS::QuestionMessageSectionEntry::QCLASS_IN))
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
 }
 
 TestResult::EOutcome QuestionMessageSectionEntryWriteTest1(FileComparisonTest& test)
