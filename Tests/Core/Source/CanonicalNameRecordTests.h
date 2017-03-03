@@ -30,6 +30,9 @@ using namespace Ishiko::TestFramework;
 void AddCanonicalNameRecordTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome CanonicalNameRecordCreationTest1();
+TestResult::EOutcome CanonicalNameRecordInitializeFromBufferTest1(Test& test);
+TestResult::EOutcome CanonicalNameRecordInitializeFromBufferTest2(Test& test);
+TestResult::EOutcome CanonicalNameRecordInitializeFromBufferTest3(Test& test);
 TestResult::EOutcome CanonicalNameRecordWriteBinaryTest1(FileComparisonTest& test);
 
 #endif

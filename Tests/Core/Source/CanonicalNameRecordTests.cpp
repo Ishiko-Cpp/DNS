@@ -22,6 +22,7 @@
 
 #include "CanonicalNameRecordTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddCanonicalNameRecordTests(TestHarness& theTestHarness)
@@ -30,6 +31,10 @@ void AddCanonicalNameRecordTests(TestHarness& theTestHarness)
 
     new HeapAllocationErrorsTest("Creation test 1", CanonicalNameRecordCreationTest1, cnameRecordTestSequence);
 
+    new HeapAllocationErrorsTest("initializeFromBuffer test 1", CanonicalNameRecordInitializeFromBufferTest1, cnameRecordTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 2", CanonicalNameRecordInitializeFromBufferTest2, cnameRecordTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 3", CanonicalNameRecordInitializeFromBufferTest3, cnameRecordTestSequence);
+
     new FileComparisonTest("write test 1", CanonicalNameRecordWriteBinaryTest1, cnameRecordTestSequence);
 }
 
@@ -37,6 +42,77 @@ TestResult::EOutcome CanonicalNameRecordCreationTest1()
 {
     Ishiko::DNS::CanonicalNameRecord cnameRecord("www.example.org.", 86400, "example.org.");
     return TestResult::ePassed;
+}
+
+TestResult::EOutcome CanonicalNameRecordInitializeFromBufferTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "CanonicalNameRecordInitializeFromBufferTest1.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::CanonicalNameRecord cnameRecord;
+        const char* currentPos = buffer;
+        if (cnameRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
+        {
+            if (cnameRecord.cname() == "example.org.")
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+// Make sure we return an error if the size of the data is incorrect
+TestResult::EOutcome CanonicalNameRecordInitializeFromBufferTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "CanonicalNameRecordInitializeFromBufferTest2.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::CanonicalNameRecord cnameRecord("www.example.org.", 86400, "www2.example.org.");
+        const char* currentPos = buffer;
+        if (cnameRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if (cnameRecord.cname() == "www2.example.org.")
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+// Make sure we return an error if the domain name is corrupt
+TestResult::EOutcome CanonicalNameRecordInitializeFromBufferTest3(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "CanonicalNameRecordInitializeFromBufferTest3.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::CanonicalNameRecord cnameRecord("www.example.org.", 86400, "www2.example.org.");
+        const char* currentPos = buffer;
+        if (cnameRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if (cnameRecord.cname() == "www2.example.org.")
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
 }
 
 TestResult::EOutcome CanonicalNameRecordWriteBinaryTest1(FileComparisonTest& test)

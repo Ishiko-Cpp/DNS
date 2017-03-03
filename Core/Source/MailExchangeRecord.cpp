@@ -41,16 +41,6 @@ MailExchangeRecord::MailExchangeRecord(const std::string& domainName,
 {
 }
 
-uint16_t MailExchangeRecord::preference() const
-{
-    return m_PREFERENCE;
-}
-
-const DomainName& MailExchangeRecord::exchange() const
-{
-    return m_EXCHANGE;
-}
-
 Result MailExchangeRecord::initializeFromBuffer(const char* startPos,
                                                 const char* endPos,
                                                 const char** currentPos)
@@ -87,6 +77,16 @@ Result MailExchangeRecord::initializeFromBuffer(const char* startPos,
     }
 
     return result;
+}
+
+uint16_t MailExchangeRecord::preference() const
+{
+    return m_PREFERENCE;
+}
+
+const DomainName& MailExchangeRecord::exchange() const
+{
+    return m_EXCHANGE;
 }
 
 void MailExchangeRecord::writeBinary(std::ostream& stream) const

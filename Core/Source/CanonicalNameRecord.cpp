@@ -28,12 +28,58 @@ namespace Ishiko
 namespace DNS
 {
 
+CanonicalNameRecord::CanonicalNameRecord()
+{
+}
+
 CanonicalNameRecord::CanonicalNameRecord(const std::string& domainName,
                                          uint32_t ttl,
                                          const std::string& canonicalDomainName)
     : ResourceRecord(domainName, TYPE_CNAME, CLASS_IN, ttl),
     m_CNAME(canonicalDomainName)
 {
+}
+
+Result CanonicalNameRecord::initializeFromBuffer(const char* startPos,
+                                                 const char* endPos,
+                                                 const char** currentPos)
+{
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    if (result.update(initializeFromBufferBase(startPos, endPos, &localCurrentPos)).succeeded())
+    {
+        if ((localCurrentPos + 2) <= endPos)
+        {
+            uint16_t size = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+            localCurrentPos += 2;
+            DomainName tempDomainName;
+            if (result.update(tempDomainName.initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+            {
+                if (size == tempDomainName.length())
+                {
+                    m_CNAME.swap(tempDomainName);
+                    *currentPos = localCurrentPos;
+                }
+                else
+                {
+                    result.update(Result::eError);
+                }
+            }
+        }
+        else
+        {
+            result.update(Result::eError);
+        }
+    }
+
+    return result;
+}
+
+const DomainName& CanonicalNameRecord::cname() const
+{
+    return m_CNAME;
 }
 
 void CanonicalNameRecord::writeBinary(std::ostream& stream) const
