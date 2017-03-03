@@ -43,6 +43,11 @@ TTL::TTL(const std::string& ttl)
 {
 }
 
+uint32_t TTL::asUInt32() const
+{
+    return m_TTL;
+}
+
 Result TTL::initializeFromBuffer(const char* startPos,
                                  const char* endPos,
                                  const char** currentPos)

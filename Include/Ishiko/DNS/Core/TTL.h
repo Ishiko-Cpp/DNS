@@ -45,6 +45,8 @@ public:
     Result initializeFromBuffer(const char* startPos,
         const char* endPos, const char** currentPos);
 
+    uint32_t asUInt32() const;
+
     void writeBinary(std::ostream& stream) const;
     void writeText(std::ostream& stream) const;
 
