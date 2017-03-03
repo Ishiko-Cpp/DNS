@@ -28,12 +28,54 @@ namespace Ishiko
 namespace DNS
 {
 
+TextRecord::TextRecord()
+{
+}
+
 TextRecord::TextRecord(const std::string& domainName,
                        uint32_t ttl,
                        const std::string& text)
     : ResourceRecord(domainName, TYPE_TXT, CLASS_IN, ttl),
     m_TXT(text)
 {
+}
+
+Result TextRecord::initializeFromBuffer(const char* startPos,
+                                        const char* endPos,
+                                        const char** currentPos)
+{
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    if (result.update(initializeFromBufferBase(startPos, endPos, &localCurrentPos)).succeeded())
+    {
+        if ((localCurrentPos + 2) <= endPos)
+        {
+            uint16_t size = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+            localCurrentPos += 2;
+            if ((localCurrentPos + size) <= endPos)
+            {
+                m_TXT.assign(localCurrentPos, size);
+                *currentPos = localCurrentPos;
+            }
+            else
+            {
+                result.update(Result::eError);
+            }
+        }
+        else
+        {
+            result.update(Result::eError);
+        }
+    }
+
+    return result;
+}
+
+const std::string& TextRecord::text() const
+{
+    return m_TXT;
 }
 
 void TextRecord::writeBinary(std::ostream& stream) const
