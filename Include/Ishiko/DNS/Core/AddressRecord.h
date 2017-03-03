@@ -41,6 +41,8 @@ public:
     Result initializeFromBuffer(const char* startPos,
         const char* endPos, const char** currentPos);
 
+    boost::asio::ip::address_v4 IPAddress() const;
+
     void writeBinary(std::ostream& stream) const override;
     void writeText(std::ostream& stream) const override;
 

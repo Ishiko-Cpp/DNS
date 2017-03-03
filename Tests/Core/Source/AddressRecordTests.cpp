@@ -22,6 +22,7 @@
 
 #include "AddressRecordTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddAddressRecordTests(TestHarness& theTestHarness)
@@ -30,6 +31,10 @@ void AddAddressRecordTests(TestHarness& theTestHarness)
 
     new HeapAllocationErrorsTest("Creation test 1", AddressRecordCreationTest1, addressRecordTestSequence);
 
+    new HeapAllocationErrorsTest("initializeFromBuffer test 1", AddressRecordInitializeFromBufferTest1, addressRecordTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 2", AddressRecordInitializeFromBufferTest2, addressRecordTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 3", AddressRecordInitializeFromBufferTest3, addressRecordTestSequence);
+
     new FileComparisonTest("write test 1", AddressRecordWriteBinaryTest1, addressRecordTestSequence);
 }
 
@@ -37,6 +42,77 @@ TestResult::EOutcome AddressRecordCreationTest1()
 {
     Ishiko::DNS::AddressRecord addressRecord("example.org.", 86400, "127.0.0.1");
     return TestResult::ePassed;
+}
+
+TestResult::EOutcome AddressRecordInitializeFromBufferTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AddressRecordInitializeFromBufferTest1.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::AddressRecord addressRecord;
+        const char* currentPos = buffer;
+        if (addressRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
+        {
+            if (addressRecord.IPAddress().to_string() == "127.0.0.1")
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+// Make sure we return an error if the size of the data is incorrect
+TestResult::EOutcome AddressRecordInitializeFromBufferTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AddressRecordInitializeFromBufferTest2.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::AddressRecord addressRecord("example.org.", 86400, "0.0.0.0");
+        const char* currentPos = buffer;
+        if (addressRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if (addressRecord.IPAddress().to_string() == "0.0.0.0")
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+// Make sure we return an error if the data is truncated
+TestResult::EOutcome AddressRecordInitializeFromBufferTest3(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AddressRecordInitializeFromBufferTest3.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::AddressRecord addressRecord("example.org.", 86400, "0.0.0.0");
+        const char* currentPos = buffer;
+        if (addressRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if (addressRecord.IPAddress().to_string() == "0.0.0.0")
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
 }
 
 TestResult::EOutcome AddressRecordWriteBinaryTest1(FileComparisonTest& test)

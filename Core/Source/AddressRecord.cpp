@@ -74,6 +74,11 @@ Result AddressRecord::initializeFromBuffer(const char* startPos,
     return result;
 }
 
+boost::asio::ip::address_v4 AddressRecord::IPAddress() const
+{
+    return boost::asio::ip::address_v4(m_IPv4Address);
+}
+
 void AddressRecord::writeBinary(std::ostream& stream) const
 {
     writeBinaryBase(stream);
