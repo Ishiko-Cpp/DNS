@@ -66,6 +66,7 @@ public:
     const DomainName& name() const;
     TYPE type() const;
     CLASS cl() const;
+    const TTL& ttl() const;
 
 protected:
     Result initializeFromBufferBase(const char* startPos,

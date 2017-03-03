@@ -60,6 +60,11 @@ ResourceRecord::CLASS ResourceRecord::cl() const
     return (ResourceRecord::CLASS)m_CLASS;
 }
 
+const TTL& ResourceRecord::ttl() const
+{
+    return m_TTL;
+}
+
 Result ResourceRecord::initializeFromBufferBase(const char* startPos,
                                                 const char* endPos,
                                                 const char** currentPos)
