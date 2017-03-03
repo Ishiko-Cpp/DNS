@@ -30,6 +30,9 @@ using namespace Ishiko::TestFramework;
 void AddIPv6AddressRecordTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome IPv6AddressRecordCreationTest1();
+TestResult::EOutcome IPv6AddressRecordInitializeFromBufferTest1(Test& test);
+TestResult::EOutcome IPv6AddressRecordInitializeFromBufferTest2(Test& test);
+TestResult::EOutcome IPv6AddressRecordInitializeFromBufferTest3(Test& test);
 TestResult::EOutcome IPv6AddressRecordWriteBinaryTest1(FileComparisonTest& test);
 
 #endif

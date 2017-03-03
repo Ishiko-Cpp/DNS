@@ -21,11 +21,16 @@
 */
 
 #include "IPv6AddressRecord.h"
+#include <boost/endian/conversion.hpp>
 
 namespace Ishiko
 {
 namespace DNS
 {
+
+IPv6AddressRecord::IPv6AddressRecord()
+{
+}
 
 IPv6AddressRecord::IPv6AddressRecord(const std::string& domainName,
                                      uint32_t ttl,
@@ -33,6 +38,45 @@ IPv6AddressRecord::IPv6AddressRecord(const std::string& domainName,
     : ResourceRecord(domainName, TYPE_AAAA, CLASS_IN, ttl)
 {
     m_IPv6Address = boost::asio::ip::address_v6::from_string(address).to_bytes();
+}
+
+Result IPv6AddressRecord::initializeFromBuffer(const char* startPos,
+                                               const char* endPos,
+                                               const char** currentPos)
+{
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    if (result.update(initializeFromBufferBase(startPos, endPos, &localCurrentPos)).succeeded())
+    {
+        if ((localCurrentPos + 18) <= endPos)
+        {
+            uint16_t size = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+            localCurrentPos += 2;
+            if (size == 16)
+            {
+                memcpy(m_IPv6Address.data(), localCurrentPos, 16);
+                localCurrentPos += 16;
+                *currentPos = localCurrentPos;
+            }
+            else
+            {
+                result.update(Result::eError);
+            }
+        }
+        else
+        {
+            result.update(Result::eError);
+        }
+    }
+
+    return result;
+}
+
+boost::asio::ip::address_v6 IPv6AddressRecord::IPAddress() const
+{
+    return boost::asio::ip::address_v6(m_IPv6Address);
 }
 
 void IPv6AddressRecord::writeBinary(std::ostream& stream) const
