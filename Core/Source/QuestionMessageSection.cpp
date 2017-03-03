@@ -48,15 +48,18 @@ Result QuestionMessageSection::initializeFromBuffer(uint16_t count,
 
     const char* localCurrentPos = *currentPos;
 
+    std::vector<std::shared_ptr<QuestionMessageSectionEntry> > newEntries;
+
     for (size_t i = 0; i < count; ++i)
     {
         std::shared_ptr<QuestionMessageSectionEntry> newEntry = std::make_shared<QuestionMessageSectionEntry>();
         result.update(newEntry->initializeFromBuffer(startPos, endPos, &localCurrentPos));
-        m_entries.push_back(newEntry);
+        newEntries.push_back(newEntry);
     }
 
     if (result.succeeded())
     {
+        m_entries.swap(newEntries);
         *currentPos = localCurrentPos;
     }
 
