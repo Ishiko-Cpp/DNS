@@ -30,6 +30,9 @@ using namespace Ishiko::TestFramework;
 void AddAnswerMessageSectionTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome AnswerMessageSectionCreationTest1();
+TestResult::EOutcome AnswerMessageSectionInitializeFromBufferTest1(Test& test);
+TestResult::EOutcome AnswerMessageSectionInitializeFromBufferTest2(Test& test);
+TestResult::EOutcome AnswerMessageSectionInitializeFromBufferTest3(Test& test);
 TestResult::EOutcome AnswerMessageSectionWriteTest1(FileComparisonTest& test);
 TestResult::EOutcome AnswerMessageSectionWriteTest2(FileComparisonTest& test);
 

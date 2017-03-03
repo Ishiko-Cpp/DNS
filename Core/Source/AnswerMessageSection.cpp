@@ -22,6 +22,8 @@
 
 #include "AnswerMessageSection.h"
 #include "AddressRecord.h"
+#include "NameServerRecord.h"
+#include "StartOfAuthorityRecord.h"
 #include <boost/endian/conversion.hpp>
 
 namespace Ishiko
@@ -42,30 +44,54 @@ Result AnswerMessageSection::initializeFromBuffer(uint16_t count,
 
     const char* localCurrentPos = *currentPos;
 
-    for (size_t i = 0; i < count; ++i)
+    std::vector<std::shared_ptr<ResourceRecord> > newResourceRecords;
+
+    for (size_t i = 0; (i < count) && result.succeeded(); ++i)
     {
+        const char* tempPos = localCurrentPos;
         DomainName domainName;
-        domainName.initializeFromBuffer(startPos, endPos, &localCurrentPos);
-
-        uint16_t type = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
-        localCurrentPos += 2;
-
-        switch (type)
+        result.update(domainName.initializeFromBuffer(startPos, endPos, &tempPos));
+        if (result.succeeded())
         {
-        case ResourceRecord::TYPE_A:
+            uint16_t type = boost::endian::big_to_native(*(const uint16_t*)(tempPos));
+            
+            switch (type)
             {
-                std::shared_ptr<AddressRecord> newRecord = std::make_shared<AddressRecord>();
-                result.update(newRecord->initializeFromBuffer(startPos, endPos, &localCurrentPos));
-                m_resourceRecords.push_back(newRecord);
+            case ResourceRecord::TYPE_A:
+                {
+                    std::shared_ptr<AddressRecord> newRecord = std::make_shared<AddressRecord>();
+                    result.update(newRecord->initializeFromBuffer(startPos, endPos, &localCurrentPos));
+                    newResourceRecords.push_back(newRecord);
+                }
+                break;
+
+            case ResourceRecord::TYPE_NS:
+                {
+                    std::shared_ptr<NameServerRecord> newRecord = std::make_shared<NameServerRecord>();
+                    result.update(newRecord->initializeFromBuffer(startPos, endPos, &localCurrentPos));
+                    newResourceRecords.push_back(newRecord);
+                }
+                break;
+
+            case ResourceRecord::TYPE_SOA:
+                {
+                    std::shared_ptr<StartOfAuthorityRecord> newRecord = std::make_shared<StartOfAuthorityRecord>();
+                    result.update(newRecord->initializeFromBuffer(startPos, endPos, &localCurrentPos));
+                    newResourceRecords.push_back(newRecord);
+                }
+                break;
+
+            default:
+                result.update(Result::eError);
+                break;
             }
-            break;
+        }
+    }
 
-        case ResourceRecord::TYPE_NS:
-            break;
-
-        case ResourceRecord::TYPE_SOA:
-            break;
-        }    
+    if (result.succeeded())
+    {
+        m_resourceRecords.swap(newResourceRecords);
+        *currentPos = localCurrentPos;
     }
 
     return result;
