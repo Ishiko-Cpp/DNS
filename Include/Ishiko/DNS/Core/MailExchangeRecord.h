@@ -34,8 +34,14 @@ namespace DNS
 class MailExchangeRecord : public ResourceRecord
 {
 public:
+    MailExchangeRecord();
     MailExchangeRecord(const std::string& domainName, uint32_t ttl,
         uint16_t preference, const std::string& exchangeDomainName);
+    Result initializeFromBuffer(const char* startPos,
+        const char* endPos, const char** currentPos);
+
+    uint16_t preference() const;
+    const DomainName& exchange() const;
 
     void writeBinary(std::ostream& stream) const override;
     void writeText(std::ostream& stream) const override;

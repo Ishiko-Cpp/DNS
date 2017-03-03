@@ -28,6 +28,10 @@ namespace Ishiko
 namespace DNS
 {
 
+MailExchangeRecord::MailExchangeRecord()
+{
+}
+
 MailExchangeRecord::MailExchangeRecord(const std::string& domainName,
                                        uint32_t ttl,
                                        uint16_t preference,
@@ -35,6 +39,54 @@ MailExchangeRecord::MailExchangeRecord(const std::string& domainName,
     : ResourceRecord(domainName, TYPE_MX, CLASS_IN, ttl),
     m_PREFERENCE(preference), m_EXCHANGE(exchangeDomainName)
 {
+}
+
+uint16_t MailExchangeRecord::preference() const
+{
+    return m_PREFERENCE;
+}
+
+const DomainName& MailExchangeRecord::exchange() const
+{
+    return m_EXCHANGE;
+}
+
+Result MailExchangeRecord::initializeFromBuffer(const char* startPos,
+                                                const char* endPos,
+                                                const char** currentPos)
+{
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    if (result.update(initializeFromBufferBase(startPos, endPos, &localCurrentPos)).succeeded())
+    {
+        if ((localCurrentPos + 4) <= endPos)
+        {
+            uint16_t size = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+            localCurrentPos += 2;
+            uint16_t preference = boost::endian::big_to_native(*(const uint16_t*)(localCurrentPos));
+            localCurrentPos += 2;
+            DomainName tempDomainName;
+            if (result.update(tempDomainName.initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded() &&
+                (size == (2 + tempDomainName.length())))
+            {
+                m_PREFERENCE = preference;
+                m_EXCHANGE.swap(tempDomainName);
+                *currentPos = localCurrentPos;
+            }
+            else
+            {
+                result.update(Result::eError);
+            }
+        }
+        else
+        {
+            result.update(Result::eError);
+        }
+    }
+
+    return result;
 }
 
 void MailExchangeRecord::writeBinary(std::ostream& stream) const

@@ -22,6 +22,7 @@
 
 #include "MailExchangeRecordTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddMailExchangeRecordTests(TestHarness& theTestHarness)
@@ -30,6 +31,10 @@ void AddMailExchangeRecordTests(TestHarness& theTestHarness)
 
     new HeapAllocationErrorsTest("Creation test 1", MailExchangeRecordCreationTest1, mailExchangeRecordTestSequence);
 
+    new HeapAllocationErrorsTest("initializeFromBuffer test 1", MailExchangeRecordInitializeFromBufferTest1, mailExchangeRecordTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 2", MailExchangeRecordInitializeFromBufferTest2, mailExchangeRecordTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 3", MailExchangeRecordInitializeFromBufferTest3, mailExchangeRecordTestSequence);
+
     new FileComparisonTest("write test 1", MailExchangeRecordWriteBinaryTest1, mailExchangeRecordTestSequence);
 }
 
@@ -37,6 +42,80 @@ TestResult::EOutcome MailExchangeRecordCreationTest1()
 {
     Ishiko::DNS::MailExchangeRecord mailExchangeRecord("example.org.", 86400, 20, "mx.example.org");
     return TestResult::ePassed;
+}
+
+TestResult::EOutcome MailExchangeRecordInitializeFromBufferTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "MailExchangeRecordInitializeFromBufferTest1.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::MailExchangeRecord mailExchangeRecord;
+        const char* currentPos = buffer;
+        if (mailExchangeRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).succeeded())
+        {
+            if ((mailExchangeRecord.preference() == 20) &&
+                (mailExchangeRecord.exchange() == "mx.example.org."))
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+// Make sure we return an error if the size of the data is incorrect
+TestResult::EOutcome MailExchangeRecordInitializeFromBufferTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "MailExchangeRecordInitializeFromBufferTest2.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::MailExchangeRecord mailExchangeRecord("example.org.", 86400, 10, "mx2.example.org.");
+        const char* currentPos = buffer;
+        if (mailExchangeRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if ((mailExchangeRecord.preference() == 10) &&
+                (mailExchangeRecord.exchange() == "mx2.example.org."))
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+// Make sure we return an error if the data is truncated
+TestResult::EOutcome MailExchangeRecordInitializeFromBufferTest3(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "MailExchangeRecordInitializeFromBufferTest3.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r > 0)
+    {
+        Ishiko::DNS::MailExchangeRecord mailExchangeRecord("example.org.", 86400, 10, "mx2.example.org.");
+        const char* currentPos = buffer;
+        if (mailExchangeRecord.initializeFromBuffer(buffer, buffer + r, &currentPos).failed())
+        {
+            if ((mailExchangeRecord.preference() == 10) &&
+                (mailExchangeRecord.exchange() == "mx2.example.org."))
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
 }
 
 TestResult::EOutcome MailExchangeRecordWriteBinaryTest1(FileComparisonTest& test)
