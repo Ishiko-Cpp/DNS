@@ -37,6 +37,8 @@ class AuthorityMessageSection
 {
 public:
     AuthorityMessageSection();
+    Result initializeFromBuffer(uint16_t count, const char* startPos,
+        const char* endPos, const char** currentPos);
 
     const std::vector<std::shared_ptr<ResourceRecord> >& resourceRecords() const;
 

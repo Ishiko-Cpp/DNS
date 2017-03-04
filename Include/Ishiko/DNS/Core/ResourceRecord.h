@@ -55,6 +55,10 @@ public:
     };
 
 public:
+    static Result createFromBuffer(const char* startPos,
+        const char* endPos, const char** currentPos,
+        std::shared_ptr<ResourceRecord>& newRecord);
+
     ResourceRecord();
     ResourceRecord(const std::string& domainName,
         TYPE type, CLASS cl, uint32_t ttl);

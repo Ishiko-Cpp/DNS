@@ -31,6 +31,34 @@ AuthorityMessageSection::AuthorityMessageSection()
 {
 }
 
+Result AuthorityMessageSection::initializeFromBuffer(uint16_t count,
+                                                     const char* startPos,
+                                                     const char* endPos, 
+                                                     const char** currentPos)
+{
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    std::vector<std::shared_ptr<ResourceRecord> > newResourceRecords;
+    for (size_t i = 0; (i < count) && result.succeeded(); ++i)
+    {
+        std::shared_ptr<ResourceRecord> newRecord;
+        if (result.update(ResourceRecord::createFromBuffer(startPos, endPos, &localCurrentPos, newRecord)).succeeded())
+        {
+            newResourceRecords.push_back(newRecord);
+        }
+    }
+
+    if (result.succeeded())
+    {
+        m_resourceRecords.swap(newResourceRecords);
+        *currentPos = localCurrentPos;
+    }
+
+    return result;
+}
+
 const std::vector<std::shared_ptr<ResourceRecord> >& AuthorityMessageSection::resourceRecords() const
 {
     return m_resourceRecords;

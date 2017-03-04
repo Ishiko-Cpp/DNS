@@ -21,12 +21,72 @@
 */
 
 #include "ResourceRecord.h"
+#include "AddressRecord.h"
+#include "NameServerRecord.h"
+#include "StartOfAuthorityRecord.h"
 #include <boost/endian/conversion.hpp>
 
 namespace Ishiko
 {
 namespace DNS
 {
+
+Result ResourceRecord::createFromBuffer(const char* startPos,
+                                        const char* endPos, 
+                                        const char** currentPos,
+                                        std::shared_ptr<ResourceRecord>& newRecord)
+{
+    Result result(Result::eSuccess);
+
+    const char* localCurrentPos = *currentPos;
+
+    const char* tempPos = localCurrentPos;
+    DomainName domainName;
+    result.update(domainName.initializeFromBuffer(startPos, endPos, &tempPos));
+    if (result.succeeded())
+    {
+        uint16_t type = boost::endian::big_to_native(*(const uint16_t*)(tempPos));
+
+        switch (type)
+        {
+        case ResourceRecord::TYPE_A:
+        {
+            std::shared_ptr<AddressRecord> record = std::make_shared<AddressRecord>();
+            if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+            {
+                newRecord = record;
+            }
+        }
+        break;
+
+        case ResourceRecord::TYPE_NS:
+        {
+            std::shared_ptr<NameServerRecord> record = std::make_shared<NameServerRecord>();
+            if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+            {
+                newRecord = record;
+            }
+        }
+        break;
+
+        case ResourceRecord::TYPE_SOA:
+        {
+            std::shared_ptr<StartOfAuthorityRecord> record = std::make_shared<StartOfAuthorityRecord>();
+            if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+            {
+                newRecord = record;
+            }
+        }
+        break;
+
+        default:
+            result.update(Result::eError);
+            break;
+        }
+    }
+
+    return result;
+}
 
 ResourceRecord::ResourceRecord()
     : m_TTL(0)
