@@ -38,7 +38,6 @@ class AnswerMessageSection
 {
 public:
     AnswerMessageSection();
-
     Result initializeFromBuffer(uint16_t count, const char* startPos,
         const char* endPos, const char** currentPos);
 

@@ -21,10 +21,6 @@
 */
 
 #include "AnswerMessageSection.h"
-#include "AddressRecord.h"
-#include "NameServerRecord.h"
-#include "StartOfAuthorityRecord.h"
-#include <boost/endian/conversion.hpp>
 
 namespace Ishiko
 {
@@ -45,46 +41,12 @@ Result AnswerMessageSection::initializeFromBuffer(uint16_t count,
     const char* localCurrentPos = *currentPos;
 
     std::vector<std::shared_ptr<ResourceRecord> > newResourceRecords;
-
     for (size_t i = 0; (i < count) && result.succeeded(); ++i)
     {
-        const char* tempPos = localCurrentPos;
-        DomainName domainName;
-        result.update(domainName.initializeFromBuffer(startPos, endPos, &tempPos));
-        if (result.succeeded())
+        std::shared_ptr<ResourceRecord> newRecord;
+        if (result.update(ResourceRecord::createFromBuffer(startPos, endPos, &localCurrentPos, newRecord)).succeeded())
         {
-            uint16_t type = boost::endian::big_to_native(*(const uint16_t*)(tempPos));
-            
-            switch (type)
-            {
-            case ResourceRecord::TYPE_A:
-                {
-                    std::shared_ptr<AddressRecord> newRecord = std::make_shared<AddressRecord>();
-                    result.update(newRecord->initializeFromBuffer(startPos, endPos, &localCurrentPos));
-                    newResourceRecords.push_back(newRecord);
-                }
-                break;
-
-            case ResourceRecord::TYPE_NS:
-                {
-                    std::shared_ptr<NameServerRecord> newRecord = std::make_shared<NameServerRecord>();
-                    result.update(newRecord->initializeFromBuffer(startPos, endPos, &localCurrentPos));
-                    newResourceRecords.push_back(newRecord);
-                }
-                break;
-
-            case ResourceRecord::TYPE_SOA:
-                {
-                    std::shared_ptr<StartOfAuthorityRecord> newRecord = std::make_shared<StartOfAuthorityRecord>();
-                    result.update(newRecord->initializeFromBuffer(startPos, endPos, &localCurrentPos));
-                    newResourceRecords.push_back(newRecord);
-                }
-                break;
-
-            default:
-                result.update(Result::eError);
-                break;
-            }
+            newResourceRecords.push_back(newRecord);
         }
     }
 

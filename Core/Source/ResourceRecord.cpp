@@ -23,7 +23,11 @@
 #include "ResourceRecord.h"
 #include "AddressRecord.h"
 #include "NameServerRecord.h"
+#include "CanonicalNameRecord.h"
 #include "StartOfAuthorityRecord.h"
+#include "MailExchangeRecord.h"
+#include "TextRecord.h"
+#include "IPv6AddressRecord.h"
 #include <boost/endian/conversion.hpp>
 
 namespace Ishiko
@@ -49,39 +53,80 @@ Result ResourceRecord::createFromBuffer(const char* startPos,
 
         switch (type)
         {
-        case ResourceRecord::TYPE_A:
-        {
-            std::shared_ptr<AddressRecord> record = std::make_shared<AddressRecord>();
-            if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
-            {
-                newRecord = record;
-            }
-        }
-        break;
+            case ResourceRecord::TYPE_A:
+                {
+                    std::shared_ptr<AddressRecord> record = std::make_shared<AddressRecord>();
+                    if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+                    {
+                        newRecord = record;
+                    }
+                }
+                break;
 
-        case ResourceRecord::TYPE_NS:
-        {
-            std::shared_ptr<NameServerRecord> record = std::make_shared<NameServerRecord>();
-            if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
-            {
-                newRecord = record;
-            }
-        }
-        break;
+            case ResourceRecord::TYPE_NS:
+                {
+                    std::shared_ptr<NameServerRecord> record = std::make_shared<NameServerRecord>();
+                    if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+                    {
+                        newRecord = record;
+                    }
+                }
+                break;
 
-        case ResourceRecord::TYPE_SOA:
-        {
-            std::shared_ptr<StartOfAuthorityRecord> record = std::make_shared<StartOfAuthorityRecord>();
-            if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
-            {
-                newRecord = record;
-            }
-        }
-        break;
+            case ResourceRecord::TYPE_CNAME:
+                {
+                    std::shared_ptr<CanonicalNameRecord> record = std::make_shared<CanonicalNameRecord>();
+                    if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+                    {
+                        newRecord = record;
+                    }
+                }
+                break;
 
-        default:
-            result.update(Result::eError);
-            break;
+            case ResourceRecord::TYPE_SOA:
+                {
+                    std::shared_ptr<StartOfAuthorityRecord> record = std::make_shared<StartOfAuthorityRecord>();
+                    if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+                    {
+                        newRecord = record;
+                    }
+                }
+                break;
+
+
+            case ResourceRecord::TYPE_MX:
+                {
+                    std::shared_ptr<MailExchangeRecord> record = std::make_shared<MailExchangeRecord>();
+                    if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+                    {
+                        newRecord = record;
+                    }
+                }
+                break;
+
+            case ResourceRecord::TYPE_TXT:
+                {
+                    std::shared_ptr<TextRecord> record = std::make_shared<TextRecord>();
+                    if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+                    {
+                        newRecord = record;
+                    }
+                }
+                break;
+
+            case ResourceRecord::TYPE_AAAA:
+                {
+                    std::shared_ptr<IPv6AddressRecord> record = std::make_shared<IPv6AddressRecord>();
+                    if (result.update(record->initializeFromBuffer(startPos, endPos, &localCurrentPos)).succeeded())
+                    {
+                        newRecord = record;
+                    }
+                }
+                break;
+
+            default:
+                result.update(Result::eError);
+                break;
         }
     }
 
