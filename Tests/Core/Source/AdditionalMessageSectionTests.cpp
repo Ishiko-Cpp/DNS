@@ -22,6 +22,7 @@
 
 #include "AdditionalMessageSectionTests.h"
 #include "Ishiko/DNS/DNSCore.h"
+#include "Ishiko/FileSystem/Utilities.h"
 #include <fstream>
 
 void AddAdditionalMessageSectionTests(TestHarness& theTestHarness)
@@ -29,6 +30,10 @@ void AddAdditionalMessageSectionTests(TestHarness& theTestHarness)
     TestSequence& additionalTestSequence = theTestHarness.appendTestSequence("AdditionalMessageSection tests");
 
     new HeapAllocationErrorsTest("Creation test 1", AdditionalMessageSectionCreationTest1, additionalTestSequence);
+
+    new HeapAllocationErrorsTest("initializeFromBuffer test 1", AdditionalMessageSectionInitializeFromBufferTest1, additionalTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 2", AdditionalMessageSectionInitializeFromBufferTest2, additionalTestSequence);
+    new HeapAllocationErrorsTest("initializeFromBuffer test 3", AdditionalMessageSectionInitializeFromBufferTest3, additionalTestSequence);
 
     new FileComparisonTest("write test 1", AdditionalMessageSectionWriteTest1, additionalTestSequence);
     new FileComparisonTest("write test 2", AdditionalMessageSectionWriteTest2, additionalTestSequence);
@@ -38,6 +43,81 @@ TestResult::EOutcome AdditionalMessageSectionCreationTest1()
 {
     Ishiko::DNS::AdditionalMessageSection additional;
     return TestResult::ePassed;
+}
+
+TestResult::EOutcome AdditionalMessageSectionInitializeFromBufferTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AdditionalMessageSectionInitializeFromBufferTest1.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r >= 0)
+    {
+        Ishiko::DNS::AdditionalMessageSection additional;
+        std::shared_ptr<Ishiko::DNS::TextRecord> txtRecord = std::make_shared<Ishiko::DNS::TextRecord>("example.org.", 86400, "data");
+        additional.appendResourceRecord(txtRecord);
+        const char* currentPos = buffer;
+        if (additional.initializeFromBuffer(0, buffer, buffer + r, &currentPos).succeeded())
+        {
+            if (additional.resourceRecords().size() == 0)
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome AdditionalMessageSectionInitializeFromBufferTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AdditionalMessageSectionInitializeFromBufferTest2.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r >= 0)
+    {
+        Ishiko::DNS::AdditionalMessageSection additional;
+        const char* currentPos = buffer;
+        if (additional.initializeFromBuffer(1, buffer, buffer + r, &currentPos).succeeded())
+        {
+            if (additional.resourceRecords().size() == 1)
+            {
+                std::shared_ptr<Ishiko::DNS::TextRecord> record = std::dynamic_pointer_cast<Ishiko::DNS::TextRecord>(additional.resourceRecords()[0]);
+                if (record && (record->text() == "data"))
+                {
+                    result = TestResult::ePassed;
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome AdditionalMessageSectionInitializeFromBufferTest3(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AdditionalMessageSectionInitializeFromBufferTest3.bin");
+    char buffer[512];
+    int r = Ishiko::FileSystem::Utilities::readFile(inputPath.string().c_str(), buffer, 512);
+    if (r >= 0)
+    {
+        Ishiko::DNS::AdditionalMessageSection additional;
+        const char* currentPos = buffer;
+        if (additional.initializeFromBuffer(1, buffer, buffer + r, &currentPos).failed())
+        {
+            if (additional.resourceRecords().size() == 0)
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
 }
 
 TestResult::EOutcome AdditionalMessageSectionWriteTest1(FileComparisonTest& test)
