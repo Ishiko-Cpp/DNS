@@ -34,5 +34,6 @@ TestResult::EOutcome HeaderMessageSectionInitializeFromBufferTest1(Test& test);
 TestResult::EOutcome HeaderMessageSectionInitializeFromBufferTest2(Test& test);
 TestResult::EOutcome HeaderMessageSectionWriteTest1(FileComparisonTest& test);
 TestResult::EOutcome HeaderMessageSectionWriteTest2(FileComparisonTest& test);
+TestResult::EOutcome HeaderMessageSectionSwapTest1();
 
 #endif

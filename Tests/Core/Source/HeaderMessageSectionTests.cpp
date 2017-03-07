@@ -35,6 +35,8 @@ void AddHeaderMessageSectionTests(TestHarness& theTestHarness)
 
     new FileComparisonTest("write test 1", HeaderMessageSectionWriteTest1, headerTestSequence);
     new FileComparisonTest("write test 2", HeaderMessageSectionWriteTest2, headerTestSequence);
+
+    new HeapAllocationErrorsTest("swap test 1", HeaderMessageSectionSwapTest1, headerTestSequence);
 }
 
 TestResult::EOutcome HeaderMessageSectionCreationTest1()
@@ -115,4 +117,24 @@ TestResult::EOutcome HeaderMessageSectionWriteTest2(FileComparisonTest& test)
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "HeaderMessageSectionWriteTest2.bin");
 
     return TestResult::ePassed;
+}
+
+TestResult::EOutcome HeaderMessageSectionSwapTest1()
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    Ishiko::DNS::HeaderMessageSection header1;
+    header1.setQuestionCount(2);
+    header1.setAnswerCount(3);
+    Ishiko::DNS::HeaderMessageSection header2;
+
+    swap(header1, header2);
+
+    if ((header1.questionCount() == 0) && (header1.answerCount() == 0) &&
+        (header2.questionCount() == 2) && (header2.answerCount() == 3))
+    {
+        result = TestResult::ePassed;
+    }
+
+    return result;
 }

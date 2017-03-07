@@ -47,6 +47,9 @@ public:
     uint16_t questionCount() const;
     void setQuestionCount(uint16_t count);
     uint16_t answerCount() const;
+    void setAnswerCount(uint16_t count);
+
+    void swap(HeaderMessageSection& other);
 
 private:
     uint16_t m_ID;
@@ -56,6 +59,12 @@ private:
     uint16_t m_NSCOUNT;
     uint16_t m_ARCOUNT;
 };
+
+inline
+void swap(HeaderMessageSection& hs1, HeaderMessageSection& hs2)
+{
+    hs1.swap(hs2);
+}
 
 }
 }

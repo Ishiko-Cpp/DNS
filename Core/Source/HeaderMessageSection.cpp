@@ -109,5 +109,22 @@ uint16_t HeaderMessageSection::answerCount() const
     return m_ANCOUNT;
 }
 
+void HeaderMessageSection::setAnswerCount(uint16_t count)
+{
+    m_ANCOUNT = count;
+}
+
+void HeaderMessageSection::swap(HeaderMessageSection& other)
+{
+    using std::swap;
+
+    swap(m_ID, other.m_ID);
+    swap(m_bitField, other.m_bitField);
+    swap(m_QDCOUNT, other.m_QDCOUNT);
+    swap(m_ANCOUNT, other.m_ANCOUNT);
+    swap(m_NSCOUNT, other.m_NSCOUNT);
+    swap(m_ARCOUNT, other.m_ARCOUNT);
+}
+
 }
 }
