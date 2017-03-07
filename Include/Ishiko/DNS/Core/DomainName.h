@@ -68,6 +68,12 @@ private:
     std::string m_name;
 };
 
+inline
+void swap(DomainName& dn1, DomainName& dn2)
+{
+    dn1.swap(dn2);
+}
+
 }
 }
 

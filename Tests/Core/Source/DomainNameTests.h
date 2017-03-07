@@ -36,5 +36,6 @@ TestResult::EOutcome DomainNameInitializeFromBufferTest3(Test& test);
 TestResult::EOutcome DomainNameInitializeFromBufferTest4(Test& test);
 TestResult::EOutcome DomainNameWriteTest1(FileComparisonTest& test);
 TestResult::EOutcome DomainNameWriteTest2(FileComparisonTest& test);
+TestResult::EOutcome DomainNameSwapTest1();
 
 #endif

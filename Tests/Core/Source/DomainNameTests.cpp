@@ -38,6 +38,8 @@ void AddDomainNameTests(TestHarness& theTestHarness)
 
     new FileComparisonTest("write test 1", DomainNameWriteTest1, domainNameTestSequence);
     new FileComparisonTest("write test 2", DomainNameWriteTest2, domainNameTestSequence);
+
+    new HeapAllocationErrorsTest("swap test 1", DomainNameSwapTest1, domainNameTestSequence);
 }
 
 TestResult::EOutcome DomainNameCreationTest1()
@@ -177,4 +179,22 @@ TestResult::EOutcome DomainNameWriteTest2(FileComparisonTest& test)
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "DomainNameWriteTest2.bin");
 
     return TestResult::ePassed;
+}
+
+TestResult::EOutcome DomainNameSwapTest1()
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    Ishiko::DNS::DomainName domainName1("www.dummy1.com.");
+    Ishiko::DNS::DomainName domainName2("www.dummy2.com.");
+
+    swap(domainName1, domainName2);
+
+    if ((domainName1 == "www.dummy2.com.") &&
+        (domainName2 == "www.dummy1.com."))
+    {
+        result = TestResult::ePassed;
+    }
+
+    return result;
 }
